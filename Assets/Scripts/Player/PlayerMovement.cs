@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     private float startJumpPosition;
     //riferimento al Transform dello sprite del giocatore
     private Transform playerSprite;
+    //riferimento all'animator del giocatore
+    private Animator playerAnimator;
     //riferimento al Rigidbody del giocatore
     private Rigidbody2D rb;
     
@@ -26,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     {
         //ottiene il riferimento al Transform dello sprite del giocatore
         playerSprite = transform.GetChild(0);
+        //ottiene il riferimento all'animator del giocatore
+        playerAnimator = playerSprite.GetComponent<Animator>();
         //ottiene il riferimento al Rigidbody del giocatore
         rb = GetComponent<Rigidbody2D>();
         //se per un errore la velocità di caduta è stata messa ad un valore positivo, viene messo a negativo(permettendo al giocatore di cadere)
@@ -49,7 +53,10 @@ public class PlayerMovement : MonoBehaviour
         if (!canJump) { rb.velocity = new Vector2(rb.velocity.x, fallSpeed); /*Debug.Log("Si sta cadendo");*/ }
 
     }
-
+    /// <summary>
+    /// Calcola, in base ai tasti premuti, la direzione in cui il giocatore deve muoversi
+    /// </summary>
+    /// <returns></returns>
     private Vector2 CalculateMovement()
     {
         //indica la velocità che sta per essere calcolata
@@ -59,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //...il movimento verrà calcolato per far andare il giocatore a sinistra...
             calculatedVelocity = new Vector2(-movementSpeed/* * Time.deltaTime*/, rb.velocity.y);
-            //...e lo sprite del giocatore verrà voltato a sinistra
+            //...e lo sprite del giocatore verrà voltato a sinistra una sola volta
             playerSprite.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
             //Debug.Log("Sinistra");
         }
@@ -68,19 +75,22 @@ public class PlayerMovement : MonoBehaviour
         {
             //...il movimento verrà calcolato per far andare il giocatore a destra...
             calculatedVelocity = new Vector2(movementSpeed/* * Time.deltaTime*/, rb.velocity.y);
-            //...e lo sprite del giocatore verrà voltato a destra
+            //...e lo sprite del giocatore verrà voltato a destra una sola volta
             playerSprite.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
             //Debug.Log("Destra");
         }
         //se si vuole saltare, il movimento farà andare il giocatore verso su fino ad un certo range
         if (Input.GetKey(KeyCode.W) && canJump) { calculatedVelocity = new Vector2(calculatedVelocity.x , Jump()); }
-        //se non si sta premendo più il tasto di salto dopo aver già saltato, comunica che non si può saltare
+        //se non si sta premendo più il tasto di salto dopo aver già saltato, comunica che non si può saltare(se non è già stato comunicato)
         if (!Input.GetKey(KeyCode.W) && isJumping && canJump) { canJump = false; }
         //infine, ritorna il movimento calcolato
         return calculatedVelocity;
 
     }
-
+    /// <summary>
+    /// Fa alzare il giocatore, calcolando anche fino a dove può alzarsi
+    /// </summary>
+    /// <returns></returns>
     private float Jump()
     {
         //calcola quanto in alto deve andare il giocatore
@@ -99,7 +109,9 @@ public class PlayerMovement : MonoBehaviour
         return jumpVelocity;
 
     }
-
+    /// <summary>
+    /// Permette al giocatore di saltare di nuovo
+    /// </summary>
     public void TouchedTheGround()
     {
         //il giocatore potrà di nuovo saltare
