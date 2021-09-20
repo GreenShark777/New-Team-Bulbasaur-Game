@@ -123,8 +123,7 @@ public class PlayerMovement : MonoBehaviour
         if (transform.position.y >= (startJumpPosition + jumpMaxHeight)) { canJump = false; }
         //altrimenti, continua a salire
         else { jumpVelocity = jumpSpeed/*new Vector2(rb.velocity.x, jumpSpeed/* * Time.deltaTime)*/; }
-        Debug.Log("Salto");
-        //Debug.Log(jumpVelocity);
+        //Debug.Log("Salto");
         //infine, ritorna il movimento calcolato durante il salto
         return jumpVelocity;
 
@@ -139,7 +138,9 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false;
         //l'animazione di caduta viene fermata
         playerAnimator.SetBool("IsFalling", false);
-        Debug.Log("Toccata terra");
+        //Debug.Log("Toccata terra");
     }
+
+    public bool CanPlayerJump() { return canJump; }
 
 }

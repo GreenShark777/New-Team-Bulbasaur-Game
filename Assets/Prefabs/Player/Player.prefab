@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 8076397045687220612}
   - component: {fileID: 4392605831020030914}
   - component: {fileID: 3391365793774303048}
-  - component: {fileID: 1093647965}
+  - component: {fileID: 4566990463057320795}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -172,25 +172,21 @@ MonoBehaviour:
   jumpSpeed: 5
   fallSpeed: -3
   jumpMaxHeight: 3
---- !u!95 &1093647965
-Animator:
-  serializedVersion: 3
+--- !u!114 &4566990463057320795
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8076397045687220614}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9fd6ba399f7447046b74a2330ff25df4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aaa4e7ceea75754fbee78895f135324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthContainer: {fileID: 0}
+  gameOverScreen: {fileID: 0}
+  hp: 3
 --- !u!1001 &4237024020971829521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -437,6 +433,10 @@ PrefabInstance:
     - target: {fileID: -4470998144217987193, guid: bec2ca774536489438b4df1f528f9f10, type: 3}
       propertyPath: m_Bounds.m_Extent.y
       value: 0.6551578
+      objectReference: {fileID: 0}
+    - target: {fileID: -4332871490355240734, guid: bec2ca774536489438b4df1f528f9f10, type: 3}
+      propertyPath: m_SortingOrder
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: -4295965272602086818, guid: bec2ca774536489438b4df1f528f9f10, type: 3}
       propertyPath: m_LocalPosition.x
