@@ -33,6 +33,8 @@ public class PlayerHealth : MonoBehaviour
     {
         //se si sta prendendo danno, viene attivata l'animazione di danno del giocatore
         if (value < 0) { playerAnimator.SetTrigger("Hit"); }
+        //altrimenti, si sta recuperando vita, quindi (METTERE PARTICELLARE O ALTRO)
+        else { }
         //gli Hp vengono cambiati aggiungendo il valore ottenuto
         hp += value;
         //vengono attivati o disattivati i cuori in base agli hp
