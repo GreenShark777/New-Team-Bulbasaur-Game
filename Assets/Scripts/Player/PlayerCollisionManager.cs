@@ -22,14 +22,14 @@ public class PlayerCollisionManager : MonoBehaviour
 
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         //se si sta collidendo con il pavimento...
         if (collision.transform.CompareTag("Terreno"))
         {
             //...comunica allo script di movimento che si potrà di nuovo saltare
-            if(!pm.CanPlayerJump()) pm.TouchedTheGround();
-            
+            pm.TouchedTheGround();
+
         }
 
     }

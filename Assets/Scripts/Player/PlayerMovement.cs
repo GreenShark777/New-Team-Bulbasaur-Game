@@ -141,6 +141,4 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("Toccata terra");
     }
 
-    public bool CanPlayerJump() { return canJump; }
-
 }
