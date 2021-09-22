@@ -2,18 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//NOTA IMPORTANTE: HO CAMBIATO LA MATRICE DEI LAYER COLLISION NEL PROJECT SETTING IN MODO DA NON FAR COLLIDERE TRA LORO
+//GLI OGGETTI CON LAYER DAMAGEABLE. 
+//INFATTI AL MOMENTO I NEMICI HANNO UN COLLIDER NON-TRIGGER
+//MA QUANDO SI SOVRAPPONGO NON COLLIDONO, PASSANO UNO SOPRA L'ALTRO
+// https://docs.unity3d.com/Manual/LayerBasedCollision.html
+
 public class EnemyController : MonoBehaviour
 {
-    enum State //enum che definisce i vari stati del nemico
+    public enum State //enum che definisce i vari stati del nemico
     {
+ 
+        Spawn,
         Walk,
         Idle,      
         Dead,
         Damage,
-        Jump
+        Jump,
+        Attack
+    
     }
 
-    private State currentState;
+    public State currentState; //lo stato corrente del nemico
     bool groundDetected; //le due bool per il check di ground e wall
     bool wallDetected;
 
@@ -50,22 +60,31 @@ public class EnemyController : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-
+    void Attack()
+    {
+        SwitchState(State.Attack);
+    }
 
     private void Update()
     {
+
         Debug.Log(currentState);
 
-        // Debug.Log(wallDetected);
+        Debug.Log(groundDetected);
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q)) //per test
         {
             Damage(1);
         }
 
-        switch (currentState) //in base al current state del nemico....
+        if (Input.GetKeyDown(KeyCode.K)) //per test
         {
-            case State.Idle:
+            Attack();
+        }
+
+        switch (currentState) //all'interno dell update(), in base al current state del nemico....
+        {
+            case State.Idle: //richiama la funzione UpdateState() dello stato specificato, c'è un update per ciascuno stato
 
                 UpdateIdleState();
                 break;
@@ -83,8 +102,16 @@ public class EnemyController : MonoBehaviour
                 UpdateDamageState();
                 break;
 
+            case State.Attack:
+                UpdateAttackState();
+                break;
+
             case State.Jump:
                 UpdateJumpState();
+                break;
+
+            case State.Spawn:
+                UpdateSpawnState();
                 break;
 
             default:
@@ -105,10 +132,10 @@ public class EnemyController : MonoBehaviour
 
     void UpdateWalkingState()
     {
-        groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, ground);
+        groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, ground); //check di ground e mura
         wallDetected = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, wall);
 
-        if(!groundDetected || wallDetected) //se grounddetect è falso OPPURE SE walldetected è vero flippiamo il nemico
+        if (!groundDetected || wallDetected) //se grounddetect è falso OPPURE SE walldetected è vero flippiamo il nemico
         {
             //flippa il nemico
             Flip();
@@ -118,9 +145,8 @@ public class EnemyController : MonoBehaviour
         {
             //move
             movement.Set(movementSpeed * facingDirection, rb.velocity.y); //metodo set per i vector2= setta una nuova x e una nuova Y su un vettore esistente
-            rb.velocity = movement;
+            rb.velocity = movement; //assegno alla velocity del rigidbody 2d il valore del vettore movement
 
-           
         }
 
     }
@@ -136,11 +162,12 @@ public class EnemyController : MonoBehaviour
     {
         damageStartTime = Time.time; //quando parte il colpo
 
-        movement.Set(damageSpeed.x * damageDirection, damageSpeed.y);
+        //nota: damagespeed=0, il nemico si freeza per un istante
+        movement.Set(damageSpeed.x * damageDirection, damageSpeed.y); //NOTA:DE DEFINIRE IL DAMAGE DIRECTION (da dove arriva il colpo, quindi usare la x della pos del player)
 
         rb.velocity = movement;
 
-        anim.SetBool("enemy_damage", true);
+        anim.SetBool("enemy_damage", true); //parte l'animazione
     }
 
     void UpdateDamageState()
@@ -192,6 +219,75 @@ public class EnemyController : MonoBehaviour
 
     }
 
+    //attack state
+
+    float dashStart; // quando inizia il dash
+    float dashDurantion =0.3f; //quanto deve durare
+    Vector2 dashSpeed = new Vector2(15,0); //il valore del dash su asse x
+
+
+    void EnterAttackState() 
+    {
+
+        dashStart = Time.time; //cache di quando parte il dash
+        movement.Set(dashSpeed.x * facingDirection, enemy.transform.position.y); // direzione del dash = facedirection dell enemy, moltiplichiamo per dashspeed
+
+        rb.velocity = movement; //assegniamo il risultato di movement.set alla velocity dell rb
+
+    }
+
+    void UpdateAttackState() 
+    {
+        Debug.Log("STO DASHANDO");
+        
+        if (Time.time >= dashStart + dashDurantion) //se superiamo la durata del dash 
+        {
+            SwitchState(State.Walk); //torna a camminare
+        }
+
+        //per evitare che il nemico vada fuori scena o si impalli contro una parete
+        groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, ground); //check di ground e mura
+        wallDetected = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, wall);
+
+        //se grounddetect è falso OPPURE SE walldetected è vero torniamo a walk state
+        if (!groundDetected || wallDetected) 
+        {
+            SwitchState(State.Walk); //torna a camminare
+
+        }
+
+    }
+
+    void ExitAttackState()
+    {
+
+    }
+
+    //spawn state
+
+    void EnterSpawnState()
+    {
+    
+
+    }
+
+    void UpdateSpawnState()
+    {
+
+        movement.Set( facingDirection, rb.velocity.y); //metodo set per i vector2= setta una nuova x e una nuova Y su un vettore esistente
+
+        rb.velocity = movement;
+
+        if(groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, ground))
+        SwitchState(State.Walk);
+
+    }
+
+    void ExitSpawnState()
+    {
+
+    }
+
     //jump state
 
     void EnterJumpState()
@@ -216,7 +312,7 @@ public class EnemyController : MonoBehaviour
     void Flip()
     {
         facingDirection *= -1; //flippiamo la direzione del character
-
+ 
         enemy.transform.Rotate(0.0f, 180f, 0.0f); //flippiamo l'oggetto character
     }
 
@@ -236,7 +332,7 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    void SwitchState(State state) //si occupa di cambiare lo stato dell enemy
+    public void SwitchState(State state) //si occupa di cambiare lo stato dell enemy
     {
         switch (currentState) //se currentState è X allora richiamo la funzione per uscire dallo stato X
         {
@@ -256,8 +352,16 @@ public class EnemyController : MonoBehaviour
                 ExitDamageState();
                 break;
 
+            case State.Attack:
+                ExitDamageState();
+                break;
+
             case State.Jump:
-                UpdateJumpState();
+                ExitJumpState();
+                break;
+
+            case State.Spawn:
+                ExitSpawnState();
                 break;
 
             default:
@@ -282,9 +386,14 @@ public class EnemyController : MonoBehaviour
                 EnterDamageState();
                 break;
 
+            case State.Attack:
+                EnterAttackState();
+                break;
+
             case State.Jump:
                 EnterJumpState();
                 break;
+
 
             default:
                 break;
