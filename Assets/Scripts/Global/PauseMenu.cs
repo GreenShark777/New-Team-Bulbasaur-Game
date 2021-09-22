@@ -5,14 +5,9 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     //riferimento al menù di pausa
-    private GameObject pauseMenu;
+    [SerializeField]
+    private GameObject pauseMenu = default;
 
-    private void Start()
-    {
-        //ottiene il riferimento al menù di pausa
-        pauseMenu = transform.GetChild(0).gameObject;
-
-    }
 
     public void Pause(bool isPaused)
     {
