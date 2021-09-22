@@ -14221,6 +14221,13 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     playOnAwake: 0
+  - audioMixerGroup: {fileID: -2873299416539518934, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
+    clipName: Livello_1
+    audioClip: {fileID: 8300000, guid: 76a0557c3598d524295ae6249cb19d84, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    playOnAwake: 0
   environmentManager: {fileID: 1477194806}
 --- !u!1 &1478531412
 GameObject:
