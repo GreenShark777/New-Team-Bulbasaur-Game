@@ -81,7 +81,7 @@ public class EnemySpawner : MonoBehaviour
 
     void WaveCompleted() //da richiamare quando i nemici di una ondata sono tutti morti
     {
-        Debug.Log("WAVE COMPLETATA");
+        //Debug.Log("WAVE COMPLETATA");
 
         state = SpawnState.Counting; //il countdown riparte
 
@@ -93,7 +93,7 @@ public class EnemySpawner : MonoBehaviour
             //quindi se la prox wave da spawnare supera il numero di wave disponibili
 
             nextWave = 0; //creiamo un loop resettando nextwave a 0
-            Debug.Log("TUTTE LE WAVE COMPLETATE. RESETTIAMO");
+            //Debug.Log("TUTTE LE WAVE COMPLETATE. RESETTIAMO");
 
         }
         else //se aggiungendo 1 a nextwave siamo ancora dentro ai bound dell'array...
@@ -123,7 +123,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnWave(Wave _wave) //metodo per lo spawn deille wave di nemici
     {
-        Debug.Log("WAVE SPAWN " + _wave.name);
+        //Debug.Log("WAVE SPAWN " + _wave.name);
 
         state = SpawnState.Spawn; //il current state passa a Spawn
 
@@ -147,7 +147,7 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy(GameObject _enemy)
     {
         //spawn enemy
-        Debug.Log("spawn enemy " + _enemy.name);
+        //Debug.Log("spawn enemy " + _enemy.name);
 
         Transform _spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)]; //facciamo spawnare i nemici in corrispondenza di uno dei punti di spawn che riempiono l'array spawnPoints
 

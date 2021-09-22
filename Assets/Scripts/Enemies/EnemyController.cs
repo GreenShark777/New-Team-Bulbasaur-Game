@@ -68,9 +68,9 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
 
-        Debug.Log(currentState);
+        //Debug.Log(currentState);
 
-        Debug.Log(groundDetected);
+        //Debug.Log(groundDetected);
 
         if (Input.GetKeyDown(KeyCode.Q)) //per test
         {
@@ -238,7 +238,7 @@ public class EnemyController : MonoBehaviour
 
     void UpdateAttackState() 
     {
-        Debug.Log("STO DASHANDO");
+        //Debug.Log("STO DASHANDO");
         
         if (Time.time >= dashStart + dashDurantion) //se superiamo la durata del dash 
         {

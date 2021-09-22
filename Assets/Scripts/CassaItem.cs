@@ -5,7 +5,6 @@ using UnityEngine;
 public class CassaItem : MonoBehaviour
 {
 
-    [SerializeField] GameObject player;
     [SerializeField] GameObject cassaAperta;
     [SerializeField] ParticleSystem ps;
 
@@ -16,7 +15,7 @@ public class CassaItem : MonoBehaviour
         if (other.CompareTag("Player") && isClose == true)
         {
             //isClose = false;
-            Debug.Log("ACCHIAPPA");
+            //Debug.Log("ACCHIAPPA");
             cassaAperta.SetActive(false);
             StartCoroutine(Particellare());
 
