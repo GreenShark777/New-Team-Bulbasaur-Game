@@ -326,10 +326,14 @@ public class EnemyController : MonoBehaviour
 
     //dead state
 
+    EnvironmentManager environmentManager = EnvironmentManager.instance;////
+
     void EnterDeadState()
     {
         //aggiungere particle
         Destroy(gameObject);
+        environmentManager.nemiciUccisi += 1; //nemiciUccisi gestisce i cambi di scenario nell' environment manager (classe public static)
+        Debug.Log("NEMICI UCCISI " + environmentManager.nemiciUccisi);
     }
 
     void UpdateDeadState()
@@ -484,6 +488,7 @@ public class EnemyController : MonoBehaviour
         enemy.transform.Rotate(0.0f, 180f, 0.0f); //flippiamo l'oggetto character
     }
 
+  
     void Damage(int amount)
     {
         currentHealth -= amount;

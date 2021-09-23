@@ -9,6 +9,8 @@ public class PlayerCollisionManager : MonoBehaviour
     PlayerHealth ph;
     Animator anim;
 
+    public int nemiciUccisi;
+
     bool colpibile=true;
 
     // Start is called before the first frame update

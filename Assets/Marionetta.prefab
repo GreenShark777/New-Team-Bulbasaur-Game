@@ -84,7 +84,7 @@ MonoBehaviour:
   groundCheckDistance: 0.5
   wallCheckDistance: 1
   movementSpeed: 3
-  maxHealth: 5
+  maxHealth: 1
   damageStartTime: 0
   damageDuration: 0.5
   enemy: {fileID: 2703446819961787814}

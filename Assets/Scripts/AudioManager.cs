@@ -70,7 +70,7 @@ public class Sound
 
 
         float currentVol = vol;
-        Debug.Log("SOURCE VOL " + source.volume);
+       
         float currentTime = 0;
 
         float duration = 1.5f;
@@ -118,7 +118,8 @@ public class AudioManager : MonoBehaviour
         }
 
         musiche.Add(0, "Livello_0");
-        musiche.Add(1, "Livello_1");     
+        musiche.Add(1, "Livello_1");
+        musiche.Add(2, "Livello_2");
 
     }
 
@@ -177,19 +178,21 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    public void SwapMusicLevel(int currentScore, int targetScore)
+    public void SwapMusicLevel(int currentMusica, int targetMusica)
     {
 
-        Debug.Log("musica cur" + musiche[currentScore]);
+        Debug.Log("musica cur" + musiche[currentMusica]);
 
-        Debug.Log("musica tar" + musiche[targetScore]);
+        Debug.Log("musica tar" + musiche[targetMusica]);
 
-        AbbassaVolume(musiche[currentScore]);
-        //StopSound(musiche[currentScene]);
+        AbbassaVolume(musiche[currentMusica]);
+        //StopSound(musiche[currentMusica]);
 
-        PlaySound(musiche[targetScore]);
+        PlaySound(musiche[targetMusica]);
 
-        AlzaVolume(musiche[targetScore]);
+        AlzaVolume(musiche[targetMusica]);
+
+        return;
 
     }
 

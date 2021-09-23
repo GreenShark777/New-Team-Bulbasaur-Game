@@ -18,6 +18,11 @@ public class Sipario : MonoBehaviour
         anim.SetBool("apri", true);
     }
 
+    public void PrimaApertura()
+    {
+        anim.SetTrigger("primaApertura");
+    }
+
     void Awake()
     {
         anim = GetComponent<Animator>();
