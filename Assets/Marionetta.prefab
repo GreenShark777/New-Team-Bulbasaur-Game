@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0efbc9bb6ffe348bd927025ff7c1da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nemicoMarionetta: 0
+  nemicoMaiale: 0
   currentState: 0
   groundCheck: {fileID: 2703446821074168833}
   wallCheck: {fileID: 2703446819983752888}
@@ -126,7 +126,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.06851941, y: 0.11211252}
+  m_Offset: {x: 0.06851941, y: 0.052788258}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -137,7 +137,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.638313, y: 2.2547688}
+  m_Size: {x: 1.4966989, y: 2.1361203}
   m_EdgeRadius: 0
 --- !u!95 &8236720606842016561
 Animator:

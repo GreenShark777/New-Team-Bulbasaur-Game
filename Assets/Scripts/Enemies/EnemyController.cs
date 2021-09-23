@@ -90,7 +90,6 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && delayhit==false)
         {
-  
             // PlayertakeDamage(enemyDamage);
             StartCoroutine(delayHit()); // per evitare collisioni multiple nel giro di pochi frame
         }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Terreno
+  - Ostacolo
   layers:
   - Default
   - TransparentFX
