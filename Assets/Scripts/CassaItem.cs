@@ -16,7 +16,7 @@ public class CassaItem : MonoBehaviour
         if (other.CompareTag("Player") && isClose == true)
         {
             //isClose = false;
-            Debug.Log("ACCHIAPPA");
+            //Debug.Log("ACCHIAPPA");
             cassaAperta.SetActive(false);
             StartCoroutine(Particellare());
 

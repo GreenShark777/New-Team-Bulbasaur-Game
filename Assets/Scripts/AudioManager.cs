@@ -130,7 +130,7 @@ public class AudioManager : MonoBehaviour
             {
                 sound[i].Play();
 
-                Debug.Log("VOLUME " + sound[i].volume);
+                //Debug.Log("VOLUME " + sound[i].volume);
 
                 return;
             }

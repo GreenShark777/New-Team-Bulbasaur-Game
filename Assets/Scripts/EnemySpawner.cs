@@ -81,7 +81,7 @@ public class EnemySpawner : MonoBehaviour
 
     void WaveCompleted() //da richiamare quando i nemici di una ondata sono tutti morti
     {
-        Debug.Log("WAVE COMPLETATA");
+        //Debug.Log("WAVE COMPLETATA");
 
         state = SpawnState.Counting; //il countdown riparte
 
@@ -93,7 +93,7 @@ public class EnemySpawner : MonoBehaviour
             //quindi se la prox wave da spawnare supera il numero di wave disponibili
 
             nextWave = 0; //creiamo un loop resettando nextwave a 0
-            Debug.Log("TUTTE LE WAVE COMPLETATE. RESETTIAMO");
+           // Debug.Log("TUTTE LE WAVE COMPLETATE. RESETTIAMO");
 
         }
         else //se aggiungendo 1 a nextwave siamo ancora dentro ai bound dell'array...
@@ -123,7 +123,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnWave(Wave _wave) //metodo per lo spawn deille wave di nemici
     {
-        Debug.Log("WAVE SPAWN " + _wave.name);
+        //Debug.Log("WAVE SPAWN " + _wave.name);
 
         state = SpawnState.Spawn; //il current state passa a Spawn
 
@@ -147,7 +147,7 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy(GameObject _enemy)
     {
         //spawn enemy
-        Debug.Log("spawn enemy " + _enemy.name);
+        //Debug.Log("spawn enemy " + _enemy.name);
 
         Transform _spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)]; //facciamo spawnare i nemici in corrispondenza di uno dei punti di spawn che riempiono l'array spawnPoints
 
@@ -156,13 +156,7 @@ public class EnemySpawner : MonoBehaviour
         go.transform.parent= _spawnPoint.transform; //imparentiamo il clone al suo spawnPoint nella hierarchy
 
         Vector3 endPos = new Vector3(_spawnPoint.transform.position.x, -offsetYspawn, _spawnPoint.transform.position.z);
-
-        //Debug.Log("maiale " + _spawnPoint.transform.position.y / 2);
-
-       // StartCoroutine(MoveSpawn(go, _spawnPoint.transform.position, endPos));
-
-        //StartCoroutine(test(go));
-
+   
         //nota di colore: il casting con la parola chiave "as" è più sicuro del casting (GameObject).Instantiate(ecc ecc.)
         //perché a differenza di quest'ultimo, se il casting non va a buon fine, alla variabile
         //viene automaticamente assegnato il valore null. smart.

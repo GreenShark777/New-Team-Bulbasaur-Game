@@ -5,6 +5,7 @@ public class PlayerCollisionManager : MonoBehaviour
 {
     //riferimento allo script di movimento del giocatore
     PlayerMovement pm;
+    PlayerHealth ph;
 
 
     // Start is called before the first frame update
@@ -12,12 +13,15 @@ public class PlayerCollisionManager : MonoBehaviour
     {
         //ottiene il riferimento allo script di movimento del giocatore dal padre
         pm = GetComponentInParent<PlayerMovement>();
-
+        ph = GetComponentInParent<PlayerHealth>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            ph.ChangeHp(-1);
+        }
 
 
     }

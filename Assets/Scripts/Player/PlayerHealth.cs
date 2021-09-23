@@ -10,8 +10,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private GameObject gameOverScreen = default;
     //indica quanta vita ha il giocatore(e quanti colpi può subire)
-    [SerializeField]
-    private int hp = 3;
+    public int currentHP = 3;
     //riferimento all'animator del giocatore
     private Animator playerAnimator;
 
@@ -22,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
         playerAnimator = transform.GetChild(0).GetComponent<Animator>();
 
         //DEBUG
-        if (hp != healthContainer.childCount) { Debug.LogError("Gli Hp del giocatore sono diversi dal numero di cuori nel contenitore"); }
+        if (currentHP != healthContainer.childCount) { Debug.LogError("Gli Hp del giocatore sono diversi dal numero di cuori nel contenitore"); }
 
     }
     /// <summary>
@@ -32,15 +31,21 @@ public class PlayerHealth : MonoBehaviour
     public void ChangeHp(int value)
     {
         //se si sta prendendo danno, viene attivata l'animazione di danno del giocatore
-        if (value < 0) { playerAnimator.SetTrigger("Hit"); }
+        if (value < 0) 
+        { 
+            playerAnimator.SetTrigger("Hit");
+
+            currentHP = currentHP + value;///
+        }
         //altrimenti, si sta recuperando vita, quindi (METTERE PARTICELLARE O ALTRO)
+
         else { }
         //gli Hp vengono cambiati aggiungendo il valore ottenuto
-        hp += value;
+       // currentHP += value;
         //vengono attivati o disattivati i cuori in base agli hp
-        for (int i = 0; i < healthContainer.childCount; i++) { healthContainer.GetChild(i).gameObject.SetActive(i < hp); }
+        for (int i = 0; i < healthContainer.childCount; i++) { healthContainer.GetChild(i).gameObject.SetActive(i < currentHP); }
         //se sono finiti gli hp, il giocatore perde
-        if (hp <= 0) { Defeat(); }
+        if (currentHP <= 0) { Defeat(); }
 
     }
     /// <summary>
