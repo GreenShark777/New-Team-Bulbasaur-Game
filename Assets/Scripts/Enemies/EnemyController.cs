@@ -93,6 +93,12 @@ public class EnemyController : MonoBehaviour
             // PlayertakeDamage(enemyDamage);
             StartCoroutine(delayHit()); // per evitare collisioni multiple nel giro di pochi frame
         }
+
+        else if(collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("SUCALORA");
+            Physics2D.IgnoreLayerCollision(7,8);
+        }
     }
 
     private void Awake()
@@ -105,7 +111,13 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        facingDirection = 1;
+        //facingDirection = 1;
+
+        // facingDirection = (int)gameObject.transform.parent.forward.x;
+
+        facingDirection = Mathf.Clamp((int)gameObject.transform.parent.right.x, -1,1);
+
+        //Debug.Log("FACING " + gameObject.transform.parent.forward);
 
         currentHealth = maxHealth;
     }
@@ -249,14 +261,15 @@ public class EnemyController : MonoBehaviour
              }
         */
 
-
+        /*
         if (!groundDetected || wallDetected) //se grounddetect è falso OPPURE SE walldetected è vero flippiamo il nemico
         {
             //flippa il nemico
             Flip();
 
         }
-        else if (playerDetected && !playerHitted && nemicoMaiale==true)
+        */
+         if (playerDetected && !playerHitted && nemicoMaiale==true)
         {
             
             Debug.Log("player det " + playerDetected);
@@ -307,7 +320,7 @@ public class EnemyController : MonoBehaviour
 
         rb.velocity = movement;
 
-        anim.SetBool("enemy_damage", true); //parte l'animazione
+       //  anim.SetBool("enemy_damage", true); //parte l'animazione
     }
 
     void UpdateDamageState()
@@ -321,7 +334,7 @@ public class EnemyController : MonoBehaviour
 
     void ExitDamageState()
     {
-        anim.SetBool("enemy_damage", false);
+        // anim.SetBool("enemy_damage", false);
     }
 
     //dead state
@@ -491,16 +504,19 @@ public class EnemyController : MonoBehaviour
   
     void Damage(int amount)
     {
-        currentHealth -= amount;
-
-        if (currentHealth > 0)
+        if (enemy != null)
         {
-            SwitchState(State.Damage);
-        }
+            currentHealth -= amount;
 
-        else if (currentHealth <= 0)
-        {
-            SwitchState(State.Dead);
+            if (currentHealth > 0)
+            {
+                SwitchState(State.Damage);
+            }
+
+            else if (currentHealth <= 0)
+            {
+                SwitchState(State.Dead);
+            }
         }
 
     }

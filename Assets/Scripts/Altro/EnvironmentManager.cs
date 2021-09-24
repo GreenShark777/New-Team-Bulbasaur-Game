@@ -14,6 +14,8 @@ public class EnvironmentManager : MonoBehaviour
 
     public static EnvironmentManager instance; //uso questa classe come statica per potervi accedere senza ref dirette
 
+    public bool gameStarted = false; ///
+
     public int targetScore = 100;
     public int nemiciUccisi = 0;
 
@@ -25,7 +27,7 @@ public class EnvironmentManager : MonoBehaviour
     //i vari livelli vengono caricati in base a soglie di nemici uccisi
     //userò queste bool nell'update come condizione aggiuntiva, in modo da essere sicuro che uno scenario, una volta
     //disattivato, non venga più riattivato
-    [SerializeField] bool canLoadLevel0 = true, canLoadLevel1, canLoadLevel2, canLoadLevel3 = false;
+    public bool canLoadLevel0 = true, canLoadLevel1, canLoadLevel2, canLoadLevel3 = false; //le usiamo anche per lo spawn in enemyspawner
 
     [SerializeField] Sipario sipario; //per gestire apertura e chiusura del sipario
 
@@ -51,6 +53,7 @@ public class EnvironmentManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
             sipario.PrimaApertura(); 
             primaApertura = false;
+            gameStarted = true;//////
             yield return null;
         }
         yield return null;
@@ -96,13 +99,11 @@ public class EnvironmentManager : MonoBehaviour
 
             case Environment.Livello_2:
 
-                canLoadLevel1 = false;
-                canLoadLevel2 = true;
+                canLoadLevel2 = false;
 
                 currenLevel = livello_1_Prefab;
                 nextlevel = livello_2_Prefab;
 
-                /*
                 playMusicOnce = true;
 
                 if (playMusicOnce) //se è vera, ed è vera
@@ -110,9 +111,11 @@ public class EnvironmentManager : MonoBehaviour
                     audioManager.SwapMusicLevel(0, 1); //interpoliamo le musiche di sottofondo, fade da musica livello 0 a musica livello 1
                     playMusicOnce = false; //assegniamo lla bool il valore false per richiamare il metodo sopra solo una volta
                 }
-                */
+                
 
                 StartCoroutine(siparioCo(livello_1_Prefab, livello_2_Prefab));
+
+                canLoadLevel3 = true;
 
                 break;
 
@@ -172,7 +175,7 @@ public class EnvironmentManager : MonoBehaviour
         SwitchEnvironment(Environment.Livello_0);
     }
 
-  
+
 
     // Update is called once per frame
     void Update()
@@ -194,21 +197,11 @@ public class EnvironmentManager : MonoBehaviour
         {
             SwitchEnvironment(Environment.Livello_2);
         }
-        
 
-        /*
-        switch (nemiciUccisi)
+        if (nemiciUccisi >= 9 && canLoadLevel3)
         {
-            case 3: //richiama la funzione UpdateState() dello stato specificato, c'è un update per ciascuno stato
-
-                SwitchEnvironment(Environment.Livello_1);
-                break;
-
-            case 6: //richiama la funzione UpdateState() dello stato specificato, c'è un update per ciascuno stato
-
-                SwitchEnvironment(Environment.Livello_2);
-                break;
+            SwitchEnvironment(Environment.Livello_3);
         }
-        */
+
     }
 }

@@ -120,6 +120,7 @@ public class AudioManager : MonoBehaviour
         musiche.Add(0, "Livello_0");
         musiche.Add(1, "Livello_1");
         musiche.Add(2, "Livello_2");
+        musiche.Add(3, "Livello_3");
 
     }
 

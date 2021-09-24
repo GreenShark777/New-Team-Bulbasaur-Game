@@ -103,13 +103,17 @@ public class LevelloZero : MonoBehaviour
     private void OnEnable()
     {
         //StartCoroutine(AttivazionePiattaforme());
-        InitLivello1();
+       // InitLivello1();
     }
 
-    void InitLivello1()
+    void InitLivello_0()
     {
+ 
         piattaforma1.SetActive(true);
         piattaforma2.SetActive(true);
+
+        alberoStartPos = albero.transform.position;
+        alberoStartRot = albero.transform.rotation.eulerAngles;
 
         StartCoroutine(AttivazioneAlbero());
         StartCoroutine(AttivazioneNuvole());
@@ -119,8 +123,7 @@ public class LevelloZero : MonoBehaviour
     void Start()
     {
 
-        alberoStartPos = albero.transform.position;
-        alberoStartRot = albero.transform.rotation.eulerAngles;
+        InitLivello_0();
 
         /*
         screendBounds = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z));
