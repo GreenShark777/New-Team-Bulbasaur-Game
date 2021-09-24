@@ -45,44 +45,74 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (state == SpawnState.Wait) //wait = ci sono ancora nemici nello stage, lo spawner non fa nulla
+        if (EnvironmentManager.instance.gameStarted)/////////
+
         {
-            //controlliamo se il player ha ucciso tutti i nemici
 
-            if (EnemyIsAlive() == false) //enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
+            if (state == SpawnState.Wait) //wait = ci sono ancora nemici nello stage, lo spawner non fa nulla
             {
-                WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
+                //controlliamo se il player ha ucciso tutti i nemici
 
-                return;
+                if (EnvironmentManager.instance.canLoadLevel0) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
+                {
+                    KillAllEnemis();
+                    WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
+
+                    return;
+                }
+
+                if (EnvironmentManager.instance.canLoadLevel1) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
+                {
+                    KillAllEnemis();
+                    WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
+
+                    return;
+                }
+
+                if (EnvironmentManager.instance.canLoadLevel2) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
+                {
+                    KillAllEnemis();
+                    WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
+
+                    return;
+                }
+
+                else // se ci sono ancora nemici vivi usciamo dal metodo e non facciamo i check sul countdown (vedi sotto)
+                {
+                    return;
+                }
+
             }
 
-            else // se ci sono ancora nemici vivi usciamo dal metodo e non facciamo i check sul countdown (vedi sotto)
+            //operazioni sul countdown
+
+            if (countDowns <= 0) //se è arrivato il momento di spawnrare una wave...
             {
-                return;
+                if (state != SpawnState.Spawn) //se il curren state non è già spawning
+                {
+                    StartCoroutine(SpawnWave(waves[nextWave])); //spawna la prossima ondata
+                }
             }
-
-        }
-
-        //operazioni sul countdown
-
-        if (countDowns <= 0) //se è arrivato il momento di spawnrare una wave...
-        {
-            if(state!= SpawnState.Spawn) //se il curren state non è già spawning
+            else //altrimenti sottraimo deltatime al countdown
             {
-                StartCoroutine(SpawnWave(waves[nextWave])); //spawna la prossima ondata
+                countDowns -= Time.deltaTime;
             }
         }
-        else //altrimenti sottraimo deltatime al countdown
-        {
-            countDowns -= Time.deltaTime;
-        }
 
+    }
+
+    void KillAllEnemis()
+    {
+        foreach (GameObject _go in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Destroy(_go);
+        }
     }
 
     void WaveCompleted() //da richiamare quando i nemici di una ondata sono tutti morti
     {
         //Debug.Log("WAVE COMPLETATA");
-
+       
         state = SpawnState.Counting; //il countdown riparte
 
         countDowns = delay;
@@ -93,7 +123,7 @@ public class EnemySpawner : MonoBehaviour
             //quindi se la prox wave da spawnare supera il numero di wave disponibili
 
             nextWave = 0; //creiamo un loop resettando nextwave a 0
-            //Debug.Log("TUTTE LE WAVE COMPLETATE. RESETTIAMO");
+           // Debug.Log("TUTTE LE WAVE COMPLETATE. RESETTIAMO");
 
         }
         else //se aggiungendo 1 a nextwave siamo ancora dentro ai bound dell'array...
@@ -112,6 +142,8 @@ public class EnemySpawner : MonoBehaviour
         {
             searchCoundown = 1f; //resettiamo a 1 il countdown di ricerca
 
+
+            //DA CAMBIARE!
             if (GameObject.FindGameObjectWithTag("Enemy") == null) //se non vengono trovati nemici ritorna false
             {
                 return false;
@@ -121,6 +153,9 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
+    int currentUccisioniTarget = 3;
+    int nextUccisionitarget = 6;
+
     IEnumerator SpawnWave(Wave _wave) //metodo per lo spawn deille wave di nemici
     {
         //Debug.Log("WAVE SPAWN " + _wave.name);
@@ -129,13 +164,26 @@ public class EnemySpawner : MonoBehaviour
 
         //fa quello che devi fare
 
-        for (int i = 0; i < _wave.count; i++) //per ogni nemico da spawnare richiamiamo il metodo spawnenemy() (count è un int membro della classe wave)
+        //int i = 0; i < _wave.count; i++
+
+        while(EnvironmentManager.instance.nemiciUccisi   < currentUccisioniTarget)
+        {
+            SpawnEnemy(_wave.enemy); //enemy è membro della classe wave (per adesso è un transform)
+
+            yield return new WaitForSeconds(1 / _wave.enemiesRate); //tempo di attesa prima della prossima iterazione
+        }
+
+        /*
+        for (int i = 0; i < _wave.count; i++)/// _wave.count++ aggiunto ora     /// //per ogni nemico da spawnare richiamiamo il metodo spawnenemy() (count è un int membro della classe wave)
         {
             SpawnEnemy(_wave.enemy); //enemy è membro della classe wave (per adesso è un transform)
 
             yield return new WaitForSeconds(1 / _wave.enemiesRate); //tempo di attesa prima della prossima iterazione
 
         }
+        */
+
+        currentUccisioniTarget +=3;
 
         state = SpawnState.Wait; //adesso state è = a stato di attesa
 
@@ -156,13 +204,7 @@ public class EnemySpawner : MonoBehaviour
         go.transform.parent= _spawnPoint.transform; //imparentiamo il clone al suo spawnPoint nella hierarchy
 
         Vector3 endPos = new Vector3(_spawnPoint.transform.position.x, -offsetYspawn, _spawnPoint.transform.position.z);
-
-        //Debug.Log("maiale " + _spawnPoint.transform.position.y / 2);
-
-       // StartCoroutine(MoveSpawn(go, _spawnPoint.transform.position, endPos));
-
-        //StartCoroutine(test(go));
-
+   
         //nota di colore: il casting con la parola chiave "as" è più sicuro del casting (GameObject).Instantiate(ecc ecc.)
         //perché a differenza di quest'ultimo, se il casting non va a buon fine, alla variabile
         //viene automaticamente assegnato il valore null. smart.
