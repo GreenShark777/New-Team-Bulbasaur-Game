@@ -28,6 +28,8 @@ public class GroundCheck : MonoBehaviour
             else if(puppetB){ puppetB.TouchedGround(); }
 
         }
+        //se questo gameObject è il giocatore e si è colpito il punto debole di un nemico, il giocatore potrà saltare nuovamente
+        if (pm && collision.GetComponent<EnemiesWeakPoint>()) { pm.JumpedOnEnemy(); }
 
     }
 

@@ -49,7 +49,7 @@ public class MarionettaBehaviour : MonoBehaviour
 
         }
         //ottiene il riferimento statico al giocatore(se non esiste già)
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        if(!player) player = GameObject.FindGameObjectWithTag("Player").transform;
         //infine, fa iniziare la coroutine di salto
         //StartCoroutine(Jump());
 
