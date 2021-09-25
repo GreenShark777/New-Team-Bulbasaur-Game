@@ -55,7 +55,7 @@ public class MaialeBehaviour : MonoBehaviour
             if (clip.name == "ChargeAnticipation")
             {
                 anticipationDuration = clip.length;
-                /*Debug.Log("Durata animazione: " + clip.length);*/
+                //Debug.Log("Durata animazione maiale: " + clip.length);
                 break;
             
             }
@@ -77,16 +77,7 @@ public class MaialeBehaviour : MonoBehaviour
         //else { PigWalk(); }
 
         //DEBUG----------------------------------------------------------------------------------------------------------------------------------------
-        if (Input.GetKeyDown(KeyCode.P)) { PrepareCharge(); }
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //se il nemico collide con un muro, si volta e continua a camminare verso la direzione opposta
-        if (/*collision.gameObject.CompareTag("Wall")*/!collision.collider.isTrigger) { ChangeEnemyDirection(); }
-        //se il nemico collide con il giocatore, il nemico starà fermo per un po'(permettendo al giocatore di scappare)
-        if (collision.gameObject.CompareTag("Player")) { StartCoroutine(Exultation()); }
+        if (Input.GetKeyDown(KeyCode.T)) { PrepareCharge(); }
 
     }
 
@@ -134,7 +125,7 @@ public class MaialeBehaviour : MonoBehaviour
 
     }
 
-    private void ChangeEnemyDirection()
+    public void ChangeFacingDirection()
     {
         //cambia le direzioni di movimento del nemico
         walkSpeed = -walkSpeed;
@@ -149,7 +140,7 @@ public class MaialeBehaviour : MonoBehaviour
         //Debug.Log("CAMBIO DIREZIONE: " + pigSprite.rotation.y);
     }
 
-    private IEnumerator Exultation()
+    public IEnumerator Exultation()
     {
         //il nemico va in animazione di esultazione
         pigAnim.SetBool("Exultation", true);
