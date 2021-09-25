@@ -20,8 +20,20 @@ public class GroundCheck : MonoBehaviour
         if (collision.CompareTag("Terreno"))
         {
             //...comunica allo script di movimento che si potrà di nuovo saltare
-            pm.TouchedTheGround();
+            pm.TouchedTheGround(true);
 
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //se si lascia terra senza che il giocatore salti...
+        if (collision.CompareTag("Terreno") && !pm.IsPlayerJumping())
+        {
+            //...comunica allo script di movimento che si sta cadendo
+            pm.TouchedTheGround(false);
+            //Debug.Log("CADI SENZA SALTARE");
         }
 
     }

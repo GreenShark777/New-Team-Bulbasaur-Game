@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     //riferimento al Rigidbody del giocatore
     private Rigidbody2D rb;
     
-    private bool canJump = true, //indica se il giocatore può saltare o meno
+    private bool canJump = false, //indica se il giocatore può saltare o meno(inizializzata a false in modo da far cadere all'inizio il giocatore)
         isJumping = false; //indica se il giocatore sta saltando o meno
 
 
@@ -131,14 +131,19 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Permette al giocatore di saltare di nuovo
     /// </summary>
-    public void TouchedTheGround()
+    public void TouchedTheGround(bool isGrounded)
     {
-        //il giocatore potrà di nuovo saltare
-        canJump = true;
+        //il giocatore potrà di nuovo saltare, se è per terra
+        canJump = isGrounded;
         isJumping = false;
-        //l'animazione di caduta viene fermata
-        playerAnimator.SetBool("IsFalling", false);
+        //l'animazione di caduta viene fermata, se si è toccata terra
+        playerAnimator.SetBool("IsFalling", !isGrounded);
         //Debug.Log("Toccata terra");
     }
+    /// <summary>
+    /// Permette ad altri script di sapere se il giocatore sta saltando o meno
+    /// </summary>
+    /// <returns></returns>
+    public bool IsPlayerJumping() { return isJumping; }
 
 }
