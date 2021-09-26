@@ -1,14 +1,16 @@
 //Si occupa del movimento e fisica del giocatore
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     
     [SerializeField]
-    private float movementSpeed = 10f, //indica quanto velocemente si muove il giocatore
-        jumpSpeed = 10f, //indica quanto velocemente il giocatore va in alto durante il salto
+    private float movementSpeed = 10, //indica quanto velocemente si muove il giocatore
+        jumpSpeed = 10, //indica quanto velocemente il giocatore va in alto durante il salto
         fallSpeed = -2, //indica quanto velocemente deve cadere il giocatore dopo aver finito un salto
-        jumpMaxHeight = 10f; //indica quanto alto può saltare il giocatore rispetto alla sua posizione di salto iniziale
+        jumpMaxHeight = 10, //indica quanto alto può saltare il giocatore rispetto alla sua posizione di salto iniziale
+        jumpOnEnemyForce = 5; //indica quanto potente è la spinta in su dopo essere saltato sopra un nemico
 
     //indica la posizione di quando il giocatore ha iniziato il salto
     private float startJumpPosition;
@@ -19,8 +21,9 @@ public class PlayerMovement : MonoBehaviour
     //riferimento al Rigidbody del giocatore
     private Rigidbody2D rb;
     
-    private bool canJump = true, //indica se il giocatore può saltare o meno
-        isJumping = false; //indica se il giocatore sta saltando o meno
+    private bool canJump = false, //indica se il giocatore può saltare o meno(inizializzata a false in modo da far cadere all'inizio il giocatore)
+        isJumping = false, //indica se il giocatore sta saltando o meno
+        jumpedOnEnemy; //indica se il giocatore ha saltato sopra un nemico, nel qual caso deve ricevere una spinta in su
 
 
     private void OnCollisionStay2D(Collision2D collision) //emanuele
@@ -59,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
     {
         //nuova velocity da dare al Rigidbody del giocatore
         Vector2 newVelocity = CalculateMovement()/** movementSpeed*/;
+        //se il giocatore ha saltato sopra un nemico, alla velocità calcolata viene aumentato il valore y
+        if (jumpedOnEnemy) { newVelocity.y = jumpOnEnemyForce; jumpedOnEnemy = false; Debug.Log("NEW VELOCITY = " + newVelocity); }
         //imposta il nuovo movimento del giocatore
         rb.velocity = newVelocity;
         //Debug.Log(rb.velocity);
@@ -66,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //se si è in aria e non si sta saltando, inizia a cadere
+        //se si è in aria, inizia a cadere
         if (!canJump) { rb.velocity = new Vector2(rb.velocity.x, fallSpeed); /*Debug.Log("Si sta cadendo");*/ }
 
     }
@@ -77,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 CalculateMovement()
     {
         //indica la velocità che sta per essere calcolata
-        Vector2 calculatedVelocity = Vector2.zero;
+        Vector2 calculatedVelocity = new Vector2(0, rb.velocity.y);
         //se si vuole andare verso sinistra...
         if (Input.GetKey(KeyCode.A))
         {
@@ -99,8 +104,8 @@ public class PlayerMovement : MonoBehaviour
             //...e lo sprite del giocatore verrà voltato a destra una sola volta
             playerSprite.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
             //Debug.Log("Destra");
-        } //altrimenti, non si sta camminando, quindi rimette il giocatore in Idle
-        else if(playerAnimator.GetBool("Move")) { playerAnimator.SetBool("Move", false); }
+        } //altrimenti, non si sta camminando, quindi rimette il giocatore in Idle(se non lo è già)
+        else if(playerAnimator.GetBool("Move") && playerAnimator.GetBool("Move")) { playerAnimator.SetBool("Move", false); }
         //se si vuole saltare, il movimento farà andare il giocatore verso su fino ad un certo range
         if (Input.GetKey(KeyCode.W) && canJump) { calculatedVelocity = new Vector2(calculatedVelocity.x , Jump()); }
         //se non si sta premendo più il tasto di salto dopo aver già saltato...
@@ -111,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log("JUMP STOP");
         }
         //se non si può più saltare, il giocatore sarà in aria, quindi...
-        if (!canJump)
+        if (!canJump && !playerAnimator.GetBool("IsFalling"))
         {
             //...fa iniziare l'animazione di caduta
             playerAnimator.SetBool("IsFalling", true);
@@ -131,13 +136,14 @@ public class PlayerMovement : MonoBehaviour
         //fa partire l'animazione di salto
         playerAnimator.SetBool("IsJumping", true);
         //calcola quanto in alto deve andare il giocatore
-        float jumpVelocity = 0;
+        float jumpVelocity = rb.velocity.y;
         //se non si è già in salto, ottiene la posizione iniziale del giocatore
         if (!isJumping) { startJumpPosition = transform.position.y; /*Debug.Log("Start Jump Position = " + startJumpPosition);*/ }
         //comunica che il giocatore sta saltando
         isJumping = true;
         //se si arriva all'altezza massima di salto, il giocatore non potrà più saltare
-        if (transform.position.y >= (startJumpPosition + jumpMaxHeight)) { canJump = false; }
+        if (transform.position.y >= (startJumpPosition + jumpMaxHeight))
+        { canJump = false; /*Debug.Log("Raggiunta massima altezza di salto: " + (startJumpPosition + jumpMaxHeight));*/ }
         //altrimenti, continua a salire
         else { jumpVelocity = jumpSpeed/*new Vector2(rb.velocity.x, jumpSpeed/* * Time.deltaTime)*/; }
         //Debug.Log("Salto");
@@ -148,14 +154,50 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Permette al giocatore di saltare di nuovo
     /// </summary>
-    public void TouchedTheGround()
+    public void TouchedTheGround(bool isGrounded)
     {
-        //il giocatore potrà di nuovo saltare
+        //il giocatore potrà di nuovo saltare, se è per terra
+        canJump = isGrounded;
+        isJumping = false;
+        //l'animazione di caduta viene fermata, se si è toccata terra
+        playerAnimator.SetBool("IsFalling", !isGrounded);
+        //Debug.Log("Toccata terra");
+    }
+    /// <summary>
+    /// Permette al giocatore di continuare il salto dopo aver saltato sopra un nemico
+    /// </summary>
+    public void JumpedOnEnemy()
+    {
+        //permette al giocatore di continuare il salto, se sta tenendo premuto il tasto di salto
         canJump = true;
         isJumping = false;
+        //da una spinta in su al giocatore
+        jumpedOnEnemy = true;
         //l'animazione di caduta viene fermata
         playerAnimator.SetBool("IsFalling", false);
-        //Debug.Log("Toccata terra");
+        //l'animazione di salto viene fatta partire
+        playerAnimator.SetBool("IsJumping", true);
+        if (!Input.GetKey(KeyCode.W)) { StartCoroutine(FallAnimationAfterSeconds()); }
+        //Debug.Log("SALTATO SOPRA UN NEMICO");
+    }
+    /// <summary>
+    /// Permette ad altri script di sapere se il giocatore sta saltando o meno
+    /// </summary>
+    /// <returns></returns>
+    public bool IsPlayerJumping() { return isJumping; }
+    /// <summary>
+    /// Torna all'animazione di caduta dopo tot secondi
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator FallAnimationAfterSeconds()
+    {
+        //dopo 2 secondi...
+        yield return new WaitForSeconds(0.5f);
+        //...fa tornare il giocatore a cadere
+        playerAnimator.SetBool("IsFalling", true);
+        playerAnimator.SetBool("IsJumping", false);
+
+
     }
 
 }

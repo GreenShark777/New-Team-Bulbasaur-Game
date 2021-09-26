@@ -115,7 +115,7 @@ public class EnemyController : MonoBehaviour
 
         // facingDirection = (int)gameObject.transform.parent.forward.x;
 
-        facingDirection = Mathf.Clamp((int)gameObject.transform.parent.right.x, -1,1);
+        //facingDirection = Mathf.Clamp((int)gameObject.transform.parent.right.x, -1,1);
 
         //Debug.Log("FACING " + gameObject.transform.parent.forward);
 

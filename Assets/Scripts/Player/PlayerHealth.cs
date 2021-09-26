@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private GameObject gameOverScreen = default;
     //indica quanta vita ha il giocatore(e quanti colpi può subire)
+    [HideInInspector]
     public int currentHP = 3;
     //riferimento all'animator del giocatore
     private Animator playerAnimator;
@@ -19,9 +20,11 @@ public class PlayerHealth : MonoBehaviour
     {
         //ottiene il riferimento all'animator del giocatore
         playerAnimator = transform.GetChild(0).GetComponent<Animator>();
-
+        //la vita del giocatore sarà uguale al numero di cuori(figli) nel contenitore della vita
+        currentHP = healthContainer.childCount;
+        Debug.Log("Vita giocatore: " + currentHP);
         //DEBUG
-        if (currentHP != healthContainer.childCount) { Debug.LogError("Gli Hp del giocatore sono diversi dal numero di cuori nel contenitore"); }
+        //if (currentHP != healthContainer.childCount) { Debug.LogError("Gli Hp del giocatore sono diversi dal numero di cuori nel contenitore"); }
 
     }
     /// <summary>
@@ -31,21 +34,16 @@ public class PlayerHealth : MonoBehaviour
     public void ChangeHp(int value)
     {
         //se si sta prendendo danno, viene attivata l'animazione di danno del giocatore
-        if (value < 0) 
-        { 
-            playerAnimator.SetTrigger("Hit");
-
-            currentHP = currentHP + value;///
-        }
-        //altrimenti, si sta recuperando vita, quindi (METTERE PARTICELLARE O ALTRO)
-
-        else { currentHP += value; }
-        //gli Hp vengono cambiati aggiungendo il valore ottenuto     
+        if (value < 0) { playerAnimator.SetTrigger("Hit"); }
+        //altrimenti, si sta recuperando vita, quindi...
+        else {/*ATTIVARE PARTICELLARE O ALTRO*/ }
+        //gli Hp vengono cambiati aggiungendo il valore ottenuto
+        currentHP += value;
         //vengono attivati o disattivati i cuori in base agli hp
         for (int i = 0; i < healthContainer.childCount; i++) { healthContainer.GetChild(i).gameObject.SetActive(i < currentHP); }
         //se sono finiti gli hp, il giocatore perde
         if (currentHP <= 0) { Defeat(); }
-
+        Debug.Log("Vita giocatore: " + currentHP);
     }
     /// <summary>
     /// Il giocatore viene sconfitto
@@ -65,8 +63,6 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-       // Debug.Log("CURRENT HEALTH " + currentHP);
-
 
         if (Input.GetKeyDown(KeyCode.P)) { ChangeHp(-1); }
         if (Input.GetKeyDown(KeyCode.O)) { ChangeHp(1); }

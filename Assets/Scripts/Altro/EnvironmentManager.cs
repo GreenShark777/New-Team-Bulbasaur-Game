@@ -153,7 +153,7 @@ public class EnvironmentManager : MonoBehaviour
         {
 
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
 
         }
         else //se ci sono altre istanze distruggi questa
@@ -180,7 +180,7 @@ public class EnvironmentManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("CURRENT ENV " + currentEnvironment);
+        //Debug.Log("CURRENT ENV " + currentEnvironment);
 
         if (Input.GetKeyDown(KeyCode.R)) //a scopo di test
         {
