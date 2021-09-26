@@ -154,7 +154,6 @@ public class EnemySpawner : MonoBehaviour
     }
 
     int currentUccisioniTarget = 3;
-    int nextUccisionitarget = 6;
 
     IEnumerator SpawnWave(Wave _wave) //metodo per lo spawn deille wave di nemici
     {

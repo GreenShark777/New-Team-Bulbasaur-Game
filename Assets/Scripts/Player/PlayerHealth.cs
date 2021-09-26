@@ -11,7 +11,8 @@ public class PlayerHealth : MonoBehaviour
     private GameObject gameOverScreen = default;
     //indica quanta vita ha il giocatore(e quanti colpi può subire)
     [HideInInspector]
-    public int currentHP = 3;
+    public int currentHP = 3, 
+        maxHp = 3;
     //riferimento all'animator del giocatore
     private Animator playerAnimator;
 
@@ -22,6 +23,8 @@ public class PlayerHealth : MonoBehaviour
         playerAnimator = transform.GetChild(0).GetComponent<Animator>();
         //la vita del giocatore sarà uguale al numero di cuori(figli) nel contenitore della vita
         currentHP = healthContainer.childCount;
+        //ottiene la vita massima del giocatore
+        maxHp = currentHP;
         Debug.Log("Vita giocatore: " + currentHP);
         //DEBUG
         //if (currentHP != healthContainer.childCount) { Debug.LogError("Gli Hp del giocatore sono diversi dal numero di cuori nel contenitore"); }

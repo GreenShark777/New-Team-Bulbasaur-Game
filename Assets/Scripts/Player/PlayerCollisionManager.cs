@@ -3,34 +3,38 @@ using UnityEngine;
 
 public class PlayerCollisionManager : MonoBehaviour
 {
-    //riferimento allo script di movimento del giocatore
-    PlayerMovement pm;
-    PlayerHealth playerHealth;
+    //riferimento allo script di vita del giocatore
+    private PlayerHealth ph;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //ottiene il riferimento allo script di movimento del giocatore dal padre
-        pm = GetComponentInParent<PlayerMovement>();
-        playerHealth = GetComponentInParent<PlayerHealth>();
+        //ottiene il riferimento allo script di vita del giocatore dal padre
+        ph = GetComponentInParent<PlayerHealth>();
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //se si è colliso con una cassa...
         if (collision.gameObject.CompareTag("Cassa"))
         {
+            //...ne ottiene il riferimento...
             CassaItem cassa = collision.GetComponent<CassaItem>();
+            //...se la cassa rilascia un cuore...
             if (cassa.droppatoCuore)
             {
-                if (playerHealth.currentHP != 3 && playerHealth.currentHP > 0)
+                //...e la vita del giocatore è minore del massimo e maggiore di 0, recupera 1 di vita
+                if (ph.currentHP <= ph.maxHp && ph.currentHP > 0)
                 {
                     //Debug.Log("droppato CHECK DROP");
-                    playerHealth.ChangeHp(1);
+                    ph.ChangeHp(1);
                 }
-            }
+                else if(ph.currentHP <= ph.maxHp)//altrimenti, se il giocatore ha tutta la vita, ottiene più punti
+                { /*aggiungere incremento score*/ }
 
+            } //altrimenti, se la cassa rilascia una moneta, ottiene punteggio
             else if (cassa.droppatoCoin)
             {
                 //aggiungere incremento score
@@ -40,8 +44,11 @@ public class PlayerCollisionManager : MonoBehaviour
 
     }
 
-        
-
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //se si tocca un nemico, il giocatore subisce danno
+        if (collision.gameObject.CompareTag("Enemy")) { ph.ChangeHp(-1); }
+        //Debug.Log(collision.gameObject.tag);
+    }
 
 }

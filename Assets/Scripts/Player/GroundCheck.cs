@@ -21,7 +21,7 @@ public class GroundCheck : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //se si sta collidendo con il pavimento...
-        if (collision.CompareTag("Terreno"))
+        if (collision.CompareTag("Terreno") || collision.CompareTag("Piattaforma"))
         {
             //...comunica allo script di cui si ha riferimento che si è toccata terra
             if(pm) { pm.TouchedTheGround(true); }
@@ -39,7 +39,7 @@ public class GroundCheck : MonoBehaviour
         if (pm)
         {
             //se si lascia terra senza che il giocatore salti...
-            if (collision.CompareTag("Terreno") && !pm.IsPlayerJumping())
+            if ((collision.CompareTag("Terreno") || collision.CompareTag("Piattaforma")) && !pm.IsPlayerJumping())
             {
                 //...comunica allo script di movimento che si sta cadendo
                 pm.TouchedTheGround(false);
