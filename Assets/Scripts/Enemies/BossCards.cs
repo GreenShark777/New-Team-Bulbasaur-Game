@@ -19,6 +19,9 @@ public class BossCards : MonoBehaviour
     //indica la tolleranza di velocità massima della carta
     [SerializeField]
     private float magnitudeTolerance = 0.5f;
+    //riferimento al particellare di lancio
+    [SerializeField]
+    private ParticleSystem launchPS = default;
 
 
     // Start is called before the first frame update
@@ -61,6 +64,11 @@ public class BossCards : MonoBehaviour
         //ottiene la velocità massima
         maxMagnitude = launchDirection.magnitude + magnitudeTolerance;
         //Debug.Log(maxMagnitude);
+        //se il particellare ha ancora un padre, lo sparenta
+        if(launchPS.transform.parent != null) { launchPS.transform.parent = null; }
+        //attiva il particellare di lancio
+        launchPS.Play();
+
     }
 
 }
