@@ -1,6 +1,4 @@
 //Si occupa del comportamento delle carte del boss
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossCards : MonoBehaviour

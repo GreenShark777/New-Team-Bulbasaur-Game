@@ -117,15 +117,12 @@ public class BossBehaviour : MonoBehaviour
 
     private Vector2 GetLaunchDirection(Transform card)
     {
-        //vettore che indicherà la direzione in cui lanciare la carta
-        //Vector2 launchDirection = Vector2.zero;
         //se è stata usata la mano in basso per lanciare la carta precedente...
         if (usedLowerHand)
         {
             //...mette la carta nella mano in alto...
             card.position = upperHand.position;
             //...la direzione di lancio viene  calcolata in modo che la carta vada verso il basso
-            //launchDirection = new Vector2(-Mathf.Abs(launchDirection.x), -Mathf.Abs(launchDirection.y));
             launchDirection.y = -Mathf.Abs(launchDirection.y);
 
         }
@@ -134,7 +131,6 @@ public class BossBehaviour : MonoBehaviour
             //...mette la carta nella mano in basso...
             card.position = lowerHand.position;
             //...la direzione di lancio viene  calcolata in modo che la carta vada verso l'alto
-            //launchDirection = new Vector2(Mathf.Abs(launchDirection.x), Mathf.Abs(launchDirection.y));
             launchDirection.y = Mathf.Abs(launchDirection.y);
 
         }
