@@ -5147,7 +5147,7 @@ GameObject:
   - component: {fileID: 2074174399377635444}
   m_Layer: 0
   m_Name: cassa
-  m_TagString: Untagged
+  m_TagString: Cassa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

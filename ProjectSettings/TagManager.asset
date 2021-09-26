@@ -8,6 +8,8 @@ TagManager:
   - Terreno
   - Ostacolo
   - Wall
+  - Piattaforma
+  - Cassa
   layers:
   - Default
   - TransparentFX

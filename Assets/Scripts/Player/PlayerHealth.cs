@@ -39,9 +39,8 @@ public class PlayerHealth : MonoBehaviour
         }
         //altrimenti, si sta recuperando vita, quindi (METTERE PARTICELLARE O ALTRO)
 
-        else { }
-        //gli Hp vengono cambiati aggiungendo il valore ottenuto
-       // currentHP += value;
+        else { currentHP += value; }
+        //gli Hp vengono cambiati aggiungendo il valore ottenuto     
         //vengono attivati o disattivati i cuori in base agli hp
         for (int i = 0; i < healthContainer.childCount; i++) { healthContainer.GetChild(i).gameObject.SetActive(i < currentHP); }
         //se sono finiti gli hp, il giocatore perde
@@ -66,6 +65,8 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
+       // Debug.Log("CURRENT HEALTH " + currentHP);
+
 
         if (Input.GetKeyDown(KeyCode.P)) { ChangeHp(-1); }
         if (Input.GetKeyDown(KeyCode.O)) { ChangeHp(1); }

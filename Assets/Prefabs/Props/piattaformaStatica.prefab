@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2387563788011175435}
   - component: {fileID: 6456048193309590820}
   m_Layer: 6
-  m_Name: piattaforma
+  m_Name: piattaformaStatica
   m_TagString: Terreno
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

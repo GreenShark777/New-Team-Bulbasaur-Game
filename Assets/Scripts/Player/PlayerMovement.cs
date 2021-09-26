@@ -23,6 +23,23 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false; //indica se il giocatore sta saltando o meno
 
 
+    private void OnCollisionStay2D(Collision2D collision) //emanuele
+    {
+        if (collision.gameObject.CompareTag("Piattaforma"))
+        {
+           transform.SetParent(collision.transform);
+        }
+
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)//emanuele
+    {
+        if (collision.gameObject.CompareTag("Piattaforma"))
+        {
+            transform.SetParent(null);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

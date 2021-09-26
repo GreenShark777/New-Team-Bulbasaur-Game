@@ -188,7 +188,12 @@ public class EnvironmentManager : MonoBehaviour
 
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.L)) //a scopo di test
+        {
+            SwitchEnvironment(currentEnvironment+1);
+
+        }
+
         if (nemiciUccisi >= 3 && canLoadLevel1)
         {
             SwitchEnvironment(Environment.Livello_1);

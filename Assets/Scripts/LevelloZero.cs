@@ -108,7 +108,8 @@ public class LevelloZero : MonoBehaviour
 
     void InitLivello_0()
     {
- 
+        AttivazioneBackground(backgrounds);
+
         piattaforma1.SetActive(true);
         piattaforma2.SetActive(true);
 
@@ -118,6 +119,8 @@ public class LevelloZero : MonoBehaviour
         StartCoroutine(AttivazioneAlbero());
         StartCoroutine(AttivazioneNuvole());
         StartCoroutine(AttivazioneLuna());
+        StartCoroutine(timer());
+
     }
 
     void Start()
@@ -213,35 +216,91 @@ public class LevelloZero : MonoBehaviour
     */
 
     public GameObject player;
-     
+
+    bool isStarted = false;
+    void AttivazioneBackground(GameObject[] _backgrounds)
+    {
+
+        for(int i=0; i < backgrounds.Length; i++)
+        {
+            StartCoroutine( PrimoMovimentoBackgrounds(backgrounds[i]));
+        }
+
+    }
+
+    IEnumerator PrimoMovimentoBackgrounds(GameObject go)
+    {
+        
+        yield return new WaitForSeconds(2f);
+
+        Debug.Log("nome " + go.name);
+
+        Vector2 startPos = go.transform.localPosition;
+        Vector2 endPos = new Vector2(0, startPos.y);
+
+        float elapsedTime=0f;
+        float waitTime=1f;
+
+        while (elapsedTime < waitTime)
+        {
+            elapsedTime += Time.deltaTime;
+
+            go.transform.localPosition = Vector2.Lerp(startPos, endPos, elapsedTime / waitTime);
+
+            Debug.Log("POPOPO " + go.name + transform.position);
+
+            yield return null;
+        }
+
+        go.transform.localPosition = endPos;
+
+        yield return null;
+    }
+
+    IEnumerator timer()
+    {
+        yield return null;
+        float elapsedTime = 0f;
+        float waitTime = 6f;
+
+        while (elapsedTime < waitTime)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        isStarted = true;
+        yield return null;
+    }
 
     void MoveBackground(GameObject go, float _velocity)
     {
         go.transform.position = new Vector3(-player.transform.position.x * _velocity, go.transform.position.y, go.transform.position.z);
     }
 
-    void Update()
+    void LateUpdate()
     {
+ 
+   
 
-        if (backgrounds[0] != null)
+        if (isStarted)
         {
-            MoveBackground(backgrounds[0], 0.15f);
+            if (backgrounds[0] != null)
+            {
+                MoveBackground(backgrounds[0], 0.15f);
+            }
+
+            if (backgrounds[1] != null)
+            {
+                MoveBackground(backgrounds[1], 0.1f);
+            }
+
+            if (backgrounds[2] != null)
+            {
+                MoveBackground(backgrounds[1], 0.08f);
+            }
         }
 
-        if (backgrounds[1] != null)
-        {
-            MoveBackground(backgrounds[1], 0.1f);
-        }
 
-        if (backgrounds[2] != null)
-        {
-            MoveBackground(backgrounds[1], 0.08f);
-        }
-
-        if (backgrounds[3] != null)
-        {
-            MoveBackground(backgrounds[1], 0.06f);
-        }
 
     }
 }
