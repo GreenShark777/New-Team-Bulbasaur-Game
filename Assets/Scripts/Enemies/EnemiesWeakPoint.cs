@@ -18,7 +18,11 @@ public class EnemiesWeakPoint : MonoBehaviour
     private void ThisEnemyDefeat()
     {
         //distrugge il nemico
-        Destroy(thisEnemy);
+        //Destroy(thisEnemy);
+
+        //disattiva il nemico
+        thisEnemy.SetActive(false);
+
         Debug.Log(thisEnemy.name + " sconfitto!");
     }
 

@@ -22,6 +22,22 @@ public class BossBehaviour : MonoBehaviour
     private int nCardsToLaunch = 2;
     //lista di tutti gli indici delle carte già lanciate
     private List<int> alreadyLaunchedCards = new List<int>();
+    //indica quale delle 2 mani è stata usata per lanciare una carta l'ultima volta
+    private bool usedLowerHand = false;
+    //riferimenti alle mani del boss
+    [SerializeField]
+    private Transform lowerHand = default, //MANO DESTRA(QUELLA IN BASSO)
+        upperHand = default; //MANO SINISTRA(QUELLA IN ALTO)
+
+    //indica la direzione in cui lanciare le carte
+    [SerializeField]
+    private Vector2 launchDirection = default;
+    //riferimento al cappello del boss
+    [SerializeField]
+    private Transform bossHat = default;
+    //indica di quanto deve ingrandirsi il cappello ogni volta che il boss subisce danni
+    [SerializeField]
+    private float hatSizeIncreaseRate = 0.1f;
 
 
     // Start is called before the first frame update
@@ -33,12 +49,16 @@ public class BossBehaviour : MonoBehaviour
         cardsContainer = transform.GetChild(1);
         //ottiene il riferimento allo script di tutte le carte del boss
         for (int card = 0; card < cardsContainer.childCount; card++) { bossCards.Add(cardsContainer.GetChild(card).GetComponent<BossCards>()); }
+        //il cappello diventa figlio dell'empty che si occupa di ingrandirlo
+        //bossHat.parent = hatSizeIncreaser;
         //fa partire la coroutine(ricorsiva) per lanciare le carte
         StartCoroutine(LaunchCards());
 
     }
-
-
+    /// <summary>
+    /// Si occupa di lanciare carte aspettando il dovuto tempo
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator LaunchCards()
     {
         //svuota la lista di carte già lanciate
@@ -47,15 +67,13 @@ public class BossBehaviour : MonoBehaviour
         yield return new WaitForSeconds(waitBeforeLaunch);
         //fa iniziare l'animazione del lancio di carte
         bossAnim.SetBool("ThrowCards", true);
-        //indicherà la carta da lanciare
-        BossCards cardToLaunch = null;
         //lancia n carte a caso dalla lista
         for (int i = nCardsToLaunch; i > 0; i--)
         {
             //prende casualmente la carta da lanciare
-            cardToLaunch = ChooseRandomCard();
+            BossCards cardToLaunch = ChooseRandomCard();
             //lancia la carta scelta nella direzione indicata dalla mano da cui sta venendo lanciata
-            cardToLaunch.LaunchCard(GetLaunchDirection());
+            cardToLaunch.LaunchCard(GetLaunchDirection(cardToLaunch.transform));
             Debug.Log("Carta lanciata: " + cardToLaunch);
             //aspetta del tempo tra un lancio e un altro
             yield return new WaitForSeconds(waitBetweenLaunches);
@@ -73,7 +91,7 @@ public class BossBehaviour : MonoBehaviour
         //indica la carta da lanciare
         int cardChosen = 0;
         //fino a quando non si ha l'indice di una carta non ancora lanciata, prende casualmente una carta
-        while (!WasCardAlreadyLaunched(cardChosen)) { cardChosen = Random.Range(0, bossCards.Count); }
+        while (WasCardAlreadyLaunched(cardChosen)) { cardChosen = Random.Range(0, bossCards.Count); }
         //aggiunge la carta scelta nella lista di carte lanciate
         alreadyLaunchedCards.Add(cardChosen);
         //ritorna la carta scelta
@@ -97,20 +115,52 @@ public class BossBehaviour : MonoBehaviour
 
     }
 
-    private Vector2 GetLaunchDirection()
+    private Vector2 GetLaunchDirection(Transform card)
     {
+        //vettore che indicherà la direzione in cui lanciare la carta
+        //Vector2 launchDirection = Vector2.zero;
+        //se è stata usata la mano in basso per lanciare la carta precedente...
+        if (usedLowerHand)
+        {
+            //...mette la carta nella mano in alto...
+            card.position = upperHand.position;
+            //...la direzione di lancio viene  calcolata in modo che la carta vada verso il basso
+            //launchDirection = new Vector2(-Mathf.Abs(launchDirection.x), -Mathf.Abs(launchDirection.y));
+            launchDirection.y = -Mathf.Abs(launchDirection.y);
 
-        Vector2 launchDirection = Vector2.zero;
+        }
+        else //altrimenti, è stata usata la mano in alto, quindi...
+        {
+            //...mette la carta nella mano in basso...
+            card.position = lowerHand.position;
+            //...la direzione di lancio viene  calcolata in modo che la carta vada verso l'alto
+            //launchDirection = new Vector2(Mathf.Abs(launchDirection.x), Mathf.Abs(launchDirection.y));
+            launchDirection.y = Mathf.Abs(launchDirection.y);
 
+        }
+        //cambia la mano che è stata usata per lanciare la carta
+        usedLowerHand = !usedLowerHand;
+        //infine, ritorna la direzione in cui lanciare la carta
         return launchDirection;
 
     }
 
     public void HitByPlayer()
     {
-
-
+        //il cappello diventa più alto(si allunga cambiando l'asse X per il modo in cui è messo il transform di cui si ha riferimento)
+        bossHat.localScale = new Vector2(bossHat.localScale.x + hatSizeIncreaseRate, bossHat.localScale.y/* + hatSizeIncreaseRate*/);
 
     }
+
+    //DEBUG------------------------------------------------------------------------------------------------------------------------------------------------
+
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.B)) { HitByPlayer(); }
+
+    }
+
+    //DEBUG------------------------------------------------------------------------------------------------------------------------------------------------
 
 }
