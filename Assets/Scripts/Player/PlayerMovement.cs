@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         //nuova velocity da dare al Rigidbody del giocatore
         Vector2 newVelocity = CalculateMovement()/** movementSpeed*/;
         //se il giocatore ha saltato sopra un nemico, alla velocità calcolata viene aumentato il valore y
-        if (jumpedOnEnemy) { newVelocity.y += jumpOnEnemyForce; jumpedOnEnemy = false; Debug.Log("NEW VELOCITY = " + newVelocity); }
+        if (jumpedOnEnemy) { newVelocity.y = jumpOnEnemyForce; jumpedOnEnemy = false; Debug.Log("NEW VELOCITY = " + newVelocity); }
         //imposta il nuovo movimento del giocatore
         rb.velocity = newVelocity;
         //Debug.Log(rb.velocity);

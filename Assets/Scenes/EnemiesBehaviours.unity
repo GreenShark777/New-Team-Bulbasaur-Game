@@ -231,10 +231,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3391365793774303048, guid: 629beca133c684b40a23baf0507c4af0, type: 3}
-      propertyPath: jumpOnEnemyForce
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4566990463057320795, guid: 629beca133c684b40a23baf0507c4af0, type: 3}
       propertyPath: gameOverScreen
       value: 
@@ -290,10 +286,6 @@ PrefabInstance:
     - target: {fileID: 8076397045687220614, guid: 629beca133c684b40a23baf0507c4af0, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8076397045687220614, guid: 629beca133c684b40a23baf0507c4af0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 629beca133c684b40a23baf0507c4af0, type: 3}
