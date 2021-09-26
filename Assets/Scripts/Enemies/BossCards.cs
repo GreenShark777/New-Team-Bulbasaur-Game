@@ -1,4 +1,5 @@
 //Si occupa del comportamento delle carte del boss
+using System.Collections;
 using UnityEngine;
 
 public class BossCards : MonoBehaviour
@@ -50,11 +51,23 @@ public class BossCards : MonoBehaviour
         }
         //Debug.Log(cardRb.velocity.magnitude);
     }
-
-    public void LaunchCard(Vector2 launchDirection)
+    /// <summary>
+    /// Permette di lanciare questa carta, dopo aver effettuato vari controlli su essa
+    /// </summary>
+    /// <param name="launchDirection"></param>
+    /// <returns></returns>
+    public IEnumerator LaunchCard(Vector2 launchDirection)
     {
         //se questa carta è stata disattivata, la riattiva
         if (!gameObject.activeSelf) { gameObject.SetActive(true); }
+        //azzera ogni possibile forza che sta agendo sulla carta
+        cardRb.velocity = Vector2.zero;
+        //se il particellare ha ancora un padre, lo sparenta
+        if (launchPS.transform.parent != null) { launchPS.transform.parent = null; }
+        //attiva il particellare di lancio
+        launchPS.Play();
+        //aspetta un po' prima di lanciare la carta
+        yield return new WaitForSeconds(launchPS.main.duration);
         //fa andare la carta verso la direzione ottenuta come parametros
         cardRb.velocity = launchDirection;
         //prende come riferimento la direzione di lancio
@@ -62,11 +75,6 @@ public class BossCards : MonoBehaviour
         //ottiene la velocità massima
         maxMagnitude = launchDirection.magnitude + magnitudeTolerance;
         //Debug.Log(maxMagnitude);
-        //se il particellare ha ancora un padre, lo sparenta
-        if(launchPS.transform.parent != null) { launchPS.transform.parent = null; }
-        //attiva il particellare di lancio
-        launchPS.Play();
-
     }
 
 }

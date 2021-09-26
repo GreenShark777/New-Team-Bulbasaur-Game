@@ -73,7 +73,7 @@ public class BossBehaviour : MonoBehaviour
             //prende casualmente la carta da lanciare
             BossCards cardToLaunch = ChooseRandomCard();
             //lancia la carta scelta nella direzione indicata dalla mano da cui sta venendo lanciata
-            cardToLaunch.LaunchCard(GetLaunchDirection(cardToLaunch.transform));
+            StartCoroutine(cardToLaunch.LaunchCard(GetLaunchDirection(cardToLaunch.transform)));
             Debug.Log("Carta lanciata: " + cardToLaunch);
             //aspetta del tempo tra un lancio e un altro
             yield return new WaitForSeconds(waitBetweenLaunches);
