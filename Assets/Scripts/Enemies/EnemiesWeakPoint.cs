@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class EnemiesWeakPoint : MonoBehaviour
 {
+    //riferimento al nemico di cui si è il punto debole
+    [SerializeField]
+    private GameObject thisEnemy = default;
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,8 +18,8 @@ public class EnemiesWeakPoint : MonoBehaviour
     private void ThisEnemyDefeat()
     {
         //distrugge il nemico
-        Destroy(transform.parent.parent.gameObject);
-        Debug.Log(transform.parent.parent.name + " sconfitto!");
+        Destroy(thisEnemy);
+        Debug.Log(thisEnemy.name + " sconfitto!");
     }
 
 }

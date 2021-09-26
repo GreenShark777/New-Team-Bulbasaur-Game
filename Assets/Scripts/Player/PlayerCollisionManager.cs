@@ -17,7 +17,7 @@ public class PlayerCollisionManager : MonoBehaviour
         //pm = GetComponentInParent<PlayerMovement>();
         //ottiene il riferimento allo script di vita del giocatore dal padre di questo gameObject
         ph = GetComponentInParent<PlayerHealth>();
-
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,7 +31,7 @@ public class PlayerCollisionManager : MonoBehaviour
     {
         //se si tocca un nemico, il giocatore subisce danno
         if (collision.gameObject.CompareTag("Enemy")) { ph.ChangeHp(-1); }
-
+        //Debug.Log(collision.gameObject.tag);
     }
 
 }

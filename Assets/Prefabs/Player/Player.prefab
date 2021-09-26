@@ -243,7 +243,7 @@ MonoBehaviour:
   jumpSpeed: 5
   fallSpeed: -3
   jumpMaxHeight: 3
-  jumpOnEnemyForce: 10
+  jumpOnEnemyForce: 6
 --- !u!114 &4566990463057320795
 MonoBehaviour:
   m_ObjectHideFlags: 0

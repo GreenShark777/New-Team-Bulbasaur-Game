@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour
         playerAnimator = transform.GetChild(0).GetComponent<Animator>();
         //la vita del giocatore sarà uguale al numero di cuori(figli) nel contenitore della vita
         currentHP = healthContainer.childCount;
-
+        Debug.Log("Vita giocatore: " + currentHP);
         //DEBUG
         //if (currentHP != healthContainer.childCount) { Debug.LogError("Gli Hp del giocatore sono diversi dal numero di cuori nel contenitore"); }
 
@@ -43,7 +43,7 @@ public class PlayerHealth : MonoBehaviour
         for (int i = 0; i < healthContainer.childCount; i++) { healthContainer.GetChild(i).gameObject.SetActive(i < currentHP); }
         //se sono finiti gli hp, il giocatore perde
         if (currentHP <= 0) { Defeat(); }
-
+        Debug.Log("Vita giocatore: " + currentHP);
     }
     /// <summary>
     /// Il giocatore viene sconfitto

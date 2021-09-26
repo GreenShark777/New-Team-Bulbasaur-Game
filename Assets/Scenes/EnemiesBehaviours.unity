@@ -296,6 +296,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4002527925875106321, guid: 842865cb984aa0e42bad52050946ed60, type: 3}
+      propertyPath: m_GravityScale
+      value: 0.0001
+      objectReference: {fileID: 0}
     - target: {fileID: 4082060955676721091, guid: 842865cb984aa0e42bad52050946ed60, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -803,6 +807,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_maiale
       objectReference: {fileID: 0}
+    - target: {fileID: 6078740700618621216, guid: bbb9f110294c4e04cbaa55ea04f7182a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6078740700618621216, guid: bbb9f110294c4e04cbaa55ea04f7182a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 6078740700618621218, guid: bbb9f110294c4e04cbaa55ea04f7182a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -941,7 +953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2703446819961787814, guid: 1636e0e14ecf9f240858b7b24f3ebee2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2703446819961787815, guid: 1636e0e14ecf9f240858b7b24f3ebee2, type: 3}
       propertyPath: m_RootOrder
