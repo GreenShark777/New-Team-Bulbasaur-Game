@@ -50,8 +50,6 @@ public class MarionettaBehaviour : MonoBehaviour
         }
         //ottiene il riferimento statico al giocatore(se non esiste già)
         if(!player) player = GameObject.FindGameObjectWithTag("Player").transform;
-        //infine, fa iniziare la coroutine di salto
-        //StartCoroutine(Jump());
 
     }
 
@@ -72,7 +70,10 @@ public class MarionettaBehaviour : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// Fa saltare la marionetta nella direzione e al momento giusto
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Jump()
     {
         //aspetta del tempo per saltare
@@ -94,9 +95,11 @@ public class MarionettaBehaviour : MonoBehaviour
     {
         //fa tornare la marionetta in animazione di idle
         puppetAnim.SetBool("Falling", false);
+        //nel caso ci siano 1 o più coroutine iniziate di salto, le ferma
+        StopAllCoroutines();
         //fa ripartire la coroutine per saltare di nuovo
         StartCoroutine(Jump());
-
+        //Debug.Log("Marionetta ha toccato per terra");
     }
 
     public void ChangeFacingDirection()

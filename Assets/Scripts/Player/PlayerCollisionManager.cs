@@ -7,6 +7,8 @@ public class PlayerCollisionManager : MonoBehaviour
     private PlayerHealth ph;
     //riferimento al giocatore
     private Transform player;
+    //riferimento alla bolla di protezione
+    private GameObject protectiveBubble;
 
 
     // Start is called before the first frame update
@@ -16,6 +18,8 @@ public class PlayerCollisionManager : MonoBehaviour
         ph = GetComponentInParent<PlayerHealth>();
         //ottiene il riferimento al giocatore
         player = transform.parent;
+        //ottiene il riferimento alla bolla di protezione
+        protectiveBubble = transform.GetChild(0).gameObject;
 
     }
 
@@ -50,32 +54,25 @@ public class PlayerCollisionManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //se si tocca un nemico, il giocatore subisce danno
-        if (collision.gameObject.CompareTag("Enemy")) { ph.ChangeHp(-1); }
-
-        if (collision.gameObject.CompareTag("Piattaforma"))
+        //se si tocca un nemico...
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            player.SetParent(collision.transform);
+            //...se la bolla di protezione è attiva, viene distrutta e il giocatore non subisce danno
+            if (!protectiveBubble.activeSelf) { protectiveBubble.SetActive(false); }
+            //altrimenti, il giocatore subisce danno
+            else { ph.ChangeHp(-1); }
+        
         }
+        //se si tocca una piattaforma, il giocatore diventa figlio della piattaforma
+        if (collision.gameObject.CompareTag("Piattaforma")) { player.SetParent(collision.transform); }
         //Debug.Log(collision.gameObject.tag);
     }
-    /*
-    private void OnCollisionStay2D(Collision2D collision) //emanuele
-    {
-        if (collision.gameObject.CompareTag("Piattaforma"))
-        {
-            player.SetParent(collision.transform);
-        }
-
-    }
-    */
-
+    
     private void OnCollisionExit2D(Collision2D collision)//emanuele
     {
-        if (collision.gameObject.CompareTag("Piattaforma"))
-        {
-            player.SetParent(null);
-        }
+        //se non si collide più con una piattaforma, il giocatore non sarà più suo figlio
+        if (collision.gameObject.CompareTag("Piattaforma")) { player.SetParent(null); }
+
     }
 
 }

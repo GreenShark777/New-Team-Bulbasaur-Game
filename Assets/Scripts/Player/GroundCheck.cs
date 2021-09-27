@@ -22,6 +22,13 @@ public class GroundCheck : MonoBehaviour
     {
         //se questo gameObject è il giocatore e si è colpito il punto debole di un nemico, il giocatore potrà saltare nuovamente
         if (pm && collision.GetComponent<EnemiesWeakPoint>()) { pm.JumpedOnEnemy(); }
+        //se questo groundCheck è della marionetta...
+        if (puppetB)
+        {
+            //...se si sta collidendo con il pavimento o una piattaforma, glielo comunica
+            if (collision.CompareTag("Terreno") || collision.CompareTag("Piattaforma")) { puppetB.TouchedGround(); }
+            //Debug.Log("TOCCATA TERRA");
+        }
 
     }
 
@@ -32,7 +39,6 @@ public class GroundCheck : MonoBehaviour
         {
             //...comunica allo script di cui si ha riferimento che si è toccata terra(se non era già così)
             if (pm && !pm.CanPlayerJump()) { pm.TouchedTheGround(true); }
-            else if (puppetB) { puppetB.TouchedGround(); }
             //Debug.Log("TOCCATA TERRA");
         }
 
