@@ -10,6 +10,8 @@ TagManager:
   - Wall
   - Piattaforma
   - Cassa
+  - Coin
+  - DeathZone
   layers:
   - Default
   - TransparentFX

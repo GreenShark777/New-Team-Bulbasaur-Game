@@ -42,6 +42,8 @@ public class EnvironmentManager : MonoBehaviour
 
     [SerializeField] AudioManager audioManager;
 
+    [SerializeField] GameObject player; //////////////
+
     bool playMusicOnce = true; //bool per far eseguire una sola volta il metodo per il cambio musica quando entriamo nello stato livello X
 
     bool primaApertura = true; //condizione per eseguire la coroutine della prima apertura del sipario, dopo la prima volta sarà sempre false
@@ -80,7 +82,6 @@ public class EnvironmentManager : MonoBehaviour
             case Environment.Livello_1:
 
                 canLoadLevel1 = false;
-                
 
                 currenLevel = livello_0_Prefab; 
                 nextlevel = livello_1_Prefab;
@@ -137,6 +138,8 @@ public class EnvironmentManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f); //il sipario è chuso, passano due secondi
 
+        player.transform.position = new Vector2(0f, -1.3f);  //// riposizioniamo il player a centro palco quando il sipario si chiude
+
         levelPrefabDeact.SetActive(false); //disattiviamo il prefab attualmente attivo in scena
         levelPrefabActive.SetActive(true); //attiviamo il prefab successivo
 
@@ -181,6 +184,8 @@ public class EnvironmentManager : MonoBehaviour
     void Update()
     {
         //Debug.Log("CURRENT ENV " + currentEnvironment);
+
+        Debug.Log( "nemiciuccisi" + nemiciUccisi);
 
         if (Input.GetKeyDown(KeyCode.R)) //a scopo di test
         {

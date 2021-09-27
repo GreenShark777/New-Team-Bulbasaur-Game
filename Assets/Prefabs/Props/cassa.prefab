@@ -5159,7 +5159,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074174399377635455}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.44, y: 1.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5199,6 +5199,9 @@ MonoBehaviour:
   itemdDroppabili:
   - {fileID: 2074174398835830765}
   - {fileID: 2074174398674419250}
+  droppatoCuore: 0
+  droppatoCoin: 0
+  isClose: 1
 --- !u!61 &2074174399377635448
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5233,7 +5236,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074174399377635455}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

@@ -23,6 +23,8 @@ public class EnemiesWeakPoint : MonoBehaviour
         //disattiva il nemico
         thisEnemy.SetActive(false);
 
+        GameManag.score += 10; //incrementiamo di 10 punti lo score
+
         Debug.Log(thisEnemy.name + " sconfitto!");
     }
 

@@ -17,15 +17,16 @@ public class EnemiesCollisionManager : MonoBehaviour
         puppetB = GetComponentInParent<MarionettaBehaviour>();
 
     }
-
+  
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //se il nemico collide con un muro, si volta e continua a camminare verso la direzione opposta
         if (/*collision.gameObject.CompareTag("Wall")*/!collision.collider.isTrigger) { ChangeThisEnemyDirection(); }
         //se il nemico collide con il giocatore, il nemico starà fermo per un po'(permettendo al giocatore di scappare)
-        if (collision.gameObject.CompareTag("Player")) { CollidedWithPlayer(); }
+        if (collision.gameObject.CompareTag("Player")) { CollidedWithPlayer(); } else if(collision.gameObject.CompareTag("DeathZone")) 
+            Destroy(transform.parent.gameObject); //distruggiamo il parent di questo GO }
 
-    }
+        }
 
     private void CollidedWithPlayer()
     {

@@ -8,8 +8,7 @@ public class DeathZone : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-          // morte player  
-            Destroy(collision.gameObject);
+         
         }
     }
 

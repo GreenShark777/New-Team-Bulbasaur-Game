@@ -57,16 +57,18 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public Vector2 newVelocity; //gabri ho reso pubblica questa var per accedervi dallo script dei level manager (per muovere i background)
+
     // Update is called once per frame
     void Update()
     {
         //nuova velocity da dare al Rigidbody del giocatore
-        Vector2 newVelocity = CalculateMovement()/** movementSpeed*/;
+         newVelocity = CalculateMovement()/** movementSpeed*/;
         //se il giocatore ha saltato sopra un nemico, alla velocità calcolata viene aumentato il valore y
         if (jumpedOnEnemy) { newVelocity.y = jumpOnEnemyForce; jumpedOnEnemy = false; Debug.Log("NEW VELOCITY = " + newVelocity); }
         //imposta il nuovo movimento del giocatore
         rb.velocity = newVelocity;
-        //Debug.Log(rb.velocity);
+        //Debug.Log(" NEW VE" + rb.velocity);
     }
 
     private void FixedUpdate()

@@ -43,6 +43,8 @@ public class EnemySpawner : MonoBehaviour
         countDowns = delay;
     }
 
+    int maxNemiciSchermo = 3;
+
     private void Update()
     {
         if (EnvironmentManager.instance.gameStarted)/////////
@@ -155,32 +157,25 @@ public class EnemySpawner : MonoBehaviour
 
     int currentUccisioniTarget = 3;
 
+   
+
     IEnumerator SpawnWave(Wave _wave) //metodo per lo spawn deille wave di nemici
     {
         //Debug.Log("WAVE SPAWN " + _wave.name);
 
         state = SpawnState.Spawn; //il current state passa a Spawn
 
-        //fa quello che devi fare
+        int currentNemiciSchermo=0;
 
-        //int i = 0; i < _wave.count; i++
 
-        while(EnvironmentManager.instance.nemiciUccisi   < currentUccisioniTarget)
+        while(EnvironmentManager.instance.nemiciUccisi  < currentUccisioniTarget && currentNemiciSchermo < maxNemiciSchermo)
         {
-            SpawnEnemy(_wave.enemy); //enemy è membro della classe wave (per adesso è un transform)
+            SpawnEnemy(_wave.enemy); //enemy è membro della classe wave  
+
+            currentNemiciSchermo++;
 
             yield return new WaitForSeconds(1 / _wave.enemiesRate); //tempo di attesa prima della prossima iterazione
         }
-
-        /*
-        for (int i = 0; i < _wave.count; i++)/// _wave.count++ aggiunto ora     /// //per ogni nemico da spawnare richiamiamo il metodo spawnenemy() (count è un int membro della classe wave)
-        {
-            SpawnEnemy(_wave.enemy); //enemy è membro della classe wave (per adesso è un transform)
-
-            yield return new WaitForSeconds(1 / _wave.enemiesRate); //tempo di attesa prima della prossima iterazione
-
-        }
-        */
 
         currentUccisioniTarget +=3;
 
