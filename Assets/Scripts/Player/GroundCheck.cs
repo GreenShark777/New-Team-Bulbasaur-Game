@@ -20,16 +20,21 @@ public class GroundCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //se si sta collidendo con il pavimento...
-        if (collision.CompareTag("Terreno") || collision.CompareTag("Piattaforma"))
-        {
-            //...comunica allo script di cui si ha riferimento che si è toccata terra
-            if(pm) { pm.TouchedTheGround(true); }
-            else if(puppetB){ puppetB.TouchedGround(); }
-
-        }
         //se questo gameObject è il giocatore e si è colpito il punto debole di un nemico, il giocatore potrà saltare nuovamente
         if (pm && collision.GetComponent<EnemiesWeakPoint>()) { pm.JumpedOnEnemy(); }
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //se si sta collidendo con il pavimento o una piattaforma...
+        if (collision.CompareTag("Terreno") || collision.CompareTag("Piattaforma"))
+        {
+            //...comunica allo script di cui si ha riferimento che si è toccata terra(se non era già così)
+            if (pm && !pm.CanPlayerJump()) { pm.TouchedTheGround(true); }
+            else if (puppetB) { puppetB.TouchedGround(); }
+            //Debug.Log("TOCCATA TERRA");
+        }
 
     }
 

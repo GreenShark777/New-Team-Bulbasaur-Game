@@ -26,23 +26,6 @@ public class PlayerMovement : MonoBehaviour
         jumpedOnEnemy; //indica se il giocatore ha saltato sopra un nemico, nel qual caso deve ricevere una spinta in su
 
 
-    private void OnCollisionStay2D(Collision2D collision) //emanuele
-    {
-        if (collision.gameObject.CompareTag("Piattaforma"))
-        {
-           transform.SetParent(collision.transform);
-        }
-
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)//emanuele
-    {
-        if (collision.gameObject.CompareTag("Piattaforma"))
-        {
-            transform.SetParent(null);
-        }
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -185,6 +168,11 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     public bool IsPlayerJumping() { return isJumping; }
+    /// <summary>
+    /// Permette ad altri script di sapere se il giocatore può saltare(quindi se è per terra) o meno
+    /// </summary>
+    /// <returns></returns>
+    public bool CanPlayerJump() { return canJump; }
     /// <summary>
     /// Torna all'animazione di caduta dopo tot secondi
     /// </summary>

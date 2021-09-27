@@ -247,7 +247,7 @@ public class LevelloZero : MonoBehaviour
 
             go.transform.localPosition = Vector2.Lerp(startPos, endPos, elapsedTime / waitTime);
 
-            Debug.Log("POPOPO " + go.name + transform.position);
+            //Debug.Log("POPOPO " + go.name + transform.position);
 
             yield return null;
         }

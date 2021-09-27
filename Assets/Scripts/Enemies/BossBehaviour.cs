@@ -38,6 +38,9 @@ public class BossBehaviour : MonoBehaviour
     //indica di quanto deve ingrandirsi il cappello ogni volta che il boss subisce danni
     [SerializeField]
     private float hatSizeIncreaseRate = 0.1f;
+    //indica quanto lontano farà andare via il giocatore dopo essere stato colpito
+    [SerializeField]
+    private float afterHitFallback = -5;
 
 
     // Start is called before the first frame update
@@ -85,7 +88,10 @@ public class BossBehaviour : MonoBehaviour
         StartCoroutine(LaunchCards());
 
     }
-
+    /// <summary>
+    /// Sceglie casualmente, tra le carte disponibili, una carta da lanciare
+    /// </summary>
+    /// <returns></returns>
     private BossCards ChooseRandomCard()
     {
         //indica la carta da lanciare
@@ -98,7 +104,11 @@ public class BossBehaviour : MonoBehaviour
         return bossCards[cardChosen];
 
     }
-
+    /// <summary>
+    /// Controlla se la carta è stata già lanciata o meno
+    /// </summary>
+    /// <param name="chosenCard"></param>
+    /// <returns></returns>
     private bool WasCardAlreadyLaunched(int chosenCard)
     {
         //indica se la carta scelta è stata lanciata o meno
@@ -114,7 +124,11 @@ public class BossBehaviour : MonoBehaviour
         return wasCardLaunched;
 
     }
-
+    /// <summary>
+    /// Imposta la direzione del lancio in base alla mano che sta venendo utilizzata
+    /// </summary>
+    /// <param name="card"></param>
+    /// <returns></returns>
     private Vector2 GetLaunchDirection(Transform card)
     {
         //se è stata usata la mano in basso per lanciare la carta precedente...
@@ -140,11 +154,16 @@ public class BossBehaviour : MonoBehaviour
         return launchDirection;
 
     }
-
-    public void HitByPlayer()
+    /// <summary>
+    /// Si occupa di ciò che deve succedere quando il boss viene colpito dal giocatore
+    /// </summary>
+    /// <param name="playerRb"></param>
+    public void HitByPlayer(Rigidbody2D playerRb)
     {
         //il cappello diventa più alto(si allunga cambiando l'asse X per il modo in cui è messo il transform di cui si ha riferimento)
         bossHat.localScale = new Vector2(bossHat.localScale.x + hatSizeIncreaseRate, bossHat.localScale.y/* + hatSizeIncreaseRate*/);
+        //spazza via il giocatore
+        playerRb.velocity = new Vector2(afterHitFallback, playerRb.velocity.y);
 
     }
 
@@ -153,7 +172,7 @@ public class BossBehaviour : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.B)) { HitByPlayer(); }
+        if (Input.GetKeyDown(KeyCode.B)) { HitByPlayer(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>()); }
 
     }
 

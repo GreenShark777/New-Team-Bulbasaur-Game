@@ -5,6 +5,8 @@ public class PlayerCollisionManager : MonoBehaviour
 {
     //riferimento allo script di vita del giocatore
     private PlayerHealth ph;
+    //riferimento al giocatore
+    private Transform player;
 
 
     // Start is called before the first frame update
@@ -12,6 +14,8 @@ public class PlayerCollisionManager : MonoBehaviour
     {
         //ottiene il riferimento allo script di vita del giocatore dal padre
         ph = GetComponentInParent<PlayerHealth>();
+        //ottiene il riferimento al giocatore
+        player = transform.parent;
 
     }
 
@@ -48,7 +52,30 @@ public class PlayerCollisionManager : MonoBehaviour
     {
         //se si tocca un nemico, il giocatore subisce danno
         if (collision.gameObject.CompareTag("Enemy")) { ph.ChangeHp(-1); }
+
+        if (collision.gameObject.CompareTag("Piattaforma"))
+        {
+            player.SetParent(collision.transform);
+        }
         //Debug.Log(collision.gameObject.tag);
+    }
+    /*
+    private void OnCollisionStay2D(Collision2D collision) //emanuele
+    {
+        if (collision.gameObject.CompareTag("Piattaforma"))
+        {
+            player.SetParent(collision.transform);
+        }
+
+    }
+    */
+
+    private void OnCollisionExit2D(Collision2D collision)//emanuele
+    {
+        if (collision.gameObject.CompareTag("Piattaforma"))
+        {
+            player.SetParent(null);
+        }
     }
 
 }
