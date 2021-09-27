@@ -38,9 +38,9 @@ public class BossBehaviour : MonoBehaviour
     //indica di quanto deve ingrandirsi il cappello ogni volta che il boss subisce danni
     [SerializeField]
     private float hatSizeIncreaseRate = 0.1f;
-    //indica quanto lontano farà andare via il giocatore dopo essere stato colpito
+    //riferimento all'Animator del muro invisibile che spazzerà via il giocatore dopo aver subito danni
     [SerializeField]
-    private float afterHitFallback = -5;
+    private Animator invisibleWallAnim = default;
 
 
     // Start is called before the first frame update
@@ -157,13 +157,12 @@ public class BossBehaviour : MonoBehaviour
     /// <summary>
     /// Si occupa di ciò che deve succedere quando il boss viene colpito dal giocatore
     /// </summary>
-    /// <param name="playerRb"></param>
-    public void HitByPlayer(Rigidbody2D playerRb)
+    public void HitByPlayer()
     {
         //il cappello diventa più alto(si allunga cambiando l'asse X per il modo in cui è messo il transform di cui si ha riferimento)
         bossHat.localScale = new Vector2(bossHat.localScale.x + hatSizeIncreaseRate, bossHat.localScale.y/* + hatSizeIncreaseRate*/);
         //spazza via il giocatore
-        playerRb.velocity = new Vector2(afterHitFallback, playerRb.velocity.y);
+        invisibleWallAnim.SetTrigger("Activate");
 
     }
 
@@ -172,7 +171,7 @@ public class BossBehaviour : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.B)) { HitByPlayer(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>()); }
+        if (Input.GetKeyDown(KeyCode.B)) { HitByPlayer(); }
 
     }
 

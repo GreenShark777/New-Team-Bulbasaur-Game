@@ -20,17 +20,17 @@ public class EnemiesWeakPoint : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //se il giocatore ha colliso con il nemico con i suoi piedi, il nemico viene sconfitto
-        if (collision.CompareTag("Player") && collision.GetComponent<GroundCheck>()) { ThisEnemyDefeat(collision); }
+        if (collision.CompareTag("Player") && collision.GetComponent<GroundCheck>()) { ThisEnemyDefeat(); }
 
     }
 
-    private void ThisEnemyDefeat(Collider2D playerCol)
+    private void ThisEnemyDefeat()
     {
         //distrugge il nemico
         //Destroy(thisEnemy);
 
         //se esiste il riferimento al comportamento del boss, lo avvisa di essere stato colpito
-        if (bb) { bb.HitByPlayer(playerCol.GetComponentInParent<Rigidbody2D>()); }
+        if (bb) { bb.HitByPlayer(); }
         //altrimenti, il nemico non è il boss, quindi viene disattivato
         else { thisEnemy.SetActive(false); }
 
