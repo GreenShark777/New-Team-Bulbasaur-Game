@@ -1,4 +1,5 @@
 //Si occupa di gestire le collisioni tra il giocatore e un qualsiasi oggetto
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCollisionManager : MonoBehaviour
@@ -9,17 +10,28 @@ public class PlayerCollisionManager : MonoBehaviour
     private Transform player;
     //riferimento alla bolla di protezione
     private GameObject protectiveBubble;
+    //lista di tutti i collider che non devono collidere con il giocatore
+    [SerializeField]
+    private List<Collider2D> collsToIgnore = default;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //ottiene il riferimento allo script di vita del giocatore dal padre
-        ph = GetComponentInParent<PlayerHealth>();
         //ottiene il riferimento al giocatore
         player = transform.parent;
+        //ottiene il riferimento allo script di vita del giocatore dal giocatore
+        ph = player.GetComponent<PlayerHealth>();
         //ottiene il riferimento alla bolla di protezione
         protectiveBubble = transform.GetChild(0).gameObject;
+        //ottiene il riferimento al collider del giocatore
+        Collider2D playerColl = GetComponent<Collider2D>();
+        //ottiene il riferimento al collider del GroundCheck del giocatore
+        Collider2D GroundCheckColl = player.GetComponentInChildren<GroundCheck>().GetComponent<Collider2D>();
+        //fa in modo che il giocatore non collida con nessuno dei collider nella lista
+        foreach(Collider2D coll in collsToIgnore) { Physics2D.IgnoreCollision(playerColl, coll); }
+        //fa lo stesso anche per il GroundCheck
+        foreach(Collider2D coll in collsToIgnore) { Physics2D.IgnoreCollision(GroundCheckColl, coll); }
 
     }
 
@@ -58,13 +70,15 @@ public class PlayerCollisionManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             //...se la bolla di protezione è attiva, viene distrutta e il giocatore non subisce danno
-            if (!protectiveBubble.activeSelf) { protectiveBubble.SetActive(false); }
+            if (protectiveBubble.activeSelf) { protectiveBubble.SetActive(false); }
             //altrimenti, il giocatore subisce danno
             else { ph.ChangeHp(-1); }
         
         }
         //se si tocca una piattaforma, il giocatore diventa figlio della piattaforma
         if (collision.gameObject.CompareTag("Piattaforma")) { player.SetParent(collision.transform); }
+        //se si è colliso con il power-up della bolla, viene attivata la bolla protettiva del giocatore
+        if (collision.gameObject.GetComponent<PlayerShield>()) { protectiveBubble.SetActive(true); Destroy(collision.gameObject); }
         //Debug.Log(collision.gameObject.tag);
     }
     

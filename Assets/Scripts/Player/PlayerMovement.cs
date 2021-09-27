@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false, //indica se il giocatore sta saltando o meno
         jumpedOnEnemy; //indica se il giocatore ha saltato sopra un nemico, nel qual caso deve ricevere una spinta in su
 
+    //indica che il tasto di salto sta venendo tenuto premuto
+    private bool pressingJumpButton = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -89,17 +92,27 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log("Destra");
         } //altrimenti, non si sta camminando, quindi rimette il giocatore in Idle(se non lo è già)
         else if(playerAnimator.GetBool("Move") && playerAnimator.GetBool("Move")) { playerAnimator.SetBool("Move", false); }
+
+        /*
         //se si vuole saltare, il movimento farà andare il giocatore verso su fino ad un certo range
-        if (Input.GetKey(KeyCode.W) && canJump) { calculatedVelocity = new Vector2(calculatedVelocity.x , Jump()); }
+        if (Input.GetKeyDown(KeyCode.W) && canJump) { calculatedVelocity = new Vector2(calculatedVelocity.x , Jump()); }
         //se non si sta premendo più il tasto di salto dopo aver già saltato...
         if (!Input.GetKey(KeyCode.W) && isJumping && canJump)
         {
-            //...comunica che non si può più saltare, in quanto siè in aria e si sta cadendo
+            //...comunica che non si può più saltare, in quanto si è in aria e si sta cadendo
             canJump = false;
             //Debug.Log("JUMP STOP");
         }
+        */
+        //se viene premuto il tasto di salto, il giocatore salterà fino a quando non lascerà il tasto
+        if (Input.GetKeyDown(KeyCode.W)) { pressingJumpButton = true; /*Debug.Log("PREMUTO");*/ }
+        //se il giocatore sta tenendo premuto il bottone di salto, il giocatore salta
+        if (pressingJumpButton) { calculatedVelocity = new Vector2(calculatedVelocity.x, Jump()); }
+        //se il giocatore lascia il tasto di salto mentre sta saltando, smette di saltare e inizierà a cadere
+        if (Input.GetKeyUp(KeyCode.W) && isJumping) { pressingJumpButton = false; canJump = false; /*Debug.Log("STOP PRESSIONE");*/ }
+
         //se non si può più saltare, il giocatore sarà in aria, quindi...
-        if (!canJump && !playerAnimator.GetBool("IsFalling"))
+        if (!canJump)
         {
             //...fa iniziare l'animazione di caduta
             playerAnimator.SetBool("IsFalling", true);
