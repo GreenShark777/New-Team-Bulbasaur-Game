@@ -38,9 +38,24 @@ public class BossBehaviour : MonoBehaviour
     //indica di quanto deve ingrandirsi il cappello ogni volta che il boss subisce danni
     [SerializeField]
     private float hatSizeIncreaseRate = 0.1f;
+
     //riferimento all'Animator del muro invisibile che spazzerà via il giocatore dopo aver subito danni
+    //[SerializeField]
+    //private Animator invisibleWallAnim = default;
+
+    //indica con quanta forza il giocatore viene spazzato via dopo aver colpito il boss
     [SerializeField]
-    private Animator invisibleWallAnim = default;
+    private float afterHitSweep = -5;
+    //indica per quanto tempo il giocatore non potrà muoversi dopo aver colpito il giocatore
+    [SerializeField]
+    private float pMDisabilitationDuration = 2;
+    //riferimento al giocatore
+    [SerializeField]
+    private GameObject player = null;
+    //riferimento allo script di movimento del giocatore
+    private PlayerMovement pm;
+    //riferimento al Rigidbody2D del giocatore
+    private Rigidbody2D playerRb;
 
 
     // Start is called before the first frame update
@@ -52,8 +67,9 @@ public class BossBehaviour : MonoBehaviour
         cardsContainer = transform.GetChild(1);
         //ottiene il riferimento allo script di tutte le carte del boss
         for (int card = 0; card < cardsContainer.childCount; card++) { bossCards.Add(cardsContainer.GetChild(card).GetComponent<BossCards>()); }
-        //il cappello diventa figlio dell'empty che si occupa di ingrandirlo
-        //bossHat.parent = hatSizeIncreaser;
+        //ottiene i riferimenti ai componenti del giocatore
+        playerRb = player.GetComponent<Rigidbody2D>();
+        pm = player.GetComponent<PlayerMovement>();
         //fa partire la coroutine(ricorsiva) per lanciare le carte
         StartCoroutine(LaunchCards());
 
@@ -162,8 +178,27 @@ public class BossBehaviour : MonoBehaviour
         //il cappello diventa più alto(si allunga cambiando l'asse X per il modo in cui è messo il transform di cui si ha riferimento)
         bossHat.localScale = new Vector2(bossHat.localScale.x + hatSizeIncreaseRate, bossHat.localScale.y/* + hatSizeIncreaseRate*/);
         //spazza via il giocatore
-        invisibleWallAnim.SetTrigger("Activate");
+        //invisibleWallAnim.SetTrigger("Activate");
+        StartCoroutine(SweepPlayerAway());
+    }
 
+    private IEnumerator SweepPlayerAway()
+    {
+        //il giocatore non potrà muoversi(questo serve per poter spingere il giocatore senza che la velocity venga sovrascritta)
+        pm.enabled = false;
+        //spinge il giocatore via dal boss
+        playerRb.velocity = new Vector2(afterHitSweep, playerRb.velocity.y);
+        //aspetta che il giocatore sia abbastanza lontano dal boss
+        yield return new WaitForSeconds(pMDisabilitationDuration);
+        //dopodichè, il giocatore potrà muoversi di nuovo
+        pm.enabled = true;
+
+    }
+
+    public void Defeat()
+    {
+
+        Debug.Log("Boss sconfitto");
     }
 
     //DEBUG------------------------------------------------------------------------------------------------------------------------------------------------

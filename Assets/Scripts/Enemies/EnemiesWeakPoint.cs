@@ -8,12 +8,20 @@ public class EnemiesWeakPoint : MonoBehaviour
     private GameObject thisEnemy = default;
     //riferimento allo script di comportamento del boss
     private BossBehaviour bb;
+    //indica quanta vita ha questo nemico
+    [SerializeField]
+    private int enemyHealth = 1;
 
 
     private void Start()
     {
         //ottiene il riferimento al comportamento del boss(se questo nemico è il boss)
         bb = thisEnemy.GetComponent<BossBehaviour>();
+
+
+        //DEBUG-------------------------------------------------------------------------------------------------------------------------------
+
+        if (enemyHealth <= 0) { Debug.LogError(thisEnemy + " ha 0 o meno di vita ad inizio partita!"); }
 
     }
 
@@ -29,12 +37,19 @@ public class EnemiesWeakPoint : MonoBehaviour
         //distrugge il nemico
         //Destroy(thisEnemy);
 
-        //se esiste il riferimento al comportamento del boss, lo avvisa di essere stato colpito
-        if (bb) { bb.HitByPlayer(); }
-        //altrimenti, il nemico non è il boss, quindi viene disattivato
-        else { thisEnemy.SetActive(false); }
+        //questo nemico perde 1 di vita
+        enemyHealth -= 1;
+        //se questo nemico finisce la vita...
+        if (enemyHealth <= 0)
+        {
+            //se esiste il riferimento al comportamento del boss, lo avvisa di essere stato sconfitto
+            if (bb) { bb.Defeat(); }
+            //altrimenti, il nemico non è il boss, quindi viene disattivato
+            else { thisEnemy.SetActive(false); }
+            Debug.Log(thisEnemy.name + " sconfitto!");
+        } //altrimenti, se esiste il riferimento al comportamento del boss, lo avvisa di essere stato colpito ma non sconfitto
+        else if (bb) { bb.HitByPlayer(); }
 
-        Debug.Log(thisEnemy.name + " sconfitto!");
     }
 
 }
