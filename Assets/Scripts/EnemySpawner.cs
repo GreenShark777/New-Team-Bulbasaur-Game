@@ -23,6 +23,7 @@ public class Wave //custom class
 
     public int targetKill; //* quanti nemici devo uccidere per passare di livello e alla next ondata
 
+
 }
 
 
@@ -40,6 +41,8 @@ public class EnemySpawner : MonoBehaviour
     private float searchCoundown = 1; //per la ricerca dei nemici nella scena (in modo da evitare di cercare ad ogni refresh nell'update, cerchiamo invece ad ogni secondo)
 
     private SpawnState state = SpawnState.Counting; //state è iniz. a counting (parte il countdown per lo spawn delle wave)
+
+    [SerializeField] EnvironmentManager environmentManager; ///////////////////////
 
     private void Start()
     {
@@ -93,6 +96,8 @@ public class EnemySpawner : MonoBehaviour
 
             }
 
+            
+
             //operazioni sul countdown
 
             if (countDowns <= 0) //se è arrivato il momento di spawnrare una wave...
@@ -108,6 +113,11 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
+        if (environmentManager.isBoss)//////////////////////////////
+        {
+            KillAllEnemis();
+            Destroy(this);
+        }
 
         Debug.Log("nemici a schermo" + currentNemiciSchermo);
 

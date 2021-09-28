@@ -121,13 +121,15 @@ public class EnvironmentManager : MonoBehaviour
                 StartCoroutine(siparioCo(livello_1_Prefab, livello_2_Prefab));
 
                 canLoadLevel3 = true;
+                isBoss = true;////
 
                 break;
 
             case Environment.Livello_3:
 
-               // nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
+                // nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
 
+                isBoss = false;////
                 canLoadLevel3 = false;
 
                 currenLevel = livello_2_Prefab;
@@ -204,6 +206,7 @@ public class EnvironmentManager : MonoBehaviour
     }
 
 
+    public bool isBoss=false; ///
 
     // Update is called once per frame
     void Update()
@@ -236,10 +239,19 @@ public class EnvironmentManager : MonoBehaviour
             SwitchEnvironment(Environment.Livello_2);
         }
 
+        /*
         if (nemiciUccisi >= enemySpawner.waves[2].targetKill && canLoadLevel3)
         {
             SwitchEnvironment(Environment.Livello_3);
         }
+        */
+
+        if (isBoss && canLoadLevel3)
+        {
+            SwitchEnvironment(Environment.Livello_3);
+        }
+
+
 
     }
 }

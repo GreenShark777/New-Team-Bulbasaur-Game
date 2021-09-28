@@ -2,52 +2,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LivelloDue : MonoBehaviour
+public class LivelloBoss : MonoBehaviour
 {
-    public ParticleSystem psRain;
     public GameObject piattaforma1, piattaforma2;
     Vector2 p1StartPos, p2StartPos;
     public Vector2 p1TargetPos, p2TargetPos;
 
     public Vector2 p1StartRot;
 
-    public GameObject albero;
-    public Vector2 alberoStartPos;
-    public Vector2 alberoStartRot;
-    public Vector2 alberoTargetRot = new Vector2(0, 0);
+    public GameObject genitori;
+    public Vector2 genitoriStartPos;
+    public Vector2 genitoriEndPos;
+
+    [SerializeField] GameObject casetta;
+    public Vector2 casettaStartPos;
+    public Vector2 casettaEndPos;
 
     [SerializeField] GameObject lunaSole;
-    Vector2 lunaSoleStartPos;
+    public Vector2 lunaSoleStartPos;
     public Vector2 lunaSoleTargetPos;
+
+    [SerializeField]GameObject luce1;
+    [SerializeField] GameObject luce2;
 
     public GameObject[] backgrounds;
 
+    public GameObject followPlayer;
 
-    [SerializeField] float tempoAttivazioneAlbero = 3f;
+    bool isStarted = false;
 
-    public IEnumerator AttivazioneAlbero()
+
+    [SerializeField] float tempoAttivazioneGenitori = 3f;
+    [SerializeField] float tempoAttivazioneLuna = 3.5f;
+    [SerializeField] float tempoAttivazioneLuci = 6;
+
+
+    public IEnumerator AttivazioneGenitori()
     {
-        yield return new WaitForSeconds(tempoAttivazioneAlbero);
+        yield return new WaitForSeconds(tempoAttivazioneGenitori);
 
         float elapsedTime = 0f;
-        float waitTime = 3.5f;
+        float waitTime = 1f;
 
         while (elapsedTime < waitTime)
         {
             elapsedTime += Time.deltaTime;
 
-            albero.transform.rotation = Quaternion.Lerp(albero.transform.rotation, Quaternion.AngleAxis(alberoTargetRot.x, Vector2.right), elapsedTime / waitTime * .5f);
+            genitori.transform.localPosition = Vector2.Lerp(genitoriStartPos, genitoriEndPos, elapsedTime / waitTime);
 
             yield return null;
 
         }
+
+        genitori.transform.localPosition = genitoriEndPos;
+
+       yield return null;
+    }
+
+    public IEnumerator AttivazioneCasetta()
+    {
+        yield return new WaitForSeconds(1f);
+
+        float elapsedTime = 0f;
+        float waitTime = 2f;
+
+        while (elapsedTime < waitTime)
+        {
+            elapsedTime += Time.deltaTime;
+
+            casetta.transform.localPosition = Vector2.Lerp(casettaStartPos, casettaEndPos, elapsedTime / waitTime*2);
+ 
+            yield return null;
+
+        }
+
+        casetta.transform.localPosition = casettaEndPos;
 
         yield return null;
     }
 
     public IEnumerator AttivazioneLuna()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(tempoAttivazioneLuna);
 
         float elapsedTime = 0f;
         float waitTime = 1f;
@@ -89,34 +125,18 @@ public class LivelloDue : MonoBehaviour
         yield return null;
     }
 
-    public GameObject[] alberiSfondo;
- 
-
-    public IEnumerator AttivazioneAlberi()
+    
+    IEnumerator AttivazioneLuci()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(tempoAttivazioneLuci);
+        luce1.SetActive(true);
 
-        float elapsedTime = 0f;
-        float waitTime = 1.5f;
-
-        while (elapsedTime < waitTime)
-        {
-            elapsedTime += Time.deltaTime;
-            float randomDelay = Random.Range(0.0f, 1.0f); //per diversificare le velocità di comparsa dei background
-
-            foreach (GameObject albero in alberiSfondo)
-            { 
-                //non so perchè funziona ma funziona. i valori su y nel lerp sono insensatamente piccoli, boh. e sto muovendo un parent...
-                albero.transform.position = new Vector2 (albero.transform.position.x, Mathf.Lerp(albero.transform.position.y, albero.transform.position.y +0.1f, elapsedTime / waitTime * randomDelay));
-            }
-         
-            yield return null;
-
-        }
+        yield return new WaitForSeconds(0.3f);
+        luce2.SetActive(true);
 
         yield return null;
-    }
 
+    }
 
     private void Awake()
     {
@@ -124,41 +144,45 @@ public class LivelloDue : MonoBehaviour
 
         p2StartPos = piattaforma2.transform.position;
 
+        luce1.SetActive(false);
+        luce2.SetActive(false);
+
+        //lunaSoleStartPos = lunaSole.transform.localPosition;
+
+        genitori.SetActive(false);
+        casetta.SetActive(false);
         piattaforma1.SetActive(false);
         piattaforma2.SetActive(false);
 
-        lunaSoleStartPos = lunaSole.transform.localPosition;
+
     }
 
     private void OnEnable()
     {
-
+ 
     }
 
-    void InitLivello_2()
+    void InitLivello_Boss()
     {
         AttivazioneBackground(backgrounds);
 
-        psRain.Play();
-
         piattaforma1.SetActive(true);
         piattaforma2.SetActive(true);
+        casetta.SetActive(true);
+        genitori.SetActive(true);
 
-        alberoStartPos = albero.transform.position;
-        alberoStartRot = albero.transform.rotation.eulerAngles;
-
-        StartCoroutine(AttivazioneAlbero());
-        StartCoroutine(AttivazioneAlberi());
+        StartCoroutine(AttivazioneGenitori());
+        StartCoroutine(AttivazioneCasetta());
         StartCoroutine(AttivazioneNuvole());
         StartCoroutine(AttivazioneLuna());
+        StartCoroutine(AttivazioneLuci());
         StartCoroutine(timer());
 
     }
 
     void Start()
     {
-
-        InitLivello_2();
+       InitLivello_Boss();
     }
 
 
@@ -237,9 +261,7 @@ public class LivelloDue : MonoBehaviour
     }
     */
 
-    public GameObject followPlayer;
-
-    bool isStarted = false;
+   
     void AttivazioneBackground(GameObject[] _backgrounds)
     {
 
@@ -250,13 +272,15 @@ public class LivelloDue : MonoBehaviour
 
     }
 
+    //muoviamo/ruotiamo i background quando il livello viene caricato
     IEnumerator PrimoMovimentoBackgrounds(GameObject go)
     {
+        float randomDelay = Random.Range(1.0f, 3.0f); //per diversificare le velocità di comparsa dei background
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
-        Vector2 startPos = go.transform.localPosition;
-        Vector2 endPos = new Vector2(0, startPos.y);
+        Quaternion startRot = Quaternion.Euler(90, 0, 0);
+        Quaternion endRot = Quaternion.Euler(0, 0, 0);
 
         float elapsedTime = 0f;
         float waitTime = 1f;
@@ -265,21 +289,24 @@ public class LivelloDue : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            go.transform.localPosition = Vector2.Lerp(startPos, endPos, elapsedTime / waitTime);
+            go.transform.rotation = Quaternion.Lerp(startRot, endRot, elapsedTime / waitTime * randomDelay);
+
+            Debug.Log("POPOPO " + go.name + transform.position);
 
             yield return null;
         }
 
-        go.transform.localPosition = endPos;
+        go.transform.rotation = endRot;
 
         yield return null;
     }
 
+    //non voglio che i background seguano l'inverso del mov del player (finta parallasse) nel momento stesso in cui compaiono in scena
     IEnumerator timer()
     {
         yield return null;
         float elapsedTime = 0f;
-        float waitTime = 6f;
+        float waitTime = 4f;
 
         while (elapsedTime < waitTime)
         {
@@ -291,17 +318,16 @@ public class LivelloDue : MonoBehaviour
     }
 
     void MoveBackground(GameObject go, float _velocity)
-    {
+    {    
         //nota: nella scena la ref player è un empty che segue via script il player(non uso direttamente il player per evitare conflitti quando questo è imparentato a una piattaforma)
         go.transform.position = new Vector3(-followPlayer.transform.position.x * _velocity, go.transform.position.y, go.transform.position.z);
     }
 
-    //float velocityPlayer;
 
-    void LateUpdate()
-    {
-
-        if (isStarted) 
+     void LateUpdate() //mi sembra funzionare meglio rispetto a update
+     {
+        
+        if (isStarted)
         {
             if (backgrounds[0] != null)
             {
@@ -313,10 +339,15 @@ public class LivelloDue : MonoBehaviour
                 MoveBackground(backgrounds[1], 0.1f);
             }
 
-          
+            if (backgrounds[2] != null)
+            {
+                MoveBackground(backgrounds[2], 0.05f);
+            }
         }
 
 
 
     }
+
+
 }
