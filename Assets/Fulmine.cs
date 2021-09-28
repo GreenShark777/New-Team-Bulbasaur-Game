@@ -6,6 +6,7 @@ public class Fulmine : MonoBehaviour
 {
     Vector3 dir; //direzione fulmine
     [SerializeField] GameObject player; //target da seguire
+    [SerializeField] PlayerHealth ph;
 
     public float tempoPercorso; //in quanto tempo raggiunge il target
     Vector2 endFulminePos; //posizione finale del fulmine
@@ -15,6 +16,28 @@ public class Fulmine : MonoBehaviour
     Vector2 respawnScale; // x rimpicciolimento nel momento del respawn
 
     bool gira = true; //per far seguire gli spostamenti del player, ma solo quando non è ancora lanciato verso di lui
+    bool canHit = false; //voglio che hitti il player solo quando è in fase di lancio
+
+    bool doubleHitCheck=true;//evitare collisioni multiple
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player") && canHit )
+        {
+            if( doubleHitCheck==true)
+            StartCoroutine(timerHit()); //rendo false la bool doublehitcheck per 1.5f evitare collisioni multiple
+           
+        }
+    }
+
+    IEnumerator timerHit()
+    {
+        ph.ChangeHp(-1);
+        doubleHitCheck = false;
+        yield return new WaitForSeconds(1.5f);
+        doubleHitCheck = true;
+        yield return null;
+    }
 
     private void Start()
     {
@@ -36,6 +59,7 @@ public class Fulmine : MonoBehaviour
 
         while (elapsedTime < tempoPercorso)
         {
+            canHit = true;
             elapsedTime += Time.deltaTime;
 
             //il fulmine va verso il player
@@ -56,6 +80,7 @@ public class Fulmine : MonoBehaviour
 
     IEnumerator Reset()
     {
+        canHit = false;
         transform.position = fulmineStartPos; //riposizioniamo il fulmine dove si trovava all inizio
         transform.localScale = respawnScale; //lo rimpiccioliamo
         float elapsedTime = 0;

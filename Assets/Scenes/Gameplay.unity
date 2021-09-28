@@ -10154,6 +10154,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8076397045687220614, guid: 629beca133c684b40a23baf0507c4af0, type: 3}
   m_PrefabInstance: {fileID: 3475513591116776100}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &706351965 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4566990463057320795, guid: 629beca133c684b40a23baf0507c4af0, type: 3}
+  m_PrefabInstance: {fileID: 3475513591116776100}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706351964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aaa4e7ceea75754fbee78895f135324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!210 &706351969
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -35894,6 +35905,10 @@ PrefabInstance:
       value: piattaforma_FULMINE
       objectReference: {fileID: 0}
     - target: {fileID: 5663417577605941836, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
+      propertyPath: ph
+      value: 
+      objectReference: {fileID: 706351965}
+    - target: {fileID: 5663417577605941836, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 706351964}
@@ -35981,27 +35996,11 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!1 &6059164932301075072 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1913741911252204981, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
-  m_PrefabInstance: {fileID: 5663417577250606901}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6059164932301075073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1913741911252204980, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
   m_PrefabInstance: {fileID: 5663417577250606901}
   m_PrefabAsset: {fileID: 0}
---- !u!210 &6059164932301075074
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6059164932301075072}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -1
 --- !u!1001 &6059164932511904150
 PrefabInstance:
   m_ObjectHideFlags: 0
