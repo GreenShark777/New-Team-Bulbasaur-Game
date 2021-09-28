@@ -20,8 +20,8 @@ public class EnemiesCollisionManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //se il nemico collide con un muro, si volta e continua a camminare verso la direzione opposta
-        if (/*collision.gameObject.CompareTag("Wall")*/!collision.collider.isTrigger) { ChangeThisEnemyDirection(); }
+        //se il nemico collide con un oggetto fisico(che non è il terreno), si volta e continua a camminare verso la direzione opposta
+        if (!collision.gameObject.CompareTag("Terreno") && !collision.collider.isTrigger) { ChangeThisEnemyDirection(); }
         //se il nemico collide con il giocatore, il nemico starà fermo per un po'(permettendo al giocatore di scappare)
         if (collision.gameObject.CompareTag("Player")) { CollidedWithPlayer(); }
 
