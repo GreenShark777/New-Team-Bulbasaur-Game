@@ -5,7 +5,7 @@ using UnityEngine;
 public class CassaItem : MonoBehaviour
 {
 
-    [SerializeField] GameObject cassaAperta; //disattivo questo gameobj e attivo cassachiusa
+    [SerializeField] GameObject cassaChiusa; //disattivo questo gameobj e attivo cassachiusa
     [SerializeField] ParticleSystem ps;
 
     public  GameObject[] itemdDroppabili; //coin o cuore
@@ -19,7 +19,7 @@ public class CassaItem : MonoBehaviour
         {
 
            // isClose = false;
-            cassaAperta.SetActive(false); //disattivo l oggetto cassa aperta
+            cassaChiusa.SetActive(false); //disattivo l oggetto cassa aperta
             ItemDrop(); //droppo un item
             StartCoroutine(Particellare()); //inizia il particellare
         }
@@ -107,7 +107,7 @@ public class CassaItem : MonoBehaviour
 
     private void Awake()
     {
-        cassaAperta.SetActive(true);
+        cassaChiusa.SetActive(true);
 
         foreach (GameObject item in itemdDroppabili) //mi assicuro che gli item cuore e coin siano disattivati prima del detect della collisione col player
         {

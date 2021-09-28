@@ -7,6 +7,13 @@ public class EnemiesWeakPoint : MonoBehaviour
     [SerializeField]
     private GameObject thisEnemy = default;
 
+    EnemySpawner enemySpawner; //mi serve questa ref per poter contare i nemici vivi a schermo
+    [SerializeField] GameObject deathFx;
+
+    private void Awake()
+    {
+        enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,9 +30,28 @@ public class EnemiesWeakPoint : MonoBehaviour
         //disattiva il nemico
         thisEnemy.SetActive(false);
 
+
+
+        EnvironmentManager.instance.nemiciUccisi++; //importante, altrimenti non possiamo passare ai livelli successivi
         GameManag.score += 10; //incrementiamo di 10 punti lo score
+
+        //quando un nemico viene ucciso, sottraggo un' unita a questa variabile
+        // (nello spawner, quando si raggiunge un cap di possibili nemici a schermo, 
+        //non ne vengano generati altri fino a quando currenNemiciSchermo non è inferiore a questo cap)
+        enemySpawner.currentNemiciSchermo--;
+        DeathFx();
 
         Debug.Log(thisEnemy.name + " sconfitto!");
     }
+
+    void DeathFx()
+    {
+        if (deathFx != null)
+        {
+            GameObject effect = (GameObject)Instantiate(deathFx, transform.position, Quaternion.identity);
+            Destroy(effect, 1f);
+        }
+    }
+
 
 }

@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisEnemy: {fileID: 2703446819961787814}
+  deathFx: {fileID: 1650204092612176062, guid: 461b2be7dfdfc8449ac303e13d969e24, type: 3}
 --- !u!1001 &6969694186712646853
 PrefabInstance:
   m_ObjectHideFlags: 0

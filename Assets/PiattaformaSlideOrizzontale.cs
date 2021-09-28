@@ -11,10 +11,7 @@ public class PiattaformaSlideOrizzontale : MonoBehaviour
     public float movimentoX = 4.5f;
     public float tempoPercorso=4;
 
-    private void OnBecameInvisible()
-    {
-        pedana.SetActive(false);
-    }
+    
 
     IEnumerator Slide()
     {
