@@ -39,7 +39,7 @@ public class EnemiesCollisionManager : MonoBehaviour
     private void ChangeThisEnemyDirection()
     {
         //la direzione e il comportamento di questo nemico cambia, in base al tipo di nemico che è
-        if (pigB) { pigB.ChangeFacingDirection(); } //MAIALE
+        if (pigB) { pigB.ChangeFacingDirection(true); } //MAIALE
         else if (puppetB) { puppetB.ChangeFacingDirection(); } //MARIONETTA
 
     }

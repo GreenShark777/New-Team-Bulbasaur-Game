@@ -61,8 +61,8 @@ public class MaialeBehaviour : MonoBehaviour
             }
             
         }
-        //cambia la direzione in cui il maiale va
-        ChangeFacingDirection();
+        //cambia lo sprite in cui il maiale guarda
+        ChangeFacingDirection(false);
 
         //DEBUG----------------------------------------------------------------------------------------------------------------------------------------
         if (Mathf.Abs(walkSpeed) > Mathf.Abs(chargeSpeed))
@@ -128,18 +128,23 @@ public class MaialeBehaviour : MonoBehaviour
 
     }
 
-    public void ChangeFacingDirection()
+    public void ChangeFacingDirection(bool changeWalkDirection)
     {
-        //cambia le direzioni di movimento del nemico
-        walkSpeed = -walkSpeed;
-        chargeSpeed = -chargeSpeed;
+        //se richiesto...
+        if (changeWalkDirection)
+        {
+            //...cambia le direzioni di movimento del nemico...
+            walkSpeed = -walkSpeed;
+            chargeSpeed = -chargeSpeed;
+            //...e cambia la direzione in cui il nemico vede il giocatore
+            playerCheckDistance = -playerCheckDistance;
+
+        }
         //se il nemico sta caricando, aggiorna la direzione in cui deve caricare
         if (isCharging) { pigRb.velocity = new Vector2(chargeSpeed, pigRb.velocity.y); }
         //cambia la direzione in cui il nemico sta guardando
         if (walkSpeed > 0) { pigSprite.rotation = new Quaternion(pigSprite.rotation.x, 0, pigSprite.rotation.z, pigSprite.rotation.w); }
         else { pigSprite.rotation = new Quaternion(pigSprite.rotation.x, 180, pigSprite.rotation.z, pigSprite.rotation.w); }
-        //cambia la direzione in cui il nemico vede il giocatore
-        playerCheckDistance = -playerCheckDistance;
         //Debug.Log("CAMBIO DIREZIONE: " + pigSprite.rotation.y);
     }
 
