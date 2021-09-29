@@ -83,6 +83,8 @@ public class EnvironmentManager : MonoBehaviour
 
             case Environment.Livello_1:
 
+                enemySpawner.KillAllEnemis();
+
                 canLoadLevel2 = true;
                 canLoadLevel1 = false;
 
@@ -97,11 +99,11 @@ public class EnvironmentManager : MonoBehaviour
 
                 StartCoroutine(siparioCo(livello_0_Prefab, livello_1_Prefab));
 
-
-
                 break;
 
             case Environment.Livello_2:
+
+                enemySpawner.KillAllEnemis();
 
                 canLoadLevel3 = true;
                 canLoadLevel2 = false;
@@ -126,6 +128,8 @@ public class EnvironmentManager : MonoBehaviour
                 break;
 
             case Environment.Livello_3:
+
+                enemySpawner.KillAllEnemis();
 
                 canLoadLevel3 = false;
                 isBoss = true;
