@@ -37,11 +37,16 @@ public class MaialeBehaviour : MonoBehaviour
     private float hitPlayerTimer = 3;
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         //ottiene il riferimento allo sprite del nemico maiale
         pigSprite = transform.GetChild(0);
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         //ottiene il riferimento all'Animator del nemico maiale
         pigAnim = pigSprite.GetComponent<Animator>();
         //ottiene il riferimento al Rigidbody2D del nemico
@@ -61,7 +66,7 @@ public class MaialeBehaviour : MonoBehaviour
             }
             
         }
-        //cambia lo sprite in cui il maiale guarda
+        //volta lo sprite verso la direzione in cui il maiale cammina
         ChangeFacingDirection(false);
 
         //DEBUG----------------------------------------------------------------------------------------------------------------------------------------
