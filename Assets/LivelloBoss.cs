@@ -291,7 +291,7 @@ public class LivelloBoss : MonoBehaviour
 
             go.transform.rotation = Quaternion.Lerp(startRot, endRot, elapsedTime / waitTime * randomDelay);
 
-            Debug.Log("POPOPO " + go.name + transform.position);
+            //Debug.Log("POPOPO " + go.name + transform.position);
 
             yield return null;
         }

@@ -219,9 +219,9 @@ public class EnvironmentManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("canLoadLevel1 " + canLoadLevel1);
+        //Debug.Log("canLoadLevel1 " + canLoadLevel1);
 
-        Debug.Log("nemiciuccisi" + nemiciUccisi);
+        //Debug.Log("nemiciuccisi" + nemiciUccisi);
 
         if (Input.GetKeyDown(KeyCode.R)) //a scopo di test
         {
@@ -245,7 +245,6 @@ public class EnvironmentManager : MonoBehaviour
 
         if (nemiciUccisi >= enemySpawner.waves[1].targetKill && canLoadLevel2)
         {
-            Debug.Log("ROTTOINCULO");
             SwitchEnvironment(Environment.Livello_2);
         }
 
