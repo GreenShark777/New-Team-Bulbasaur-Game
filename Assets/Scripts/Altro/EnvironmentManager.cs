@@ -194,6 +194,8 @@ public class EnvironmentManager : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
+        SceneChange.StaticGoToScene("MainMenu");
+
     }
 
     //passiamo come argomenti della coroutine i due prefab, il primo da disattivare il secondo da attivare
