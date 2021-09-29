@@ -234,7 +234,7 @@ public class LevelloZero : MonoBehaviour
         
         yield return new WaitForSeconds(2f);
 
-        Debug.Log("nome " + go.name);
+        //Debug.Log("nome " + go.name);
 
         Vector2 startPos = go.transform.localPosition;
         Vector2 endPos = new Vector2(0, startPos.y);

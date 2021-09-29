@@ -90,7 +90,7 @@ public class Sound
 
         }
 
-        Debug.Log("clipname " + source.clip.name);
+        //Debug.Log("clipname " + source.clip.name);
 
         yield return null;
 
@@ -182,9 +182,9 @@ public class AudioManager : MonoBehaviour
     public void SwapMusicLevel(int currentMusica, int targetMusica)
     {
 
-        Debug.Log("musica cur" + musiche[currentMusica]);
+        //Debug.Log("musica cur" + musiche[currentMusica]);
 
-        Debug.Log("musica tar" + musiche[targetMusica]);
+        //Debug.Log("musica tar" + musiche[targetMusica]);
 
         AbbassaVolume(musiche[currentMusica]);
         //StopSound(musiche[currentMusica]);

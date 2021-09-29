@@ -193,8 +193,6 @@ public class LivelloUno : MonoBehaviour
 
            // Move(porco);
 
-            Debug.Log("CHISTU" + porco.name);
-
         }
     }
 

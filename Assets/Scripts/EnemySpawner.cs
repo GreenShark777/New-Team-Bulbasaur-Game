@@ -117,7 +117,7 @@ public class EnemySpawner : MonoBehaviour
             Destroy(this);
         }
 
-        Debug.Log("nemici a schermo" + currentNemiciSchermo);
+        //Debug.Log("nemici a schermo" + currentNemiciSchermo);
 
 
     }
@@ -190,7 +190,6 @@ public class EnemySpawner : MonoBehaviour
         while(EnvironmentManager.instance.nemiciUccisi  < wave.targetKill) //currentUccisioniTarget
         {
             bool ma = EnvironmentManager.instance.nemiciUccisi < wave.targetKill;
-            Debug.Log("SCAFISTA " + ma);
 
             if (currentNemiciSchermo < maxNemiciSchermo) 
             {
@@ -206,7 +205,6 @@ public class EnemySpawner : MonoBehaviour
 
             else if(currentNemiciSchermo > maxNemiciSchermo)
             {
-                Debug.Log("PROVA");
 
                 StartCoroutine(SpawnWave(wave));
                
@@ -218,8 +216,6 @@ public class EnemySpawner : MonoBehaviour
             yield return null;
 
         }
-
-        Debug.Log("BECCACCIO");
 
         state = SpawnState.Wait; //adesso state è = a stato di attesa
 
