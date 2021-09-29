@@ -101,6 +101,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 if (state != SpawnState.Spawn) //se il curren state non è già spawning
                 {
+
                     StartCoroutine(SpawnWave(waves[nextWave])); //spawna la prossima ondata
                 }
             }
@@ -192,7 +193,7 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log("SCAFISTA " + ma);
 
             if (currentNemiciSchermo < maxNemiciSchermo) 
-            { 
+            {
 
             SpawnEnemy(_wave.enemy); //enemy è membro della classe wave  
 
