@@ -22,6 +22,7 @@ public class CassaItem : MonoBehaviour
             cassaChiusa.SetActive(false); //disattivo l oggetto cassa aperta
             ItemDrop(); //droppo un item
             StartCoroutine(Particellare()); //inizia il particellare
+            Destroy(this.gameObject, 1.2f);//
         }
     }
 

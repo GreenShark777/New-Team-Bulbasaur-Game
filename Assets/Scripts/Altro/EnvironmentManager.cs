@@ -76,14 +76,14 @@ public class EnvironmentManager : MonoBehaviour
 
                 livello_0_Prefab.SetActive(true);
 
-                canLoadLevel0 = true;
+                //canLoadLevel0 = true;
                 canLoadLevel1 = true;
 
                 break;
 
             case Environment.Livello_1:
 
-                //nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
+                canLoadLevel2 = true;
                 canLoadLevel1 = false;
 
                 currenLevel = livello_0_Prefab; 
@@ -97,13 +97,13 @@ public class EnvironmentManager : MonoBehaviour
 
                 StartCoroutine(siparioCo(livello_0_Prefab, livello_1_Prefab));
 
-                canLoadLevel2 = true;
+                
 
                 break;
 
             case Environment.Livello_2:
 
-                //nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
+                canLoadLevel3 = true;
                 canLoadLevel2 = false;
 
                 currenLevel = livello_1_Prefab;
@@ -120,17 +120,19 @@ public class EnvironmentManager : MonoBehaviour
 
                 StartCoroutine(siparioCo(livello_1_Prefab, livello_2_Prefab));
 
-                canLoadLevel3 = true;
-                isBoss = true;////
+                
+               // isBoss = true;////
 
                 break;
 
             case Environment.Livello_3:
-
-                // nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
-
-                isBoss = false;////
+               
                 canLoadLevel3 = false;
+                isBoss = true;
+
+                //canLoadLevel2 = false;
+                //isBoss = false;////
+                //canLoadLevel3 = false;
 
                 currenLevel = livello_2_Prefab;
                 nextlevel = livello_3_Prefab;
@@ -146,7 +148,7 @@ public class EnvironmentManager : MonoBehaviour
 
                 StartCoroutine(siparioCo(livello_2_Prefab, livello_3_Prefab));
 
-               // canLoadLevel3 = true;
+                
 
                 break;
 
@@ -227,30 +229,32 @@ public class EnvironmentManager : MonoBehaviour
 
         }
 
+
+
         if (nemiciUccisi >= enemySpawner.waves[0].targetKill && canLoadLevel1) //nemiciUccisi >= 3 && canLoadLevel1
         {
-            bool pippo = nemiciUccisi < enemySpawner.waves[0].targetKill;
-            Debug.Log("enemywave " + enemySpawner.waves[0].targetKill);
-            Debug.Log("nemi ucc min di targetkill di 0 " + pippo);
+          
             SwitchEnvironment(Environment.Livello_1);
         }
+
         if (nemiciUccisi >= enemySpawner.waves[1].targetKill && canLoadLevel2)
         {
+            Debug.Log("ROTTOINCULO");
             SwitchEnvironment(Environment.Livello_2);
         }
 
-        /*
+       
         if (nemiciUccisi >= enemySpawner.waves[2].targetKill && canLoadLevel3)
         {
             SwitchEnvironment(Environment.Livello_3);
         }
-        */
-
-        if (isBoss && canLoadLevel3)
+      
+        /*
+        if (isBoss)
         {
             SwitchEnvironment(Environment.Livello_3);
         }
-
+        */
 
 
     }

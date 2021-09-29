@@ -102,8 +102,7 @@ public class LevelloZero : MonoBehaviour
 
     private void OnEnable()
     {
-        //StartCoroutine(AttivazionePiattaforme());
-       // InitLivello1();
+
     }
 
     void InitLivello_0()

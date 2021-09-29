@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sipario : MonoBehaviour
 {
-  public   Animator anim;
+    public Animator anim;
 
     public void ChiudiSipario()
     {

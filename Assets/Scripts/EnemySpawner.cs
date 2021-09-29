@@ -44,6 +44,8 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] EnvironmentManager environmentManager; ///////////////////////
 
+    [SerializeField] GameObject deathFx;
+
     private void Start()
     {
         countDowns = delay;
@@ -83,6 +85,16 @@ public class EnemySpawner : MonoBehaviour
 
                 if (EnvironmentManager.instance.canLoadLevel2) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
                 {
+                    Debug.Log("supermerda");
+                    KillAllEnemis();
+                    WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
+
+                    return;
+                }
+
+                if (EnvironmentManager.instance.canLoadLevel3) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
+                {
+                    Debug.Log("merda");
                     KillAllEnemis();
                     WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
 
@@ -113,6 +125,7 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
+
         if (environmentManager.isBoss)//////////////////////////////
         {
             KillAllEnemis();
@@ -129,6 +142,16 @@ public class EnemySpawner : MonoBehaviour
         foreach (GameObject _go in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             Destroy(_go);
+            DeathFx();
+        }
+    }
+
+    void DeathFx()
+    {
+        if (deathFx != null)
+        {
+            GameObject effect = (GameObject)Instantiate(deathFx, transform.position, Quaternion.identity);
+            Destroy(effect, 1f);
         }
     }
 

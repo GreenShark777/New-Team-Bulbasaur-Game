@@ -1,4 +1,5 @@
 //Si occupa della gestione degli hp del giocatore e di ciò che succede quando subisce danno
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -37,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
     public void ChangeHp(int value)
     {
         //se si sta prendendo danno, viene attivata l'animazione di danno del giocatore
-        if (value < 0) { playerAnimator.SetTrigger("Hit"); }
+        if (value < 0) { playerAnimator.SetTrigger("Hit");}
         //altrimenti, si sta recuperando vita, quindi...
         else {/*ATTIVARE PARTICELLARE O ALTRO*/ }
         //gli Hp vengono cambiati aggiungendo il valore ottenuto
@@ -59,6 +60,37 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<PlayerMovement>().enabled = false;
         //attiva la schermata di Game Over
         gameOverScreen.SetActive(true);
+
+    }
+
+    SpriteRenderer[] tutteleSprite;//
+    GameObject[] tuttiFigli;//
+
+    IEnumerator FadeAlphaToZero()
+    {
+        SpriteRenderer[] allChildren = GetComponentsInChildren<SpriteRenderer>();
+
+        foreach (SpriteRenderer sr in allChildren)
+        {
+            Color startColor = sr.color;
+            Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0);
+
+            yield return new WaitForSeconds(0.1f);
+            sr.color = endColor;
+
+            yield return new WaitForSeconds(0.1f);
+            sr.color = startColor;
+
+            yield return new WaitForSeconds(0.1f);
+            sr.color = endColor;
+
+            yield return new WaitForSeconds(0.1f);
+            sr.color = startColor;
+
+            yield return null;
+        }
+
+        
 
     }
 

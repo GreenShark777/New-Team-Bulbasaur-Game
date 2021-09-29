@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LivelloUno : MonoBehaviour
 {
+    public GameObject[] backgrounds;
+    [SerializeField] GameObject followPlayer;
     public GameObject piattaforma1, piattaforma2;
     Vector2 p1StartPos, p2StartPos;
     public Vector2 p1TargetPos, p2TargetPos;
@@ -28,7 +30,7 @@ public class LivelloUno : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator AttivazioneAlbero()
+    public IEnumerator AttivazioneCactus()
     {
         yield return new WaitForSeconds(0.5f);
 
@@ -95,6 +97,9 @@ public class LivelloUno : MonoBehaviour
         //    p1StartRot =  piattaforma1.transform.rotation.eulerAngles;
         p2StartPos = piattaforma2.transform.position;
 
+        cactusStartPos = cactus.transform.position;
+        cactusStartRot = cactus.transform.rotation.eulerAngles;
+
         piattaforma1.SetActive(false);
         piattaforma2.SetActive(false);
 
@@ -104,7 +109,7 @@ public class LivelloUno : MonoBehaviour
     private void OnEnable()
     {
         //StartCoroutine(AttivazionePiattaforme());
-        InitLivello1();
+        //InitLivello1();
     }
 
     void InitLivello1()
@@ -112,31 +117,32 @@ public class LivelloUno : MonoBehaviour
         piattaforma1.SetActive(true);
         piattaforma2.SetActive(true);
 
-        StartCoroutine(AttivazioneAlbero());
+        StartCoroutine(AttivazioneCactus());
         StartCoroutine(AttivazionePedane());
-        StartCoroutine(AttivazioneLuna());
+        //StartCoroutine(AttivazioneLuna());
     }
 
     void Start()
     {
-      
-        cactusStartPos = cactus.transform.position;
-        cactusStartRot = cactus.transform.rotation.eulerAngles;
 
+        InitLivello1();
+
+        /*
         screendBounds = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z));
 
         foreach (GameObject go in backgrounds)
         {
             LoadChildsObj(go);
         }
-
+        */
 
     }
 
 
     /////LOOP BACKGROUND
 
-    public GameObject[] backgrounds;
+    /*
+    p
     [SerializeField] Camera mainCamera;
 
     Vector2 screendBounds;
@@ -197,38 +203,47 @@ public class LivelloUno : MonoBehaviour
 
         }
     }
+    */
 
-    public GameObject player;
-    public float velocity;
+   
+  
 
     void MoveBackground(GameObject go, float _velocity)
     {
-        velocity = _velocity;
-        go.transform.position = new Vector3(-player.transform.position.x  * velocity, go.transform.position.y, go.transform.position.z);
+
+        go.transform.position = new Vector3(-followPlayer.transform.position.x  * _velocity, go.transform.position.y, go.transform.position.z);
     }
 
-   
+
+    /*
     private void LateUpdate()
     {
+        
         foreach (GameObject go in backgrounds)
         {
             RepositionChild(go);
-        }     
+        }    
+        
     }
+    */
 
-    void Update()
+    void LateUpdate()
     {
         
         if (backgrounds[0] != null)
         {
-            MoveBackground(backgrounds[0], 0.8f);
+            MoveBackground(backgrounds[0], 0.15f);
         }
 
         if (backgrounds[1] != null)
         {
-            MoveBackground(backgrounds[1], 0.2f);
+            MoveBackground(backgrounds[1], 0.1f);
         }
-        
+
+        if (backgrounds[2] != null)
+        {
+            MoveBackground(backgrounds[1], 0.07f);
+        }
 
     }
 }

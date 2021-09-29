@@ -47,7 +47,10 @@ public class Pendolo : MonoBehaviour
     {
         //forza la pedana (figlia dell'oggetto a cui è attaccato questo script)
         //a non seguire la rotazione del proprio parent (un empty che fa da perno)  
-        pedana.transform.rotation = Quaternion.Euler(0.0f, 0.0f, transform.rotation.z * -1.0f); 
+        if (pedana != null)
+        {
+            pedana.transform.rotation = Quaternion.Euler(0.0f, 0.0f, transform.rotation.z * -1.0f);
+        }
   
     }
 }
