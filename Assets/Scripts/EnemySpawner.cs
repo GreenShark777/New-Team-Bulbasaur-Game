@@ -44,6 +44,8 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] EnvironmentManager environmentManager; ///////////////////////
 
+    [SerializeField] GameObject deathFx;
+
     private void Start()
     {
         countDowns = delay;
@@ -64,7 +66,7 @@ public class EnemySpawner : MonoBehaviour
 
                 if (EnvironmentManager.instance.canLoadLevel0) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
                 {
-                    KillAllEnemis();
+                   // KillAllEnemis();
                     WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
 
                     return;
@@ -72,7 +74,7 @@ public class EnemySpawner : MonoBehaviour
 
                 if (EnvironmentManager.instance.canLoadLevel1) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
                 {
-                    KillAllEnemis();
+                   // KillAllEnemis();
                     WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
 
                     return;
@@ -80,7 +82,7 @@ public class EnemySpawner : MonoBehaviour
 
                 if (EnvironmentManager.instance.canLoadLevel2) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
                 {
-                    KillAllEnemis();
+                   // KillAllEnemis();
                     WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
 
                     return;
@@ -122,10 +124,11 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
-    void KillAllEnemis()
+    public void KillAllEnemis()
     {
         foreach (GameObject _go in GameObject.FindGameObjectsWithTag("Enemy"))
         {
+            DeathFx(_go);
             Destroy(_go);
         }
     }
@@ -267,6 +270,15 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
+    void DeathFx(GameObject go)
+    {
+        if (deathFx != null)
+        {
+            GameObject effect = (GameObject)Instantiate(deathFx, go.transform.position, Quaternion.identity);
+            //audioManager.PlaySound("nemico_morte_sfx");
+            Destroy(effect, 1f);
+        }
+    }
 
     IEnumerator MoveSpawn(GameObject _enemy, Vector3 _startPos, Vector3 _targetPos) //coroutine per far spawnare i nemici da sotto il ground e portarli sul ground
     {

@@ -9221,6 +9221,7 @@ MonoBehaviour:
   delay: 3
   countDowns: 5
   environmentManager: {fileID: 1477194806}
+  deathFx: {fileID: 1650204092612176062, guid: 461b2be7dfdfc8449ac303e13d969e24, type: 3}
   currentNemiciSchermo: 0
   offsetYspawn: -1
 --- !u!4 &518174578
@@ -26042,14 +26043,14 @@ MonoBehaviour:
   sound:
   - audioMixerGroup: {fileID: -2873299416539518934, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
     clipName: Livello_0
-    audioClip: {fileID: 8300000, guid: 5eb31afe8a29569439fd76883a3513b2, type: 3}
+    audioClip: {fileID: 8300000, guid: 8b0b6d8963d89324cb28978cc1d97e9d, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
     playOnAwake: 0
   - audioMixerGroup: {fileID: -2873299416539518934, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
     clipName: Livello_1
-    audioClip: {fileID: 8300000, guid: 76a0557c3598d524295ae6249cb19d84, type: 3}
+    audioClip: {fileID: 8300000, guid: f6912403dad598447b5067c0d8de5b7f, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
