@@ -9227,22 +9227,17 @@ MonoBehaviour:
     enemy: {fileID: 6078740700618621216, guid: bbb9f110294c4e04cbaa55ea04f7182a, type: 3}
     count: 1
     enemiesRate: 0.3
-    targetKill: 2
+    targetKill: 1
   - name: nemico2
     enemy: {fileID: 2703446819961787814, guid: 1636e0e14ecf9f240858b7b24f3ebee2, type: 3}
     count: 1
     enemiesRate: 0.3
-    targetKill: 6
+    targetKill: 2
   - name: nemico3
     enemy: {fileID: 6078740700618621216, guid: bbb9f110294c4e04cbaa55ea04f7182a, type: 3}
     count: 1
     enemiesRate: 0.4
-    targetKill: 8
-  - name: nemico4
-    enemy: {fileID: 6078740700618621216, guid: bbb9f110294c4e04cbaa55ea04f7182a, type: 3}
-    count: 1
-    enemiesRate: 0.4
-    targetKill: 8
+    targetKill: 3
   spawnPoints:
   - {fileID: 1747571418}
   - {fileID: 308889826}
