@@ -99,20 +99,21 @@ public class PlayerCollisionManager : MonoBehaviour
             //...se la bolla di protezione è attiva, viene distrutta e il giocatore non subisce danno
             if (protectiveBubble.activeSelf) { protectiveBubble.SetActive(false); }
             //altrimenti, il giocatore subisce danno
-            else { ph.ChangeHp(-1); }
+            else { audioManager.PlaySound("player_damage_sfx"); ph.ChangeHp(-1);  }
         
         }
         //se si tocca una piattaforma, il giocatore diventa figlio della piattaforma
         if (collision.gameObject.CompareTag("Piattaforma")) { player.SetParent(collision.transform); }
         //se si è colliso con il power-up della bolla, viene attivata la bolla protettiva del giocatore
-        if (collision.gameObject.GetComponent<PlayerShield>()) { protectiveBubble.SetActive(true); Destroy(collision.gameObject); }
+        if (collision.gameObject.GetComponent<PlayerShield>()) { audioManager.PlaySound("powerup_sfx"); protectiveBubble.SetActive(true); Destroy(collision.gameObject); }
         //Debug.Log(collision.gameObject.tag);
+
     }
     
     private void OnCollisionExit2D(Collision2D collision)//emanuele
     {
         //se non si collide più con una piattaforma, il giocatore non sarà più suo figlio
-        if (collision.gameObject.CompareTag("Piattaforma")) { player.SetParent(null); }
+        if (collision.gameObject.CompareTag("Piattaforma")) { if(collision.gameObject.activeInHierarchy) player.SetParent(null); }
 
     }
 

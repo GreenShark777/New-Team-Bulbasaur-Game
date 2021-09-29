@@ -26090,6 +26090,27 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     playOnAwake: 0
+  - audioMixerGroup: {fileID: -5998588476725651582, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
+    clipName: nemico_morte_sfx
+    audioClip: {fileID: 8300000, guid: 9252fe708b83e404993163ec959db49c, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: -5998588476725651582, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
+    clipName: player_damage_sfx
+    audioClip: {fileID: 8300000, guid: e7452bbd61aadd24197b4bf87468e80a, type: 3}
+    volume: 0.35
+    pitch: 1.1
+    loop: 0
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: -5998588476725651582, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
+    clipName: powerup_sfx
+    audioClip: {fileID: 8300000, guid: a38974ea68071cc47be9e7b2b079a49d, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
   environmentManager: {fileID: 1477194806}
 --- !u!1 &1478531412
 GameObject:

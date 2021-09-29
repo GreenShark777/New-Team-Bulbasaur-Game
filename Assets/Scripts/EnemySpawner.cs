@@ -60,12 +60,10 @@ public class EnemySpawner : MonoBehaviour
 
             if (state == SpawnState.Wait) //wait = ci sono ancora nemici nello stage, lo spawner non fa nulla
             {
-                Debug.Log("cacca");
                 //controlliamo se il player ha ucciso tutti i nemici
 
                 if (EnvironmentManager.instance.canLoadLevel0) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
                 {
-                    Debug.Log("troia");
                     KillAllEnemis();
                     WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
 
@@ -74,7 +72,6 @@ public class EnemySpawner : MonoBehaviour
 
                 if (EnvironmentManager.instance.canLoadLevel1) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
                 {
-                    Debug.Log("merda");
                     KillAllEnemis();
                     WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
 
