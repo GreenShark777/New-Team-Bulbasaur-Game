@@ -9,10 +9,12 @@ public class EnemiesWeakPoint : MonoBehaviour
 
     EnemySpawner enemySpawner; //mi serve questa ref per poter contare i nemici vivi a schermo
     [SerializeField] GameObject deathFx;
+    AudioManager audioManager;
 
     private void Awake()
     {
         enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
+        audioManager= GameObject.FindObjectOfType<AudioManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,8 +49,9 @@ public class EnemiesWeakPoint : MonoBehaviour
     void DeathFx()
     {
         if (deathFx != null)
-        {
+        {        
             GameObject effect = (GameObject)Instantiate(deathFx, transform.position, Quaternion.identity);
+            audioManager.PlaySound("nemico_morte_sfx");
             Destroy(effect, 1f);
         }
     }

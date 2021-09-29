@@ -163,6 +163,11 @@ public class EnvironmentManager : MonoBehaviour
     //passiamo come argomenti della coroutine i due prefab, il primo da disattivare il secondo da attivare
     IEnumerator siparioCo(GameObject levelPrefabDeact, GameObject levelPrefabActive)
     {
+        if (player.transform.parent != null || !player.transform.parent.gameObject.activeInHierarchy)
+        {
+            player.transform.SetParent(null);
+        }
+
         sipario.ChiudiSipario(); //animazione chiusura sipario
 
         yield return new WaitForSeconds(2f); //il sipario è chuso, passano due secondi
@@ -233,7 +238,7 @@ public class EnvironmentManager : MonoBehaviour
 
         if (nemiciUccisi >= enemySpawner.waves[0].targetKill && canLoadLevel1) //nemiciUccisi >= 3 && canLoadLevel1
         {
-
+            
             SwitchEnvironment(Environment.Livello_1);
         }
 
