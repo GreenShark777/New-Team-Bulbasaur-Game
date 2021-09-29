@@ -62,7 +62,7 @@ public class PlayerCollisionManager : MonoBehaviour
                 }
                 else if(ph.currentHP == ph.maxHp)//altrimenti, se il giocatore ha tutta la vita, ottiene più punti
                 { 
-                 GameManag.highscore += 5; 
+                 ScoreScript.recipientScore += 5; 
                 }
 
               } 
@@ -71,7 +71,7 @@ public class PlayerCollisionManager : MonoBehaviour
            
                 else if (cassa.droppatoCoin)
                 {
-                GameManag.highscore += 10; //incremneto di 10 punti lo score
+                ScoreScript.recipientScore += 10; //incremneto di 10 punti lo score
                 Debug.Log("INCREMENTA SCORE " + GameManag.highscore);
                 }
    
@@ -82,7 +82,7 @@ public class PlayerCollisionManager : MonoBehaviour
             Debug.Log("INCREMENTA SCORE ");
             audioManager.PlaySound("coin_sfx"); //sound effect del coin
 
-            GameManag.highscore += 10; //incremneto di 10 punti lo score
+            ScoreScript.recipientScore += 10; //incremneto di 10 punti lo score
             Debug.Log("INCREMENTA SCORE " + GameManag.highscore);
 
             Destroy(collision.gameObject); //distruggiamo il coin

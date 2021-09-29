@@ -6,7 +6,18 @@ using TMPro;
 
 public class ScoreScript : MonoBehaviour
 {
-    TMP_Text scoretext;
+    //private TMP_Text scoretext;
+    private static TMP_Text scoretext;
+
+    public static int recipientScore
+    {
+
+        get { return int.Parse(scoretext.text); }
+
+        set { scoretext.text = "" + (value + recipientScore); }
+
+    }
+
 
     private void Awake()
     {
@@ -15,7 +26,7 @@ public class ScoreScript : MonoBehaviour
 
     private void Update()
     {
-        scoretext.text =  GameManag.highscore.ToString();
+        //scoretext.text =  GameManag.highscore.ToString();
     }
 
 }

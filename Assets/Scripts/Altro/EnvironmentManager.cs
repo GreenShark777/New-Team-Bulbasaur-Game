@@ -21,7 +21,7 @@ public class EnvironmentManager : MonoBehaviour
     public int targetScore = 100;
     public int nemiciUccisi = 0;
 
-    public Environment currentEnvironment;
+    public static Environment currentEnvironment;
 
     GameObject currenLevel; //per tenere traccia di qual è il livello attuale a quale deve essere caricato successivamente
     GameObject nextlevel;
@@ -58,9 +58,29 @@ public class EnvironmentManager : MonoBehaviour
             sipario.PrimaApertura();
             primaApertura = false;
             gameStarted = true;//////
+            StartCoroutine(siparioCo(livello_0_Prefab, GetEnvironment()));
             yield return null;
         }
         yield return null;
+    }
+
+    private GameObject GetEnvironment()
+    {
+
+        GameObject levelToReturn = null;
+
+        switch (currentEnvironment)
+        {
+
+            case Environment.Livello_0: { levelToReturn = livello_0_Prefab; break; }
+            case Environment.Livello_1: { levelToReturn = livello_1_Prefab; break; }
+            case Environment.Livello_2: { levelToReturn = livello_2_Prefab; break; }
+            case Environment.Livello_3: { levelToReturn = livello_3_Prefab; break; }
+
+        }
+
+        return levelToReturn;
+
     }
 
     public void SwitchEnvironment(Environment environment)
@@ -69,7 +89,8 @@ public class EnvironmentManager : MonoBehaviour
         {
             case Environment.Livello_0:
 
-                StartCoroutine(PrimaAperturaCo());
+                //StartCoroutine(PrimaAperturaCo());
+                StartCoroutine(siparioCo(livello_1_Prefab, livello_0_Prefab));
 
                 currenLevel = livello_0_Prefab;
                 nextlevel = livello_1_Prefab;
@@ -156,11 +177,22 @@ public class EnvironmentManager : MonoBehaviour
 
                 break;
 
-            default:
-                break;
+            default: { StartCoroutine(GameComplete()); break; }
+                
         }
 
         currentEnvironment = environment; //il curren environment diventa l'environment passato come argomento nel metodo
+
+    }
+
+    private IEnumerator GameComplete()
+    {
+        //se si è iniziato dal livello 1 e l'highscore è maggiore di quello salvato, lo aggiorna
+        if (LevelsManager.level == 1 && GameManag.highscore < ScoreScript.recipientScore) { GameManag.highscore = ScoreScript.recipientScore; }
+
+        sipario.ChiudiSipario();
+
+        yield return new WaitForSeconds(2);
 
     }
 
@@ -168,8 +200,9 @@ public class EnvironmentManager : MonoBehaviour
     IEnumerator siparioCo(GameObject levelPrefabDeact, GameObject levelPrefabActive)
     {
 
-        sipario.ChiudiSipario(); //animazione chiusura sipario
-
+        if (!primaApertura) { sipario.ChiudiSipario(); } //animazione chiusura sipario
+        else { StartCoroutine(PrimaAperturaCo()); }
+           
         yield return new WaitForSeconds(2f); //il sipario è chuso, passano due secondi
 
         player.transform.position = new Vector2(0f, -1.3f);  //// riposizioniamo il player a centro palco quando il sipario si chiude
@@ -185,9 +218,8 @@ public class EnvironmentManager : MonoBehaviour
         }
 
         yield return null;
+
     }
-
-
 
     private void Awake()
     {
@@ -203,17 +235,19 @@ public class EnvironmentManager : MonoBehaviour
             Destroy(this);
         }
 
-        currenLevel = livello_0_Prefab;
+        //currenLevel = livello_0_Prefab;
         nextlevel = livello_1_Prefab;
 
-        livello_0_Prefab.SetActive(true);
+        livello_0_Prefab.SetActive(false);
         livello_1_Prefab.SetActive(false);
         livello_2_Prefab.SetActive(false);
         livello_3_Prefab.SetActive(false);
+
     }
 
     void Start()
     {
+        //StartCoroutine(PrimaAperturaCo());
         SwitchEnvironment(/*Environment.Livello_0*/currentEnvironment);
     }
 
