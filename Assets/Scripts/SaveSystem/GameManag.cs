@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameManag : MonoBehaviour {
-
+public class GameManag : MonoBehaviour
+{
     //indica se vogliamo caricare i dati ad inizio scena o meno(PER DEBUG, COMMENTARE A GIOCO FINITO)
     [SerializeField]
     private bool loadData = true;
-
-    public static int score;
+    //indica il punteggio massimo del giocatore
+    public static int highscore = 0;
 
     public float savedMasterVolume, //indica il valore del volume generale scelto dal giocatore l'ultima volta che è stato salvato
         savedMusicVolume, //indica il valore del volume della musica scelto dal giocatore l'ultima volta che è stato salvato
@@ -75,6 +75,7 @@ public class GameManag : MonoBehaviour {
             savedMusicVolume = sd.savedMusicVolume;
             savedSfxVolume = sd.savedSfxVolume;
             savedLanguage = sd.savedLanguage;
+            highscore = sd.highscore;
 
             //Debug.Log("Caricati dati salvati");
         } //altrimenti, tutti i dati vengono messi al loro valore originale, in quanto non si è trovato un file di salvataggio

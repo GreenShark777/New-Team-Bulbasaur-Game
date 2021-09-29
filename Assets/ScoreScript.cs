@@ -15,7 +15,7 @@ public class ScoreScript : MonoBehaviour
 
     private void Update()
     {
-        scoretext.text =  GameManag.score.ToString();
+        scoretext.text =  GameManag.highscore.ToString();
     }
 
 }

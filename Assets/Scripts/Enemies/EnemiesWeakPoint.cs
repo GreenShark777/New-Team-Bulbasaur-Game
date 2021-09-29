@@ -35,7 +35,7 @@ public class EnemiesWeakPoint : MonoBehaviour
 
 
         EnvironmentManager.instance.nemiciUccisi++; //importante, altrimenti non possiamo passare ai livelli successivi
-        GameManag.score += 10; //incrementiamo di 10 punti lo score
+        GameManag.highscore += 10; //incrementiamo di 10 punti lo score
 
         //quando un nemico viene ucciso, sottraggo un' unita a questa variabile
         // (nello spawner, quando si raggiunge un cap di possibili nemici a schermo, 
