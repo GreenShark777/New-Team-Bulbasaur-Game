@@ -26,13 +26,13 @@ public class LevelsManager : MonoBehaviour
         switch (level)
         {
 
-            case 1: { break; }
+            case 1: { EnvironmentManager.instance.currentEnvironment = EnvironmentManager.Environment.Livello_0; break; }
 
-            case 2: { break; }
+            case 2: { EnvironmentManager.instance.currentEnvironment = EnvironmentManager.Environment.Livello_1; break; }
 
-            case 3: { break; }
+            case 3: { EnvironmentManager.instance.currentEnvironment = EnvironmentManager.Environment.Livello_2; break; }
 
-            case 4: { break; }
+            case 4: { EnvironmentManager.instance.currentEnvironment = EnvironmentManager.Environment.Livello_3; break; }
 
             default: { Debug.LogError("Inserito indice livello sbagliato!"); break; }
 

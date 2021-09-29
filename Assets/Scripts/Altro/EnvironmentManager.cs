@@ -210,7 +210,7 @@ public class EnvironmentManager : MonoBehaviour
 
     void Start()
     {
-        SwitchEnvironment(Environment.Livello_0);
+        SwitchEnvironment(/*Environment.Livello_0*/currentEnvironment);
     }
 
 

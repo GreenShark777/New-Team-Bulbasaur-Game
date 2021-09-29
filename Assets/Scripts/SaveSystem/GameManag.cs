@@ -53,7 +53,7 @@ public class GameManag : MonoBehaviour
         //viene svuotata la lista di script che devono salvare i dati
         dataToSave.Clear();
         //viene creato un'array recipiente con tutti gli script che devono salvare dati
-        var recipient = FindObjectsOfType<MonoBehaviour>().OfType<IUpdateData>();
+        var recipient = FindObjectsOfType<MonoBehaviour>(true).OfType<IUpdateData>();
         //inizializza la lista di script che devono salvare i dati, aggiungendo tutti gli elementi nella lista recipiente
         foreach (IUpdateData elem in recipient) { dataToSave.Add(elem); }
 
