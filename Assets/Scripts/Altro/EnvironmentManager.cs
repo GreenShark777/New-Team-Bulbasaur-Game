@@ -16,7 +16,7 @@ public class EnvironmentManager : MonoBehaviour
 
     [SerializeField] EnemySpawner enemySpawner;
 
-    public bool gameStarted = false; 
+    public bool gameStarted = false;
 
     public int targetScore = 100;
     public int nemiciUccisi = 0;
@@ -40,7 +40,7 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] GameObject livello_2_Prefab;
     [SerializeField] GameObject livello_3_Prefab;
 
-   // public bool isLivello_0=true, isLivello_1=false, isLivello_2=false, isLivello_3 = false; //check dell enviroment attivo in questo momento
+    // public bool isLivello_0=true, isLivello_1=false, isLivello_2=false, isLivello_3 = false; //check dell enviroment attivo in questo momento
 
     [SerializeField] AudioManager audioManager;
 
@@ -55,7 +55,7 @@ public class EnvironmentManager : MonoBehaviour
         if (primaApertura) //per eseguire queste istruzioni una sola volta (da sostituire con tutorial)
         {
             yield return new WaitForSeconds(2f);
-            sipario.PrimaApertura(); 
+            sipario.PrimaApertura();
             primaApertura = false;
             gameStarted = true;//////
             yield return null;
@@ -70,25 +70,25 @@ public class EnvironmentManager : MonoBehaviour
             case Environment.Livello_0:
 
                 StartCoroutine(PrimaAperturaCo());
-                
+
                 currenLevel = livello_0_Prefab;
                 nextlevel = livello_1_Prefab;
 
                 livello_0_Prefab.SetActive(true);
 
-                canLoadLevel0 = true;
+                //canLoadLevel0 = true;
                 canLoadLevel1 = true;
 
                 break;
 
             case Environment.Livello_1:
 
-                //nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
+                canLoadLevel2 = true;
                 canLoadLevel1 = false;
 
-                currenLevel = livello_0_Prefab; 
+                currenLevel = livello_0_Prefab;
                 nextlevel = livello_1_Prefab;
-                
+
                 if (playMusicOnce) //se è vera, ed è vera
                 {
                     audioManager.SwapMusicLevel(0, 1); //interpoliamo le musiche di sottofondo, fade da musica livello 0 a musica livello 1
@@ -97,13 +97,13 @@ public class EnvironmentManager : MonoBehaviour
 
                 StartCoroutine(siparioCo(livello_0_Prefab, livello_1_Prefab));
 
-                canLoadLevel2 = true;
+
 
                 break;
 
             case Environment.Livello_2:
 
-                //nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
+                canLoadLevel3 = true;
                 canLoadLevel2 = false;
 
                 currenLevel = livello_1_Prefab;
@@ -116,21 +116,23 @@ public class EnvironmentManager : MonoBehaviour
                     audioManager.SwapMusicLevel(0, 1); //interpoliamo le musiche di sottofondo, fade da musica livello 0 a musica livello 1
                     playMusicOnce = false; //assegniamo lla bool il valore false per richiamare il metodo sopra solo una volta
                 }
-                
+
 
                 StartCoroutine(siparioCo(livello_1_Prefab, livello_2_Prefab));
 
-                canLoadLevel3 = true;
-                isBoss = true;////
+
+                // isBoss = true;////
 
                 break;
 
             case Environment.Livello_3:
 
-                // nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
-
-                isBoss = false;////
                 canLoadLevel3 = false;
+                isBoss = true;
+
+                //canLoadLevel2 = false;
+                //isBoss = false;////
+                //canLoadLevel3 = false;
 
                 currenLevel = livello_2_Prefab;
                 nextlevel = livello_3_Prefab;
@@ -146,7 +148,7 @@ public class EnvironmentManager : MonoBehaviour
 
                 StartCoroutine(siparioCo(livello_2_Prefab, livello_3_Prefab));
 
-               // canLoadLevel3 = true;
+
 
                 break;
 
@@ -159,7 +161,7 @@ public class EnvironmentManager : MonoBehaviour
     }
 
     //passiamo come argomenti della coroutine i due prefab, il primo da disattivare il secondo da attivare
-    IEnumerator siparioCo(GameObject levelPrefabDeact, GameObject levelPrefabActive) 
+    IEnumerator siparioCo(GameObject levelPrefabDeact, GameObject levelPrefabActive)
     {
         sipario.ChiudiSipario(); //animazione chiusura sipario
 
@@ -175,7 +177,7 @@ public class EnvironmentManager : MonoBehaviour
         yield return null;
     }
 
- 
+
 
     private void Awake()
     {
@@ -206,14 +208,14 @@ public class EnvironmentManager : MonoBehaviour
     }
 
 
-    public bool isBoss=false; ///
+    public bool isBoss = false; ///
 
     // Update is called once per frame
     void Update()
     {
         Debug.Log("canLoadLevel1 " + canLoadLevel1);
 
-        Debug.Log( "nemiciuccisi" + nemiciUccisi);
+        Debug.Log("nemiciuccisi" + nemiciUccisi);
 
         if (Input.GetKeyDown(KeyCode.R)) //a scopo di test
         {
@@ -223,34 +225,36 @@ public class EnvironmentManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L)) //a scopo di test
         {
-            SwitchEnvironment(currentEnvironment+1);
+            SwitchEnvironment(currentEnvironment + 1);
 
         }
+
+
 
         if (nemiciUccisi >= enemySpawner.waves[0].targetKill && canLoadLevel1) //nemiciUccisi >= 3 && canLoadLevel1
         {
-            bool pippo = nemiciUccisi < enemySpawner.waves[0].targetKill;
-            Debug.Log("enemywave " + enemySpawner.waves[0].targetKill);
-            Debug.Log("nemi ucc min di targetkill di 0 " + pippo);
+
             SwitchEnvironment(Environment.Livello_1);
         }
+
         if (nemiciUccisi >= enemySpawner.waves[1].targetKill && canLoadLevel2)
         {
+            Debug.Log("ROTTOINCULO");
             SwitchEnvironment(Environment.Livello_2);
         }
 
-        /*
+
         if (nemiciUccisi >= enemySpawner.waves[2].targetKill && canLoadLevel3)
         {
             SwitchEnvironment(Environment.Livello_3);
         }
-        */
 
-        if (isBoss && canLoadLevel3)
+        /*
+        if (isBoss)
         {
             SwitchEnvironment(Environment.Livello_3);
         }
-
+        */
 
 
     }
