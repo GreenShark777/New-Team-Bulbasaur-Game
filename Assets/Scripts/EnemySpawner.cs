@@ -235,14 +235,37 @@ public class EnemySpawner : MonoBehaviour
         //spawn enemy
         //Debug.Log("spawn enemy " + _enemy.name);
 
-        Transform _spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)]; //facciamo spawnare i nemici in corrispondenza di uno dei punti di spawn che riempiono l'array spawnPoints
+        int chosenPoint = UnityEngine.Random.Range(0, spawnPoints.Length);
 
-        GameObject go = Instantiate(_enemy, _spawnPoint.transform.position, _spawnPoint.rotation) as GameObject ; //istanziamo il nemico alla pos e rot dello spawner
+        Transform _spawnPoint = spawnPoints[chosenPoint]; //facciamo spawnare i nemici in corrispondenza di uno dei punti di spawn che riempiono l'array spawnPoints
+
+        GameObject go = Instantiate(_enemy, _spawnPoint.transform.position, _enemy.transform.rotation); //istanziamo il nemico alla pos e rot dello spawner
         currentNemiciSchermo++;
         go.transform.parent= _spawnPoint.transform; //imparentiamo il clone al suo spawnPoint nella hierarchy
 
         Vector3 endPos = new Vector3(_spawnPoint.transform.position.x, -offsetYspawn, _spawnPoint.transform.position.z);
-   
+
+        //(GABRIELE)
+        //ottiene il riferimento al comportamento da maiale del nemico spawnato(se esiste)
+        MaialeBehaviour pigB = go.GetComponent<MaialeBehaviour>();
+        //se il riferimento non è nullo...
+        if (pigB != null)
+        {
+            //...controlla se il nemico deve andare a sinistra, dato che è spawnato a destra...
+            bool hasToGoLeft = (chosenPoint == 1);
+            //...e cambia la direzione in cui il nemico deve camminare e guardare
+            pigB.ChangeFacingDirection(hasToGoLeft);
+        
+        }/*
+        else //altrimenti, il nemico non è un maiale ma una marionetta, quindi...
+        {
+            //...prende il riferimento allo script da marionetta...
+            MarionettaBehaviour puppetB = go.GetComponent<MarionettaBehaviour>();
+            //...e la volta di conseguenza
+            puppetB.ChangeFacingDirection();
+
+        }*/
+
         //nota di colore: il casting con la parola chiave "as" è più sicuro del casting (GameObject).Instantiate(ecc ecc.)
         //perché a differenza di quest'ultimo, se il casting non va a buon fine, alla variabile
         //viene automaticamente assegnato il valore null. smart.
