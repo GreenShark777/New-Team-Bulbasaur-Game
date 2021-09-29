@@ -5,19 +5,21 @@ using UnityEngine;
 public class CassaItem : MonoBehaviour
 {
 
-    [SerializeField] GameObject cassaAperta; //disattivo questo gameobj e attivo cassachiusa
+    [SerializeField] GameObject cassaChiusa; //disattivo questo gameobj e attivo cassachiusa
     [SerializeField] ParticleSystem ps;
 
     public  GameObject[] itemdDroppabili; //coin o cuore
 
     public bool droppatoCuore, droppatoCoin = false; //lo uso per il check nellio script playercollisionmanager
-    bool isClose = true; //per evitare operazioni multiple
+    public bool isClose = true; //per evitare operazioni multiple
 
     private void OnTriggerEnter2D(Collider2D other) //quando trova il player
     {
         if (other.CompareTag("Player") && isClose == true) //e deve essere la prima volta che succede
         {
-            cassaAperta.SetActive(false); //disattivo l oggetto cassa aperta
+
+           // isClose = false;
+            cassaChiusa.SetActive(false); //disattivo l oggetto cassa aperta
             ItemDrop(); //droppo un item
             StartCoroutine(Particellare()); //inizia il particellare
         }
@@ -32,22 +34,25 @@ public class CassaItem : MonoBehaviour
         if (scelta < 0.5f) // se scelta è inferiore 0.5 droppa un coin
         {
             itemdDroppabili[0].SetActive(true);
+            itemdDroppabili[1].SetActive(false); //mi assicuro che l item cuore rimanga disattivato
+
             StartCoroutine(MoveItem(itemdDroppabili[0])); //animazione di risalita e dissolvenza alpha
 
             droppatoCoin = true; //check da usare nel collisionmanager per decidere cosa aumentare tra current hp e score
            // Debug.Log("droppato coin");
 
-            itemdDroppabili[1].SetActive(false); //mi assicuro che l item cuore rimanga disattivato
+           
         }
         else
         {
+            itemdDroppabili[1].SetActive(true); //mi assicuro che l item coin sia disattivato
             itemdDroppabili[0].SetActive(false); //mi assicuro che l item coin rimanga disattivato
             StartCoroutine(MoveItem(itemdDroppabili[1])); //animazione di risalita e dissolvenza alpha
 
             droppatoCuore = true; // check da usare nel collisionmanager per decidere cosa aumentare tra current hp e score
              //Debug.Log("droppato cuore");
 
-            itemdDroppabili[1].SetActive(true); //mi assicuro che l item coin sia disattivato
+            
         }
 
 
@@ -94,7 +99,6 @@ public class CassaItem : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        isClose = false;
 
         ps.Stop();
 
@@ -103,7 +107,7 @@ public class CassaItem : MonoBehaviour
 
     private void Awake()
     {
-        cassaAperta.SetActive(true);
+        cassaChiusa.SetActive(true);
 
         foreach (GameObject item in itemdDroppabili) //mi assicuro che gli item cuore e coin siano disattivati prima del detect della collisione col player
         {

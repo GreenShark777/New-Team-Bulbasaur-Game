@@ -14,7 +14,9 @@ public class EnvironmentManager : MonoBehaviour
 
     public static EnvironmentManager instance; //uso questa classe come statica per potervi accedere senza ref dirette
 
-    public bool gameStarted = false; ///
+    [SerializeField] EnemySpawner enemySpawner;
+
+    public bool gameStarted = false; 
 
     public int targetScore = 100;
     public int nemiciUccisi = 0;
@@ -41,6 +43,8 @@ public class EnvironmentManager : MonoBehaviour
    // public bool isLivello_0=true, isLivello_1=false, isLivello_2=false, isLivello_3 = false; //check dell enviroment attivo in questo momento
 
     [SerializeField] AudioManager audioManager;
+
+    [SerializeField] GameObject player; //////////////
 
     bool playMusicOnce = true; //bool per far eseguire una sola volta il metodo per il cambio musica quando entriamo nello stato livello X
 
@@ -79,8 +83,8 @@ public class EnvironmentManager : MonoBehaviour
 
             case Environment.Livello_1:
 
+                //nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
                 canLoadLevel1 = false;
-                
 
                 currenLevel = livello_0_Prefab; 
                 nextlevel = livello_1_Prefab;
@@ -99,6 +103,7 @@ public class EnvironmentManager : MonoBehaviour
 
             case Environment.Livello_2:
 
+                //nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
                 canLoadLevel2 = false;
 
                 currenLevel = livello_1_Prefab;
@@ -116,10 +121,33 @@ public class EnvironmentManager : MonoBehaviour
                 StartCoroutine(siparioCo(livello_1_Prefab, livello_2_Prefab));
 
                 canLoadLevel3 = true;
+                isBoss = true;////
 
                 break;
 
             case Environment.Livello_3:
+
+                // nemiciUccisi = 0; //resetto a zero il count dei nemici uccisi
+
+                isBoss = false;////
+                canLoadLevel3 = false;
+
+                currenLevel = livello_2_Prefab;
+                nextlevel = livello_3_Prefab;
+
+                playMusicOnce = true;
+
+                if (playMusicOnce) //se è vera, ed è vera
+                {
+                    audioManager.SwapMusicLevel(0, 1); //interpoliamo le musiche di sottofondo, fade da musica livello 0 a musica livello 1
+                    playMusicOnce = false; //assegniamo lla bool il valore false per richiamare il metodo sopra solo una volta
+                }
+
+
+                StartCoroutine(siparioCo(livello_2_Prefab, livello_3_Prefab));
+
+               // canLoadLevel3 = true;
+
                 break;
 
             default:
@@ -136,6 +164,8 @@ public class EnvironmentManager : MonoBehaviour
         sipario.ChiudiSipario(); //animazione chiusura sipario
 
         yield return new WaitForSeconds(2f); //il sipario è chuso, passano due secondi
+
+        player.transform.position = new Vector2(0f, -1.3f);  //// riposizioniamo il player a centro palco quando il sipario si chiude
 
         levelPrefabDeact.SetActive(false); //disattiviamo il prefab attualmente attivo in scena
         levelPrefabActive.SetActive(true); //attiviamo il prefab successivo
@@ -176,11 +206,14 @@ public class EnvironmentManager : MonoBehaviour
     }
 
 
+    public bool isBoss=false; ///
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("CURRENT ENV " + currentEnvironment);
+        Debug.Log("canLoadLevel1 " + canLoadLevel1);
+
+        Debug.Log( "nemiciuccisi" + nemiciUccisi);
 
         if (Input.GetKeyDown(KeyCode.R)) //a scopo di test
         {
@@ -194,19 +227,31 @@ public class EnvironmentManager : MonoBehaviour
 
         }
 
-        if (nemiciUccisi >= 3 && canLoadLevel1)
+        if (nemiciUccisi >= enemySpawner.waves[0].targetKill && canLoadLevel1) //nemiciUccisi >= 3 && canLoadLevel1
         {
+            bool pippo = nemiciUccisi < enemySpawner.waves[0].targetKill;
+            Debug.Log("enemywave " + enemySpawner.waves[0].targetKill);
+            Debug.Log("nemi ucc min di targetkill di 0 " + pippo);
             SwitchEnvironment(Environment.Livello_1);
         }
-        if (nemiciUccisi >= 6 && canLoadLevel2)
+        if (nemiciUccisi >= enemySpawner.waves[1].targetKill && canLoadLevel2)
         {
             SwitchEnvironment(Environment.Livello_2);
         }
 
-        if (nemiciUccisi >= 9 && canLoadLevel3)
+        /*
+        if (nemiciUccisi >= enemySpawner.waves[2].targetKill && canLoadLevel3)
         {
             SwitchEnvironment(Environment.Livello_3);
         }
+        */
+
+        if (isBoss && canLoadLevel3)
+        {
+            SwitchEnvironment(Environment.Livello_3);
+        }
+
+
 
     }
 }

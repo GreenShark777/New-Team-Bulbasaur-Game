@@ -18,8 +18,12 @@ public class Wave //custom class
 {
     public string name;
     public GameObject enemy; //reference al prefab
-    public int count; //quanti nemici
+    public int count; //quanti nemici spawnati nwello stesso momento
     public float enemiesRate; //rate di spawn
+
+    public int targetKill; //* quanti nemici devo uccidere per passare di livello e alla next ondata
+
+
 }
 
 
@@ -38,23 +42,30 @@ public class EnemySpawner : MonoBehaviour
 
     private SpawnState state = SpawnState.Counting; //state è iniz. a counting (parte il countdown per lo spawn delle wave)
 
+    [SerializeField] EnvironmentManager environmentManager; ///////////////////////
+
     private void Start()
     {
         countDowns = delay;
     }
 
+    int maxNemiciSchermo = 3;
+
     private void Update()
     {
+
         if (EnvironmentManager.instance.gameStarted)/////////
 
         {
 
             if (state == SpawnState.Wait) //wait = ci sono ancora nemici nello stage, lo spawner non fa nulla
             {
+                Debug.Log("cacca");
                 //controlliamo se il player ha ucciso tutti i nemici
 
                 if (EnvironmentManager.instance.canLoadLevel0) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
                 {
+                    Debug.Log("troia");
                     KillAllEnemis();
                     WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
 
@@ -63,6 +74,7 @@ public class EnemySpawner : MonoBehaviour
 
                 if (EnvironmentManager.instance.canLoadLevel1) // EnemyIsAlive() == false /////enemyisalive() torna una bool, se tutti i nemici della wave sono morti...
                 {
+                    Debug.Log("merda");
                     KillAllEnemis();
                     WaveCompleted(); //...wave compeltata, passiamo a una nuova ondata
 
@@ -77,12 +89,14 @@ public class EnemySpawner : MonoBehaviour
                     return;
                 }
 
-                else // se ci sono ancora nemici vivi usciamo dal metodo e non facciamo i check sul countdown (vedi sotto)
+                else // usciamo dal metodo e non facciamo i check sul countdown (vedi sotto)
                 {
                     return;
                 }
 
             }
+
+            
 
             //operazioni sul countdown
 
@@ -98,6 +112,15 @@ public class EnemySpawner : MonoBehaviour
                 countDowns -= Time.deltaTime;
             }
         }
+
+        if (environmentManager.isBoss)//////////////////////////////
+        {
+            KillAllEnemis();
+            Destroy(this);
+        }
+
+        Debug.Log("nemici a schermo" + currentNemiciSchermo);
+
 
     }
 
@@ -153,36 +176,52 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
-    int currentUccisioniTarget = 3;
+    //teniamo traccia dei nemici a schermo, non vogliamo che superino tot
+    public int currentNemiciSchermo = 0; //incremento nella funzione SpawnEnemy(), decremento nell enemies collision manager
+
 
     IEnumerator SpawnWave(Wave _wave) //metodo per lo spawn deille wave di nemici
     {
         //Debug.Log("WAVE SPAWN " + _wave.name);
+        //KillAllEnemis();
+      
+        Wave wave = _wave;
 
         state = SpawnState.Spawn; //il current state passa a Spawn
 
-        //fa quello che devi fare
-
-        //int i = 0; i < _wave.count; i++
-
-        while(EnvironmentManager.instance.nemiciUccisi   < currentUccisioniTarget)
+        while(EnvironmentManager.instance.nemiciUccisi  < wave.targetKill) //currentUccisioniTarget
         {
-            SpawnEnemy(_wave.enemy); //enemy è membro della classe wave (per adesso è un transform)
+            bool ma = EnvironmentManager.instance.nemiciUccisi < wave.targetKill;
+            Debug.Log("SCAFISTA " + ma);
 
-            yield return new WaitForSeconds(1 / _wave.enemiesRate); //tempo di attesa prima della prossima iterazione
-        }
+            if (currentNemiciSchermo < maxNemiciSchermo) 
+            { 
 
-        /*
-        for (int i = 0; i < _wave.count; i++)/// _wave.count++ aggiunto ora     /// //per ogni nemico da spawnare richiamiamo il metodo spawnenemy() (count è un int membro della classe wave)
-        {
-            SpawnEnemy(_wave.enemy); //enemy è membro della classe wave (per adesso è un transform)
+            SpawnEnemy(_wave.enemy); //enemy è membro della classe wave  
+
+             //  currentNemiciSchermo++;
+             //Debug.Log("nemici a schermo " + currentNemiciSchermo);
 
             yield return new WaitForSeconds(1 / _wave.enemiesRate); //tempo di attesa prima della prossima iterazione
 
-        }
-        */
+            }
 
-        currentUccisioniTarget +=3;
+            else if(currentNemiciSchermo > maxNemiciSchermo)
+            {
+                Debug.Log("PROVA");
+
+                StartCoroutine(SpawnWave(wave));
+               
+                yield return null;
+            }
+
+            //state = SpawnState.Wait;
+
+            yield return null;
+
+        }
+
+        Debug.Log("BECCACCIO");
 
         state = SpawnState.Wait; //adesso state è = a stato di attesa
 
@@ -198,8 +237,8 @@ public class EnemySpawner : MonoBehaviour
 
         Transform _spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)]; //facciamo spawnare i nemici in corrispondenza di uno dei punti di spawn che riempiono l'array spawnPoints
 
-        GameObject go = Instantiate(_enemy, _spawnPoint.transform.position, _spawnPoint.transform.rotation) as GameObject ; //istanziamo il nemico alla pos e rot dello spawner
-
+        GameObject go = Instantiate(_enemy, _spawnPoint.transform.position, _spawnPoint.rotation) as GameObject ; //istanziamo il nemico alla pos e rot dello spawner
+        currentNemiciSchermo++;
         go.transform.parent= _spawnPoint.transform; //imparentiamo il clone al suo spawnPoint nella hierarchy
 
         Vector3 endPos = new Vector3(_spawnPoint.transform.position.x, -offsetYspawn, _spawnPoint.transform.position.z);

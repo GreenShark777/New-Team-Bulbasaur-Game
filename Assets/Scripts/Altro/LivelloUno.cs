@@ -10,10 +10,10 @@ public class LivelloUno : MonoBehaviour
 
     public Vector2 p1StartRot;
 
-    public GameObject albero;
-    public Vector2 alberoStartPos;
-    public Vector2 alberoStartRot;
-    public Vector2 alberoTargetRot = new Vector2(0, 0);
+    public GameObject cactus;
+    public Vector2 cactusStartPos;
+    public Vector2 cactusStartRot;
+    public Vector2 cactusTargetRot = new Vector2(0, 0);
 
     [SerializeField] GameObject lunaSole;
     Vector2 lunaSoleStartPos;
@@ -39,7 +39,7 @@ public class LivelloUno : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            albero.transform.rotation= Quaternion.Lerp(albero.transform.rotation, Quaternion.AngleAxis (alberoTargetRot.x, Vector2.right), elapsedTime/waitTime * .5f);
+            cactus.transform.rotation= Quaternion.Lerp(cactus.transform.rotation, Quaternion.AngleAxis (cactusTargetRot.x, Vector2.right), elapsedTime/waitTime * .5f);
  
             yield return null;
 
@@ -120,8 +120,8 @@ public class LivelloUno : MonoBehaviour
     void Start()
     {
       
-        alberoStartPos = albero.transform.position;
-        alberoStartRot = albero.transform.rotation.eulerAngles;
+        cactusStartPos = cactus.transform.position;
+        cactusStartRot = cactus.transform.rotation.eulerAngles;
 
         screendBounds = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z));
 

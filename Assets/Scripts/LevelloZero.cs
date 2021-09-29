@@ -125,6 +125,7 @@ public class LevelloZero : MonoBehaviour
 
     void Start()
     {
+        //velocityPlayer = player.GetComponent<PlayerMovement>().newVelocity.x;
 
         InitLivello_0();
 
@@ -274,15 +275,20 @@ public class LevelloZero : MonoBehaviour
 
     void MoveBackground(GameObject go, float _velocity)
     {
+        //Vector2 currentPos = go.transform.localPosition;
+
+        //nota: nella scena la ref player è un empty che segue via script il player(non uso direttamente il player per evitare conflitti quando questo è imparentato a una piattaforma)
         go.transform.position = new Vector3(-player.transform.position.x * _velocity, go.transform.position.y, go.transform.position.z);
     }
 
+    //float velocityPlayer;
+
     void LateUpdate()
     {
- 
-   
+       // velocityPlayer = player.GetComponent<PlayerMovement>().newVelocity.x;
+      //  Debug.Log("VELOCITY " + velocityPlayer);
 
-        if (isStarted)
+        if (isStarted)//&& velocityPlayer!=0f
         {
             if (backgrounds[0] != null)
             {

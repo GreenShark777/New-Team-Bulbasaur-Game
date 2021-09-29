@@ -9,6 +9,8 @@ public class GameManag : MonoBehaviour {
     [SerializeField]
     private bool loadData = true;
 
+    public static int score;
+
     public float savedMasterVolume, //indica il valore del volume generale scelto dal giocatore l'ultima volta che è stato salvato
         savedMusicVolume, //indica il valore del volume della musica scelto dal giocatore l'ultima volta che è stato salvato
         savedSfxVolume; //indica il valore del volume degli effetti sonori scelto dal giocatore l'ultima volta che è stato salvato

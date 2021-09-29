@@ -8,6 +8,8 @@ public class EnemiesCollisionManager : MonoBehaviour
     //riferimento allo script di questo nemico, se è una marionetta
     private MarionettaBehaviour puppetB;
 
+    EnemySpawner enemySpawner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +20,22 @@ public class EnemiesCollisionManager : MonoBehaviour
 
     }
 
+    private void Awake()
+    {
+        enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //se il nemico collide con un oggetto fisico(che non è il terreno), si volta e continua a camminare verso la direzione opposta
         if (!collision.gameObject.CompareTag("Terreno") && !collision.collider.isTrigger) { ChangeThisEnemyDirection(); }
         //se il nemico collide con il giocatore, il nemico starà fermo per un po'(permettendo al giocatore di scappare)
         if (collision.gameObject.CompareTag("Player")) { CollidedWithPlayer(); }
+        else if (collision.gameObject.CompareTag("DeathZone"))
+        {
+            Destroy(transform.parent.gameObject); //distruggiamo il parent di questo GO }
+            enemySpawner.currentNemiciSchermo--; //liberiamo spazio per eventuale spawn di nuovi nemici nell'ondata
+        }
 
     }
 
