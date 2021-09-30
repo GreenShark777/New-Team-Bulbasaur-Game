@@ -308,6 +308,8 @@ public class EnvironmentManager : MonoBehaviour
             SwitchEnvironment(Environment.Livello_3);
         }
 
+        if (currentEnvironment == (Environment)100) { SwitchEnvironment(currentEnvironment); }
+
         /*
         if (isBoss)
         {

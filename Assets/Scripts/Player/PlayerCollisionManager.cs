@@ -106,7 +106,14 @@ public class PlayerCollisionManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Piattaforma")) { player.SetParent(collision.transform); }
         //se si è colliso con il power-up della bolla, viene attivata la bolla protettiva del giocatore
         if (collision.gameObject.GetComponent<PlayerShield>())
-        { if (audioManager) { audioManager.PlaySound("powerup_sfx"); } protectiveBubble.SetActive(true); Destroy(collision.gameObject); }
+        {
+            if (audioManager) { audioManager.PlaySound("powerup_sfx"); }
+            if(!protectiveBubble.activeSelf) protectiveBubble.SetActive(true);
+            //se la bolla era già attiva, viene invece aumentato il punteggio
+            else { ScoreScript.recipientScore += 25; }
+            Destroy(collision.gameObject);
+        
+        }
         //Debug.Log(collision.gameObject.tag);
 
     }

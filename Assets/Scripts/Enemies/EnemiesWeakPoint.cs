@@ -64,6 +64,8 @@ public class EnemiesWeakPoint : MonoBehaviour
         else
         {
 
+            EnvironmentManager.currentEnvironment = (EnvironmentManager.Environment)100;
+
         }
         Debug.Log(thisEnemy.name + " sconfitto!");
     }
