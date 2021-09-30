@@ -18,17 +18,12 @@ public class LivelloUno : MonoBehaviour
     [SerializeField] GameObject lunaSole;
     Vector2 lunaSoleStartPos;
     public Vector2 lunaSoleTargetPos;
- 
-    public IEnumerator AttivazionePiattaforme()
-    {
-        yield return new WaitForSeconds(3f);
 
-        //InitLivello1();
+    public GameObject[] backgrounds;
+    public GameObject player;
 
-        yield return null;
-    }
 
-    public IEnumerator AttivazioneAlbero()
+    public IEnumerator AttivazioneCactus()
     {
         yield return new WaitForSeconds(0.5f);
 
@@ -92,7 +87,7 @@ public class LivelloUno : MonoBehaviour
     private void Awake()
     {
         p1StartPos = piattaforma1.transform.position;
-        //    p1StartRot =  piattaforma1.transform.rotation.eulerAngles;
+
         p2StartPos = piattaforma2.transform.position;
 
         piattaforma1.SetActive(false);
@@ -103,8 +98,6 @@ public class LivelloUno : MonoBehaviour
 
     private void OnEnable()
     {
-        //StartCoroutine(AttivazionePiattaforme());
-        InitLivello1();
     }
 
     void InitLivello1()
@@ -112,121 +105,41 @@ public class LivelloUno : MonoBehaviour
         piattaforma1.SetActive(true);
         piattaforma2.SetActive(true);
 
-        StartCoroutine(AttivazioneAlbero());
+        StartCoroutine(AttivazioneCactus());
         StartCoroutine(AttivazionePedane());
         StartCoroutine(AttivazioneLuna());
+
     }
 
     void Start()
     {
-      
-        cactusStartPos = cactus.transform.position;
-        cactusStartRot = cactus.transform.rotation.eulerAngles;
-
-        screendBounds = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z));
-
-        foreach (GameObject go in backgrounds)
-        {
-            LoadChildsObj(go);
-        }
-
-
+        InitLivello1();
     }
 
-
-    /////LOOP BACKGROUND
-
-    public GameObject[] backgrounds;
-    [SerializeField] Camera mainCamera;
-
-    Vector2 screendBounds;
-
-    void LoadChildsObj(GameObject go)
-    {
-        float goWidth = go.GetComponent<SpriteRenderer>().bounds.size.x;
-        int goNeeded = (int) Mathf.Ceil(screendBounds.x * 2 / goWidth);
-
-        GameObject clone = Instantiate(go) as GameObject;
-
-        for (int i = 0; i <= goNeeded; i++)
-        {
-            GameObject c = Instantiate(clone) as GameObject;
-            c.transform.SetParent(go.transform);
-            c.transform.position = new Vector3(goWidth * i, go.transform.position.y, go.transform.position.z);
-            c.name = go.name + i; 
-        }
-
-        Destroy(clone);
-        Destroy(go.GetComponent<SpriteRenderer>());
-
-        //Move(go, 10f);
-    }
-
-    GameObject porco;
-
-    void RepositionChild(GameObject go)
-    {
-        porco = go;
-
-        Transform[] children = porco.GetComponentsInChildren<Transform>();
-
-        if (children.Length > 1)
-        {
-            GameObject firstChild = children[1].gameObject;
-            GameObject lastChild= children[children.Length - 1].gameObject;
-
-            float halfObj = lastChild.GetComponent<SpriteRenderer>().bounds.extents.x;
-
-            if (transform.position.x + screendBounds.x > lastChild.transform.position.x + halfObj)
-            {
-                firstChild.transform.SetAsLastSibling();
-
-                firstChild.transform.position = new Vector3(lastChild.transform.position.x + halfObj * 2, lastChild.transform.position.y, lastChild.transform.position.z);
-            }
-            else if (transform.position.x - screendBounds.x < firstChild.transform.position.x - halfObj)
-            {
-                lastChild.transform.SetAsFirstSibling();
-
-                lastChild.transform.position = new Vector3(firstChild.transform.position.x - halfObj * 2, firstChild.transform.position.y, firstChild.transform.position.z);
-
-            }
-
-           // Move(porco);
-
-        }
-    }
-
-    public GameObject player;
-    public float velocity;
 
     void MoveBackground(GameObject go, float _velocity)
     {
-        velocity = _velocity;
-        go.transform.position = new Vector3(-player.transform.position.x  * velocity, go.transform.position.y, go.transform.position.z);
+        go.transform.position = new Vector3(-player.transform.position.x  * _velocity, go.transform.position.y, go.transform.position.z);
     }
 
-   
-    private void LateUpdate()
-    {
-        foreach (GameObject go in backgrounds)
-        {
-            RepositionChild(go);
-        }     
-    }
 
-    void Update()
+    void LateUpdate()
     {
         
         if (backgrounds[0] != null)
         {
-            MoveBackground(backgrounds[0], 0.8f);
+            MoveBackground(backgrounds[0], 0.4f);
         }
 
         if (backgrounds[1] != null)
         {
-            MoveBackground(backgrounds[1], 0.2f);
+            MoveBackground(backgrounds[1], 0.1f);
         }
-        
+
+        if (backgrounds[2] != null)
+        {
+            MoveBackground(backgrounds[2], 0.05f);
+        }
 
     }
 }

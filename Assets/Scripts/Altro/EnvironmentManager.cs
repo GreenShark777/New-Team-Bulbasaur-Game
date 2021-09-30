@@ -188,7 +188,7 @@ public class EnvironmentManager : MonoBehaviour
     private IEnumerator GameComplete()
     {
         //se si è iniziato dal livello 1 e l'highscore è maggiore di quello salvato, lo aggiorna
-        if (LevelsManager.level == 1 && GameManag.highscore < ScoreScript.recipientScore) { GameManag.highscore = ScoreScript.recipientScore; }
+        if (LevelsManager.level == 1 && GameManag.highscore > ScoreScript.recipientScore) { GameManag.highscore = ScoreScript.recipientScore; }
 
         sipario.ChiudiSipario();
 
@@ -207,7 +207,7 @@ public class EnvironmentManager : MonoBehaviour
            
         yield return new WaitForSeconds(2f); //il sipario è chuso, passano due secondi
 
-        player.transform.position = new Vector2(0f, -1.3f);  //// riposizioniamo il player a centro palco quando il sipario si chiude
+        player.transform.position = new Vector2(0f, -1f);  //// riposizioniamo il player a centro palco quando il sipario si chiude
 
         levelPrefabDeact.SetActive(false); //disattiviamo il prefab attualmente attivo in scena
         levelPrefabActive.SetActive(true); //attiviamo il prefab successivo

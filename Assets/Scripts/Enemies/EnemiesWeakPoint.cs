@@ -28,11 +28,9 @@ public class EnemiesWeakPoint : MonoBehaviour
     {
         //distrugge il nemico
         //Destroy(thisEnemy);
-
+        enemySpawner.currentNemiciSchermo--;
         //disattiva il nemico
         thisEnemy.SetActive(false);
-
-
 
         EnvironmentManager.instance.nemiciUccisi++; //importante, altrimenti non possiamo passare ai livelli successivi
         ScoreScript.recipientScore += 10; //incrementiamo di 10 punti lo score
@@ -40,7 +38,7 @@ public class EnemiesWeakPoint : MonoBehaviour
         //quando un nemico viene ucciso, sottraggo un' unita a questa variabile
         // (nello spawner, quando si raggiunge un cap di possibili nemici a schermo, 
         //non ne vengano generati altri fino a quando currenNemiciSchermo non è inferiore a questo cap)
-        enemySpawner.currentNemiciSchermo--;
+
         DeathFx();
 
         Debug.Log(thisEnemy.name + " sconfitto!");

@@ -25,6 +25,10 @@ public class LivelloDue : MonoBehaviour
 
     [SerializeField] float tempoAttivazioneAlbero = 3f;
 
+    public GameObject followPlayer;
+
+    bool isStarted = false;
+
     public IEnumerator AttivazioneAlbero()
     {
         yield return new WaitForSeconds(tempoAttivazioneAlbero);
@@ -162,84 +166,6 @@ public class LivelloDue : MonoBehaviour
     }
 
 
-    /////LOOP BACKGROUND
-    ///// AL 99% NON SERVIRA' E POTREMO TOGLIERLO, SERVE A LOOPARE ALL'INFINTO IL BACKGROUND, MA ADESSO
-    ///NON CI SERVE
-    ///
-    Vector2 screendBounds;
-    [SerializeField] Camera mainCamera;
-    /*
-    void LoadChildsObj(GameObject go)
-    {
-        float goWidth = go.GetComponent<SpriteRenderer>().bounds.size.x;
-        int goNeeded = (int)Mathf.Ceil(screendBounds.x * 2 / goWidth);
-
-        GameObject clone = Instantiate(go) as GameObject;
-
-        for (int i = 0; i <= goNeeded; i++)
-        {
-            GameObject c = Instantiate(clone) as GameObject;
-            c.transform.SetParent(go.transform);
-            c.transform.position = new Vector3(goWidth * i, go.transform.position.y, go.transform.position.z);
-            c.name = go.name + i;
-        }
-
-        Destroy(clone);
-        Destroy(go.GetComponent<SpriteRenderer>());
-
-        //Move(go, 10f);
-    }
-
-    GameObject _go;
-
-    void RepositionChild(GameObject go)
-    {
-        _go = go;
-
-        Transform[] children = _go.GetComponentsInChildren<Transform>();
-
-        if (children.Length > 1)
-        {
-            GameObject firstChild = children[1].gameObject;
-            GameObject lastChild = children[children.Length - 1].gameObject;
-
-            float halfObj = lastChild.GetComponent<SpriteRenderer>().bounds.extents.x;
-
-            if (transform.position.x + screendBounds.x > lastChild.transform.position.x + halfObj)
-            {
-                firstChild.transform.SetAsLastSibling();
-
-                firstChild.transform.position = new Vector3(lastChild.transform.position.x + halfObj * 2, lastChild.transform.position.y, lastChild.transform.position.z);
-            }
-            else if (transform.position.x - screendBounds.x < firstChild.transform.position.x - halfObj)
-            {
-                lastChild.transform.SetAsFirstSibling();
-
-                lastChild.transform.position = new Vector3(firstChild.transform.position.x - halfObj * 2, firstChild.transform.position.y, firstChild.transform.position.z);
-
-            }
-
-            // Move(porco);
-
-            Debug.Log("CHISTU" + _go.name);
-
-        }
-    }
-
-   
-
-    private void LateUpdate()
-    {
-        foreach (GameObject go in backgrounds)
-        {
-            RepositionChild(go);
-        }
-    }
-    */
-
-    public GameObject followPlayer;
-
-    bool isStarted = false;
     void AttivazioneBackground(GameObject[] _backgrounds)
     {
 
@@ -313,7 +239,11 @@ public class LivelloDue : MonoBehaviour
                 MoveBackground(backgrounds[1], 0.1f);
             }
 
-          
+            if (backgrounds[2] != null)
+            {
+                MoveBackground(backgrounds[2], 0.05f);
+            }
+
         }
 
 

@@ -55,6 +55,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("stato " + state);
+        Debug.Log("currentNemiciSchermo " + currentNemiciSchermo);
 
         if (EnvironmentManager.instance.gameStarted)/////////
 
@@ -95,10 +97,11 @@ public class EnemySpawner : MonoBehaviour
 
             }
 
-            
+
 
             //operazioni sul countdown
 
+            /*
             if (countDowns <= 0) //se è arrivato il momento di spawnrare una wave...
             {
                 if (state != SpawnState.Spawn) //se il curren state non è già spawning
@@ -111,6 +114,35 @@ public class EnemySpawner : MonoBehaviour
             {
                 countDowns -= Time.deltaTime;
             }
+           */
+
+            
+            if (countDowns <= 0) //se è arrivato il momento di spawnrare una wave...
+            {
+                if (state != SpawnState.Spawn) //se il curren state non è già spawning
+                {
+                    if (EnvironmentManager.instance.canLoadLevel0 && EnvironmentManager.instance.canLoadLevel1)
+                    {
+                        StartCoroutine(SpawnWave(waves[0])); //spawna la prossima ondata
+                    }
+                    if (EnvironmentManager.instance.canLoadLevel1==false && EnvironmentManager.instance.canLoadLevel2)
+                    {
+                        StartCoroutine(SpawnWave(waves[1])); //spawna la prossima ondata
+                    }
+                     if(EnvironmentManager.instance.canLoadLevel3  && EnvironmentManager.instance.canLoadLevel2 ==false)
+                    {
+                        StartCoroutine(SpawnWave(waves[2]));
+                    }
+                   
+                }
+            }
+            else //altrimenti sottraimo deltatime al countdown
+            {
+                countDowns -= Time.deltaTime;
+            }
+            
+
+
         }
 
         if (environmentManager.isBoss)//////////////////////////////
@@ -126,6 +158,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void KillAllEnemis()
     {
+        currentNemiciSchermo = 0;
         foreach (GameObject _go in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             DeathFx(_go);
@@ -141,6 +174,7 @@ public class EnemySpawner : MonoBehaviour
 
         countDowns = delay;
 
+        /*
         //check per evitare di andare fuori bound 
         if (nextWave + 1 > waves.Length - 1) // nextwave è indice corrente, aggiungiamo 1. sottriamo uno a wave.lenght (lenght= numero delle wave, l'indice parte da 0)
         {
@@ -154,7 +188,7 @@ public class EnemySpawner : MonoBehaviour
         {
             nextWave++; //possiamo passare alla wave successiva
         }
-
+        */
   
     }
 

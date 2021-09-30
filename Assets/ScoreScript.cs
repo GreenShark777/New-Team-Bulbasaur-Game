@@ -14,7 +14,7 @@ public class ScoreScript : MonoBehaviour
 
         get { return int.Parse(scoretext.text); }
 
-        set { scoretext.text = "" + (value + recipientScore); }
+        set { scoretext.text = "" + (value /*+ recipientScore*/); } //se non tolgo recipiente score il punteggio viene continuamente moltiplicato per 2
 
     }
 
@@ -22,11 +22,13 @@ public class ScoreScript : MonoBehaviour
     private void Awake()
     {
         scoretext = GetComponent<TMP_Text>();
+        scoretext.text = "0";
     }
 
     private void Update()
     {
         //scoretext.text =  GameManag.highscore.ToString();
+        
     }
 
 }

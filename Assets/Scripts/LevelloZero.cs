@@ -21,8 +21,12 @@ public class LevelloZero : MonoBehaviour
 
     public GameObject[] backgrounds;
 
-  
     [SerializeField] float tempoAttivazioneAlbero=3f;
+
+    public GameObject player;
+
+    bool isStarted = false;
+
 
     public IEnumerator AttivazioneAlbero()
     {
@@ -125,100 +129,12 @@ public class LevelloZero : MonoBehaviour
 
     void Start()
     {
-        //velocityPlayer = player.GetComponent<PlayerMovement>().newVelocity.x;
 
         InitLivello_0();
 
-        /*
-        screendBounds = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z));
-
-        foreach (GameObject go in backgrounds)
-        {
-            LoadChildsObj(go);
-        }
-        */
-
     }
 
 
-    /////LOOP BACKGROUND
-    ///// AL 99% NON SERVIRA' E POTREMO TOGLIERLO, SERVE A LOOPARE ALL'INFINTO IL BACKGROUND, MA ADESSO
-    ///NON CI SERVE
-    ///
-    Vector2 screendBounds;
-    [SerializeField] Camera mainCamera;
-    /*
-    void LoadChildsObj(GameObject go)
-    {
-        float goWidth = go.GetComponent<SpriteRenderer>().bounds.size.x;
-        int goNeeded = (int)Mathf.Ceil(screendBounds.x * 2 / goWidth);
-
-        GameObject clone = Instantiate(go) as GameObject;
-
-        for (int i = 0; i <= goNeeded; i++)
-        {
-            GameObject c = Instantiate(clone) as GameObject;
-            c.transform.SetParent(go.transform);
-            c.transform.position = new Vector3(goWidth * i, go.transform.position.y, go.transform.position.z);
-            c.name = go.name + i;
-        }
-
-        Destroy(clone);
-        Destroy(go.GetComponent<SpriteRenderer>());
-
-        //Move(go, 10f);
-    }
-
-    GameObject _go;
-
-    void RepositionChild(GameObject go)
-    {
-        _go = go;
-
-        Transform[] children = _go.GetComponentsInChildren<Transform>();
-
-        if (children.Length > 1)
-        {
-            GameObject firstChild = children[1].gameObject;
-            GameObject lastChild = children[children.Length - 1].gameObject;
-
-            float halfObj = lastChild.GetComponent<SpriteRenderer>().bounds.extents.x;
-
-            if (transform.position.x + screendBounds.x > lastChild.transform.position.x + halfObj)
-            {
-                firstChild.transform.SetAsLastSibling();
-
-                firstChild.transform.position = new Vector3(lastChild.transform.position.x + halfObj * 2, lastChild.transform.position.y, lastChild.transform.position.z);
-            }
-            else if (transform.position.x - screendBounds.x < firstChild.transform.position.x - halfObj)
-            {
-                lastChild.transform.SetAsFirstSibling();
-
-                lastChild.transform.position = new Vector3(firstChild.transform.position.x - halfObj * 2, firstChild.transform.position.y, firstChild.transform.position.z);
-
-            }
-
-            // Move(porco);
-
-            Debug.Log("CHISTU" + _go.name);
-
-        }
-    }
-
-   
-
-    private void LateUpdate()
-    {
-        foreach (GameObject go in backgrounds)
-        {
-            RepositionChild(go);
-        }
-    }
-    */
-
-    public GameObject player;
-
-    bool isStarted = false;
     void AttivazioneBackground(GameObject[] _backgrounds)
     {
 
@@ -234,8 +150,6 @@ public class LevelloZero : MonoBehaviour
         
         yield return new WaitForSeconds(2f);
 
-        //Debug.Log("nome " + go.name);
-
         Vector2 startPos = go.transform.localPosition;
         Vector2 endPos = new Vector2(0, startPos.y);
 
@@ -248,8 +162,6 @@ public class LevelloZero : MonoBehaviour
 
             go.transform.localPosition = Vector2.Lerp(startPos, endPos, elapsedTime / waitTime);
 
-            //Debug.Log("POPOPO " + go.name + transform.position);
-
             yield return null;
         }
 
@@ -260,35 +172,25 @@ public class LevelloZero : MonoBehaviour
 
     IEnumerator timer()
     {
-        yield return null;
-        float elapsedTime = 0f;
-        float waitTime = 6f;
-
-        while (elapsedTime < waitTime)
-        {
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(4f);
         isStarted = true;
+
         yield return null;
     }
 
     void MoveBackground(GameObject go, float _velocity)
     {
-        //Vector2 currentPos = go.transform.localPosition;
-
-        //nota: nella scena la ref player è un empty che segue via script il player(non uso direttamente il player per evitare conflitti quando questo è imparentato a una piattaforma)
         go.transform.position = new Vector3(-player.transform.position.x * _velocity, go.transform.position.y, go.transform.position.z);
     }
 
-    //float velocityPlayer;
+    private void Update()
+    {
+    }
 
     void LateUpdate()
     {
-       // velocityPlayer = player.GetComponent<PlayerMovement>().newVelocity.x;
-      //  Debug.Log("VELOCITY " + velocityPlayer);
 
-        if (isStarted)//&& velocityPlayer!=0f
+        if (isStarted)
         {
             if (backgrounds[0] != null)
             {
