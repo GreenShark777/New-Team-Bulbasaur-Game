@@ -199,7 +199,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-         PlaySound(musiche[0]);
+         //PlaySound(musiche[0]);
       
     }
 
