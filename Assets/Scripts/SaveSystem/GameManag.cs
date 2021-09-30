@@ -50,6 +50,7 @@ public class GameManag : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("HIGH " + highscore);
         //viene svuotata la lista di script che devono salvare i dati
         dataToSave.Clear();
         //viene creato un'array recipiente con tutti gli script che devono salvare dati
