@@ -47,7 +47,7 @@ public class PlayerCollisionManager : MonoBehaviour
             //...ne ottiene il riferimento...
 
             //...se la cassa rilascia un cuore...
-            cassa.isClose = false;
+            //cassa.isClose = false;
 
             if (audioManager) audioManager.PlaySound("cassaItem_sfx");
             

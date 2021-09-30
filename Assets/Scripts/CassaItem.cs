@@ -60,6 +60,7 @@ public class CassaItem : MonoBehaviour
             
         }
 
+        isClose = false;
 
     }
 
