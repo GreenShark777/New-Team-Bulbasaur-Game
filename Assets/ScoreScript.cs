@@ -8,6 +8,9 @@ public class ScoreScript : MonoBehaviour
 {
     //private TMP_Text scoretext;
     private static TMP_Text scoretext;
+    //riferimento al testo dell'highscore nel menù principale
+    [SerializeField]
+    private Text highscoreText;
 
     public static int recipientScore
     {
@@ -21,14 +24,13 @@ public class ScoreScript : MonoBehaviour
 
     private void Awake()
     {
+        //ottiene il riferimento al testo dello score attuale
         scoretext = GetComponent<TMP_Text>();
-        scoretext.text = "0";
-    }
+        //se esiste il riferimento al testo dello score attuale, lo inizializza a 0
+        if (scoretext) { scoretext.text = "0"; }
+        //se esiste il riferimento al testo dell'highscore, lo aggiorna
+        if (highscoreText) { highscoreText.text = "Highscore: " + GameManag.highscore; }
 
-    private void Update()
-    {
-        //scoretext.text =  GameManag.highscore.ToString();
-        
     }
 
 }

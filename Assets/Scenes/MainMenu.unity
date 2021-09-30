@@ -3923,8 +3923,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -106.16295, y: 19.960297}
-  m_SizeDelta: {x: 198.8685, y: 24.120605}
+  m_AnchoredPosition: {x: -105, y: 20}
+  m_SizeDelta: {x: 200, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &876065976
 MonoBehaviour:
@@ -3935,16 +3935,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 876065974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32e5030ae1cb2dc469eb1f1f5e56c86b, type: 3}
+  m_Script: {fileID: 11500000, guid: e9bc00b3038713b49be097f2640cb379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textToChange: {fileID: 0}
-  italianText: Seleziona Livello
-  englishText: Choose Level
-  isNoTextButton: 0
-  buttonImageToChange: {fileID: 0}
-  italianButton: {fileID: 0}
-  englishButton: {fileID: 0}
+  highscoreText: {fileID: 876065977}
 --- !u!114 &876065977
 MonoBehaviour:
   m_ObjectHideFlags: 0
