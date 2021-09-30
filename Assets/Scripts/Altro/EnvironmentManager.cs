@@ -58,7 +58,7 @@ public class EnvironmentManager : MonoBehaviour
             sipario.PrimaApertura();
             primaApertura = false;
             gameStarted = true;//////
-            StartCoroutine(siparioCo(livello_0_Prefab, GetEnvironment()));
+           // StartCoroutine(siparioCo(livello_0_Prefab, GetEnvironment()));
             yield return null;
         }
         yield return null;
@@ -136,7 +136,7 @@ public class EnvironmentManager : MonoBehaviour
 
                 if (playMusicOnce) //se è vera, ed è vera
                 {
-                    audioManager.SwapMusicLevel(0, 1); //interpoliamo le musiche di sottofondo, fade da musica livello 0 a musica livello 1
+                    audioManager.SwapMusicLevel(1, 2); //interpoliamo le musiche di sottofondo, fade da musica livello 0 a musica livello 1
                     playMusicOnce = false; //assegniamo lla bool il valore false per richiamare il metodo sopra solo una volta
                 }
 
@@ -166,7 +166,7 @@ public class EnvironmentManager : MonoBehaviour
 
                 if (playMusicOnce) //se è vera, ed è vera
                 {
-                    audioManager.SwapMusicLevel(0, 1); //interpoliamo le musiche di sottofondo, fade da musica livello 0 a musica livello 1
+                    audioManager.SwapMusicLevel(2, 3); //interpoliamo le musiche di sottofondo, fade da musica livello 0 a musica livello 1
                     playMusicOnce = false; //assegniamo lla bool il valore false per richiamare il metodo sopra solo una volta
                 }
 
@@ -188,13 +188,21 @@ public class EnvironmentManager : MonoBehaviour
     private IEnumerator GameComplete()
     {
         //se si è iniziato dal livello 1 e l'highscore è maggiore di quello salvato, lo aggiorna
-        if (LevelsManager.level == 1 && GameManag.highscore > ScoreScript.recipientScore) { GameManag.highscore = ScoreScript.recipientScore; }
+        if (LevelsManager.level == 1 && 
+            GameManag.highscore < ScoreScript.recipientScore)
+            { GameManag.highscore = ScoreScript.recipientScore; Debug.Log("LEVEL " + LevelsManager.level); }
 
+       
+
+        //SaveSystem.DataSave();
         sipario.ChiudiSipario();
 
         yield return new WaitForSeconds(2);
 
         SceneChange.StaticGoToScene("MainMenu");
+
+        Debug.Log("highscore " + GameManag.highscore);
+        Debug.Log("scorerec " + ScoreScript.recipientScore);
 
     }
 
@@ -272,6 +280,12 @@ public class EnvironmentManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) //a scopo di test
         {
             SwitchEnvironment(currentEnvironment + 1);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z)) //a scopo di test
+        {
+           StartCoroutine( GameComplete()); 
 
         }
 

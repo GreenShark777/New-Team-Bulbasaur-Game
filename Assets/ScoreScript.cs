@@ -12,7 +12,7 @@ public class ScoreScript : MonoBehaviour
     public static int recipientScore
     {
 
-        get { return int.Parse(scoretext.text); }
+        get { Debug.Log("PARSE " + int.Parse(scoretext.text));  return int.Parse(scoretext.text); }
 
         set { scoretext.text = "" + (value /*+ recipientScore*/); } //se non tolgo recipiente score il punteggio viene continuamente moltiplicato per 2
 

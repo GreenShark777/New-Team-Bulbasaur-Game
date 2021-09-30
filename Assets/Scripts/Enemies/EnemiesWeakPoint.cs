@@ -13,7 +13,7 @@ public class EnemiesWeakPoint : MonoBehaviour
 
     private void Awake()
     {
-        enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
+        enemySpawner = GameObject.FindObjectOfType<EnemySpawner>(true);
         audioManager= GameObject.FindObjectOfType<AudioManager>();
     }
 
@@ -28,6 +28,7 @@ public class EnemiesWeakPoint : MonoBehaviour
     {
         //distrugge il nemico
         //Destroy(thisEnemy);
+        if(enemySpawner!=null)
         enemySpawner.currentNemiciSchermo--;
         //disattiva il nemico
         thisEnemy.SetActive(false);

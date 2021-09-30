@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SoundSlidersManager : MonoBehaviour, IUpdateData
-{
+{ 
     //riferimento al GameManag di scena
     [SerializeField]
     private GameManag g = default;
@@ -21,11 +21,11 @@ public class SoundSlidersManager : MonoBehaviour, IUpdateData
     private Slider musicSlider = default,
         sfxSlider = default,
         masterSlider = default;
-
+   
 
     private void Start()
     {
-
+       
         musicSlider.value = g.savedMusicVolume;
         sfxSlider.value = g.savedSfxVolume;
         masterSlider.value = g.savedMasterVolume;
@@ -41,8 +41,10 @@ public class SoundSlidersManager : MonoBehaviour, IUpdateData
         master.SetFloat("MASTER_volume", masterValue);
         master.SetFloat("MUSICHE_volume", musicValue);
         master.SetFloat("SFX_volume", sfxValue);
+       
 
     }
+
 
     public void UpdateData()
     {
@@ -56,5 +58,6 @@ public class SoundSlidersManager : MonoBehaviour, IUpdateData
     public void ChangeMusicVolume() { musicValue = musicSlider.value; master.SetFloat("MUSICHE_volume", musicValue); }
     public void ChangeSfxVolume() { sfxValue = sfxSlider.value; master.SetFloat("SFX_volume", sfxValue); }
     public void ChangeMasterVolume() { masterValue = masterSlider.value; master.SetFloat("MASTER_volume", masterValue); }
+
 
 }
