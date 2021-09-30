@@ -5,9 +5,9 @@ using UnityEngine;
 public class LivelloDue : MonoBehaviour
 {
     public ParticleSystem psRain;
-    public GameObject piattaforma1, piattaforma2;
-    Vector2 p1StartPos, p2StartPos;
-    public Vector2 p1TargetPos, p2TargetPos;
+    public GameObject piattaforma1;
+    Vector2 p1StartPos;
+    public Vector2 p1TargetPos;
 
     public Vector2 p1StartRot;
 
@@ -83,14 +83,16 @@ public class LivelloDue : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            piattaforma1.transform.position = Vector2.Lerp(p1StartPos, p1TargetPos, elapsedTime / waitTime * .5f);
-            piattaforma2.transform.position = Vector2.Lerp(p2StartPos, p2TargetPos, elapsedTime / waitTime * .8f);
+            if(piattaforma1!=null)
+                piattaforma1.transform.position = Vector2.Lerp(p1StartPos, p1TargetPos, elapsedTime / waitTime * .5f);
 
             yield return null;
 
         }
 
-        yield return null;
+        piattaforma1.transform.position = p1TargetPos;
+
+ yield return null;
     }
 
     public GameObject[] alberiSfondo;
@@ -126,10 +128,7 @@ public class LivelloDue : MonoBehaviour
     {
         p1StartPos = piattaforma1.transform.position;
 
-        p2StartPos = piattaforma2.transform.position;
-
         piattaforma1.SetActive(false);
-        piattaforma2.SetActive(false);
 
         lunaSoleStartPos = lunaSole.transform.localPosition;
     }
@@ -145,15 +144,14 @@ public class LivelloDue : MonoBehaviour
 
         psRain.Play();
 
-        piattaforma1.SetActive(true);
-        piattaforma2.SetActive(true);
+        //piattaforma1.SetActive(true);
 
         alberoStartPos = albero.transform.position;
         alberoStartRot = albero.transform.rotation.eulerAngles;
 
         StartCoroutine(AttivazioneAlbero());
         StartCoroutine(AttivazioneAlberi());
-        StartCoroutine(AttivazioneNuvole());
+       // StartCoroutine(AttivazioneNuvole());
         StartCoroutine(AttivazioneLuna());
         StartCoroutine(timer());
 
