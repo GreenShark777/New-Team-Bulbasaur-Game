@@ -48,11 +48,11 @@ public class PlayerCollisionManager : MonoBehaviour
 
             //...se la cassa rilascia un cuore...
             cassa.isClose = false;
-            
-                audioManager.PlaySound("cassaItem_sfx");
+
+            if (audioManager) audioManager.PlaySound("cassaItem_sfx");
             
 
-              if (cassa.droppatoCuore)
+            if (cassa.droppatoCuore)
               {
                 //...e la vita del giocatore è minore del massimo e maggiore di 0, recupera 1 di vita
                 if (ph.currentHP < ph.maxHp && ph.currentHP > 0)
@@ -65,22 +65,22 @@ public class PlayerCollisionManager : MonoBehaviour
                  ScoreScript.recipientScore += 5; 
                 }
 
-              } 
+            } 
 
-              //altrimenti, se la cassa rilascia una moneta, ottiene punteggio
+            //altrimenti, se la cassa rilascia una moneta, ottiene punteggio
            
-                else if (cassa.droppatoCoin)
-                {
+            else if (cassa.droppatoCoin)
+            {
                 ScoreScript.recipientScore += 10; //incremneto di 10 punti lo score
                 Debug.Log("INCREMENTA SCORE " + GameManag.highscore);
-                }
+            }
    
         }
 
         else if (collision.gameObject.CompareTag("Coin"))
         {
             Debug.Log("INCREMENTA SCORE ");
-            audioManager.PlaySound("coin_sfx"); //sound effect del coin
+            if(audioManager) audioManager.PlaySound("coin_sfx"); //sound effect del coin
 
             ScoreScript.recipientScore += 10; //incremneto di 10 punti lo score
             Debug.Log("INCREMENTA SCORE " + GameManag.highscore);
@@ -99,13 +99,14 @@ public class PlayerCollisionManager : MonoBehaviour
             //...se la bolla di protezione è attiva, viene distrutta e il giocatore non subisce danno
             if (protectiveBubble.activeSelf) { protectiveBubble.SetActive(false); }
             //altrimenti, il giocatore subisce danno
-            else { audioManager.PlaySound("player_damage_sfx"); ph.ChangeHp(-1);  }
+            else{ if (audioManager) audioManager.PlaySound("player_damage_sfx"); ph.ChangeHp(-1);  }
         
         }
         //se si tocca una piattaforma, il giocatore diventa figlio della piattaforma
         if (collision.gameObject.CompareTag("Piattaforma")) { player.SetParent(collision.transform); }
         //se si è colliso con il power-up della bolla, viene attivata la bolla protettiva del giocatore
-        if (collision.gameObject.GetComponent<PlayerShield>()) { audioManager.PlaySound("powerup_sfx"); protectiveBubble.SetActive(true); Destroy(collision.gameObject); }
+        if (collision.gameObject.GetComponent<PlayerShield>())
+        { if (audioManager) { audioManager.PlaySound("powerup_sfx"); } protectiveBubble.SetActive(true); Destroy(collision.gameObject); }
         //Debug.Log(collision.gameObject.tag);
 
     }

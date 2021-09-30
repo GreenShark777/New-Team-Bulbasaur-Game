@@ -38,6 +38,9 @@ public class BossBehaviour : MonoBehaviour
     //indica di quanto deve ingrandirsi il cappello ogni volta che il boss subisce danni
     [SerializeField]
     private float hatSizeIncreaseRate = 0.1f;
+    //indica di quanto deve aumentare la velocità delle carte ogni volta che il boss subisce danni
+    [SerializeField]
+    private float cardsSpeedIncreaseRate = 2;
 
     //riferimento all'Animator del muro invisibile che spazzerà via il giocatore dopo aver subito danni
     //[SerializeField]
@@ -180,6 +183,12 @@ public class BossBehaviour : MonoBehaviour
         //spazza via il giocatore
         //invisibleWallAnim.SetTrigger("Activate");
         StartCoroutine(SweepPlayerAway());
+
+        nCardsToLaunch++;
+
+        launchDirection.x += cardsSpeedIncreaseRate;
+        launchDirection.y -= cardsSpeedIncreaseRate;
+
     }
 
     private IEnumerator SweepPlayerAway()

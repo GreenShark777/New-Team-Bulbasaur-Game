@@ -60,6 +60,8 @@ public class BossCards : MonoBehaviour
     {
         //se questa carta è stata disattivata, la riattiva
         if (!gameObject.activeSelf) { gameObject.SetActive(true); }
+        //altrimenti, dato che sta venendo richiamata mentre è attiva, fa spuntare il particellare alla sua posizione
+        //else { Instantiate(launchPS, cardSprite.position, cardSprite.rotation); Debug.Log("SAS"); }
         //azzera ogni possibile forza che sta agendo sulla carta
         cardRb.velocity = Vector2.zero;
         //se il particellare ha ancora un padre, lo sparenta

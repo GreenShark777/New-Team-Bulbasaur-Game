@@ -308,6 +308,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 325537151}
+    - target: {fileID: 2482983066433283784, guid: 842865cb984aa0e42bad52050946ed60, type: 3}
+      propertyPath: hatSizeIncreaseRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482983066433283784, guid: 842865cb984aa0e42bad52050946ed60, type: 3}
+      propertyPath: cardsSpeedIncreaseRate
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4082060955676721091, guid: 842865cb984aa0e42bad52050946ed60, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -358,8 +366,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4082060955676721101, guid: 842865cb984aa0e42bad52050946ed60, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4107436983304353359, guid: 842865cb984aa0e42bad52050946ed60, type: 3}
+      propertyPath: bb
+      value: 
+      objectReference: {fileID: 1340430061}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 842865cb984aa0e42bad52050946ed60, type: 3}
 --- !u!1001 &228733376
@@ -692,6 +704,7 @@ GameObject:
   - component: {fileID: 726146692}
   - component: {fileID: 726146691}
   - component: {fileID: 726146690}
+  - component: {fileID: 726146693}
   m_Layer: 0
   m_Name: WallDX
   m_TagString: Wall
@@ -790,6 +803,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &726146693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726146689}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37cdad0d37023eb44b7e6e7de728b19c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawner: {fileID: 0}
+  gameStarted: 0
+  targetScore: 100
+  nemiciUccisi: 0
+  canLoadLevel0: 1
+  canLoadLevel1: 0
+  canLoadLevel2: 0
+  canLoadLevel3: 0
+  sipario: {fileID: 0}
+  livello_0_Prefab: {fileID: 0}
+  livello_1_Prefab: {fileID: 0}
+  livello_2_Prefab: {fileID: 0}
+  livello_3_Prefab: {fileID: 0}
+  audioManager: {fileID: 0}
+  player: {fileID: 0}
+  isBoss: 0
 --- !u!1 &798336798
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,7 +985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6078740700618621216, guid: bbb9f110294c4e04cbaa55ea04f7182a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6078740700618621218, guid: bbb9f110294c4e04cbaa55ea04f7182a, type: 3}
       propertyPath: m_RootOrder
@@ -1202,6 +1243,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ceilingColl: {fileID: 1485844287}
+--- !u!114 &1340430061 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2482983066433283784, guid: 842865cb984aa0e42bad52050946ed60, type: 3}
+  m_PrefabInstance: {fileID: 217760800}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a29e598e9eea7846b72387164b59915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1390913238
 PrefabInstance:
   m_ObjectHideFlags: 0
