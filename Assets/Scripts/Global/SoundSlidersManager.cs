@@ -53,7 +53,7 @@ public class SoundSlidersManager : MonoBehaviour, IUpdateData
         g.savedMusicVolume = musicValue;
         g.savedSfxVolume = sfxValue;
         g.savedMasterVolume = masterValue;
-        Debug.Log("Dati dei volumi aggiornati");
+        //Debug.Log("Dati dei volumi aggiornati");
     }
 
     public void ChangeMusicVolume() { musicValue = musicSlider.value; master.SetFloat("MUSICHE_volume", musicValue); }

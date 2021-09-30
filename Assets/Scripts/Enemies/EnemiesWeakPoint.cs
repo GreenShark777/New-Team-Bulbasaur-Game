@@ -67,7 +67,7 @@ public class EnemiesWeakPoint : MonoBehaviour
             EnvironmentManager.currentEnvironment = (EnvironmentManager.Environment)100;
 
         }
-        Debug.Log(thisEnemy.name + " sconfitto!");
+        //Debug.Log(thisEnemy.name + " sconfitto!");
     }
 
     void DeathFx()

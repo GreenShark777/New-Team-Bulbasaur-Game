@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 public class PlayerCollisionManager : MonoBehaviour
 {
-   [SerializeField] AudioManager audioManager; //ref all'audio manager (si trova nel gamemanager), da usare per i sfx
+   [SerializeField] AudioManager audioManager = default; //ref all'audio manager (si trova nel gamemanager), da usare per i sfx
 
     //riferimento allo script di vita del giocatore
     private PlayerHealth ph;
@@ -65,7 +65,7 @@ public class PlayerCollisionManager : MonoBehaviour
                 { 
                  ScoreScript.recipientScore += 5; 
                 }
-                Debug.Log("droppato CHECK DROP");
+                //Debug.Log("droppato CHECK DROP");
             } 
 
             //altrimenti, se la cassa rilascia una moneta, ottiene punteggio
@@ -73,18 +73,18 @@ public class PlayerCollisionManager : MonoBehaviour
             else if (cassa.droppatoCoin)
             {
                 ScoreScript.recipientScore += 20; //incremneto di 20 punti lo score
-                Debug.Log("INCREMENTA SCORE " + GameManag.highscore);
+                //Debug.Log("INCREMENTA SCORE " + GameManag.highscore);
             }
    
         }
 
         else if (collision.gameObject.CompareTag("Coin"))
         {
-            Debug.Log("INCREMENTA SCORE ");
+            //Debug.Log("INCREMENTA SCORE ");
             if(audioManager) audioManager.PlaySound("coin_sfx"); //sound effect del coin
 
             ScoreScript.recipientScore += 10; //incremneto di 10 punti lo score
-            Debug.Log("INCREMENTA SCORE " + GameManag.highscore);
+            //Debug.Log("INCREMENTA SCORE " + GameManag.highscore);
 
             Destroy(collision.gameObject); //distruggiamo il coin
 

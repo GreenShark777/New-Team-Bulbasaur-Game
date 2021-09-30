@@ -204,7 +204,7 @@ public class EnvironmentManager : MonoBehaviour
         //se si è iniziato dal livello 1 e l'highscore è maggiore di quello salvato, lo aggiorna
         if (LevelsManager.level == 1 && 
             GameManag.highscore < ScoreScript.recipientScore)
-            { GameManag.highscore = ScoreScript.recipientScore; Debug.Log("LEVEL " + LevelsManager.level); }
+            { GameManag.highscore = ScoreScript.recipientScore; /*Debug.Log("LEVEL " + LevelsManager.level);*/ }
 
        
 
@@ -215,8 +215,8 @@ public class EnvironmentManager : MonoBehaviour
 
         SceneChange.StaticGoToScene("MainMenu");
 
-        Debug.Log("highscore " + GameManag.highscore);
-        Debug.Log("scorerec " + ScoreScript.recipientScore);
+        //Debug.Log("highscore " + GameManag.highscore);
+        //Debug.Log("scorerec " + ScoreScript.recipientScore);
 
     }
 
@@ -284,7 +284,7 @@ public class EnvironmentManager : MonoBehaviour
         //Debug.Log("canLoadLevel1 " + canLoadLevel1);
 
         //Debug.Log("nemiciuccisi" + nemiciUccisi);
-
+        /*
         if (Input.GetKeyDown(KeyCode.R)) //a scopo di test
         {
             nemiciUccisi += 1;
@@ -304,7 +304,7 @@ public class EnvironmentManager : MonoBehaviour
         }
 
 
-
+        */
         if (nemiciUccisi >= enemySpawner.waves[0].targetKill && canLoadLevel1) //nemiciUccisi >= 3 && canLoadLevel1
         {
             

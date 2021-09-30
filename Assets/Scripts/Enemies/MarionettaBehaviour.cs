@@ -88,7 +88,7 @@ public class MarionettaBehaviour : MonoBehaviour
         yield return new WaitForSeconds(anticipationDuration);
         //...da una spinta alla marionetta, facendola saltare verso il giocatore
         puppetRb.velocity = new Vector2(closingInSpeed, jumpForce);
-        Debug.Log("SALTO MARIONETTA");
+        //Debug.Log("SALTO MARIONETTA");
     }
 
     public void TouchedGround()

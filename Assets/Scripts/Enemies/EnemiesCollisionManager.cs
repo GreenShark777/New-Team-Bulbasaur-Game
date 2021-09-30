@@ -46,7 +46,7 @@ public class EnemiesCollisionManager : MonoBehaviour
         {
             Destroy(transform.parent.gameObject); //distruggiamo il parent di questo GO }
             enemySpawner.currentNemiciSchermo--; //liberiamo spazio per eventuale spawn di nuovi nemici nell'ondata
-            Debug.Log("SAS");
+            //Debug.Log("SAS");
         }
     }
 

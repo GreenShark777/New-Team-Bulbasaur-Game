@@ -132,19 +132,19 @@ public class Fulmine : MonoBehaviour
 
     private void Update()
     {
-
+        /*
         if (Input.GetKeyDown(KeyCode.M)) //per test
         {
             endFulminePos = player.transform.position;
             StartCoroutine(Spara());
-        }
+        }*/
 
         //la direzione che deve seguire il fulmine, sottraiamo alla pos del player la sua pos
         Vector3 dir = player.transform.position - transform.position; 
         //ricaviamo l'angolo in gradi
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        Debug.Log("angolo " + angle);
+        //Debug.Log("angolo " + angle);
 
         //impostiamo un range di rotazione
         if (gira)//deve girare solo quando non è in fase di lancio

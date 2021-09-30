@@ -58,10 +58,10 @@ public class LevelsManager : MonoBehaviour
             //carica livello boss
             case 4: { EnvironmentManager.currentEnvironment = EnvironmentManager.Environment.Livello_3; break; }
             //comunica di aver ricevuto un valore errato
-            default: { Debug.LogError("Inserito indice livello sbagliato!"); break; }
+            default: { /*Debug.LogError("Inserito indice livello sbagliato!");*/ break; }
 
         }
-        Debug.Log("Caricato livello: " + EnvironmentManager.currentEnvironment);
+        //Debug.Log("Caricato livello: " + EnvironmentManager.currentEnvironment);
     }
     /// <summary>
     /// Usato dal bottone Continua dell'immagine di Warning per caricare il livello previamente selezionato

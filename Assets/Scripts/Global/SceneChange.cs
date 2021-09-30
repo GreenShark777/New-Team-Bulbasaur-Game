@@ -45,7 +45,7 @@ public class SceneChange : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        Debug.Log("Esce dal gioco");
+        //Debug.Log("Esce dal gioco");
     }
 
 }

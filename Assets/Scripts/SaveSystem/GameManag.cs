@@ -136,7 +136,7 @@ public class GameManag : MonoBehaviour
         UpdateDataBeforeSave();
         //salva i dati ogni volta che si va da una scena all'altra, se i dati non stanno venendo cancellati
         if (!SaveSystem.isDeleting) { SaveSystem.DataSave(this); }
-        Debug.Log("Dati aggiornati e salvati");
+        //Debug.Log("Dati aggiornati e salvati");
     }
 
 }

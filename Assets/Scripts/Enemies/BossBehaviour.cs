@@ -96,7 +96,7 @@ public class BossBehaviour : MonoBehaviour
             BossCards cardToLaunch = ChooseRandomCard();
             //lancia la carta scelta nella direzione indicata dalla mano da cui sta venendo lanciata
             StartCoroutine(cardToLaunch.LaunchCard(GetLaunchDirection(cardToLaunch.transform)));
-            Debug.Log("Carta lanciata: " + cardToLaunch);
+            //Debug.Log("Carta lanciata: " + cardToLaunch);
             //aspetta del tempo tra un lancio e un altro
             yield return new WaitForSeconds(waitBetweenLaunches);
 
@@ -207,18 +207,18 @@ public class BossBehaviour : MonoBehaviour
     public void Defeat()
     {
 
-        Debug.Log("Boss sconfitto");
+        //Debug.Log("Boss sconfitto");
     }
 
     //DEBUG------------------------------------------------------------------------------------------------------------------------------------------------
-
+    /*
     private void Update()
     {
 
         if (Input.GetKeyDown(KeyCode.B)) { HitByPlayer(); }
 
     }
-
+    */
     //DEBUG------------------------------------------------------------------------------------------------------------------------------------------------
 
 }

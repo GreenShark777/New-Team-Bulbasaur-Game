@@ -55,8 +55,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("stato " + state);
-        Debug.Log("currentNemiciSchermo " + currentNemiciSchermo);
+        //Debug.Log("stato " + state);
+        //Debug.Log("currentNemiciSchermo " + currentNemiciSchermo);
 
         if (EnvironmentManager.instance.gameStarted)/////////
 

@@ -70,8 +70,8 @@ public class MaialeBehaviour : MonoBehaviour
         ChangeFacingDirection(false);
 
         //DEBUG----------------------------------------------------------------------------------------------------------------------------------------
-        if (Mathf.Abs(walkSpeed) > Mathf.Abs(chargeSpeed))
-        { Debug.LogError("La velocità di carica del nemico maiale " + gameObject.name + " è minore della velocità di camminata."); }
+        //if (Mathf.Abs(walkSpeed) > Mathf.Abs(chargeSpeed))
+        //{ Debug.LogError("La velocità di carica del nemico maiale " + gameObject.name + " è minore della velocità di camminata."); }
 
     }
 
@@ -85,7 +85,7 @@ public class MaialeBehaviour : MonoBehaviour
         //else { PigWalk(); }
 
         //DEBUG----------------------------------------------------------------------------------------------------------------------------------------
-        if (Input.GetKeyDown(KeyCode.T)) { PrepareCharge(); }
+        //if (Input.GetKeyDown(KeyCode.T)) { PrepareCharge(); }
 
     }
 
