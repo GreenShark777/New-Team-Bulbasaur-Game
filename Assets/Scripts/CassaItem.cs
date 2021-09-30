@@ -20,14 +20,14 @@ public class CassaItem : MonoBehaviour
 
            // isClose = false;
             cassaChiusa.SetActive(false); //disattivo l oggetto cassa aperta
-            ItemDrop(); //droppo un item
+            //ItemDrop(); //droppo un item
             StartCoroutine(Particellare()); //inizia il particellare
             Destroy(gameObject, 1f); //distruggo la cassa
         }
     }
 
 
-    void ItemDrop()
+    public void ItemDrop()
     {
         //scelgo a caso far droppare alla cassa  tra i due elementi dell'array (50/50)
         float scelta;
@@ -59,6 +59,7 @@ public class CassaItem : MonoBehaviour
 
             
         }
+        cassaChiusa.SetActive(false);
 
         isClose = false;
 

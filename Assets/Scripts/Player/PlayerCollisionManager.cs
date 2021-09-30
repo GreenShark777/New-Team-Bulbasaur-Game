@@ -50,28 +50,29 @@ public class PlayerCollisionManager : MonoBehaviour
             //cassa.isClose = false;
 
             if (audioManager) audioManager.PlaySound("cassaItem_sfx");
-            
+
+            cassa.ItemDrop();
 
             if (cassa.droppatoCuore)
               {
                 //...e la vita del giocatore è minore del massimo e maggiore di 0, recupera 1 di vita
                 if (ph.currentHP < ph.maxHp && ph.currentHP > 0)
                 {
-                    //Debug.Log("droppato CHECK DROP");
+                    
                     ph.ChangeHp(1);
                 }
                 else if(ph.currentHP == ph.maxHp)//altrimenti, se il giocatore ha tutta la vita, ottiene più punti
                 { 
                  ScoreScript.recipientScore += 5; 
                 }
-
+                Debug.Log("droppato CHECK DROP");
             } 
 
             //altrimenti, se la cassa rilascia una moneta, ottiene punteggio
            
             else if (cassa.droppatoCoin)
             {
-                ScoreScript.recipientScore += 10; //incremneto di 10 punti lo score
+                ScoreScript.recipientScore += 20; //incremneto di 20 punti lo score
                 Debug.Log("INCREMENTA SCORE " + GameManag.highscore);
             }
    
