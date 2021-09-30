@@ -6144,7 +6144,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 721358414}
-  - component: {fileID: 721358415}
   m_Layer: 0
   m_Name: cartonato_cespuglio
   m_TagString: Untagged
@@ -6167,17 +6166,6 @@ Transform:
   m_Father: {fileID: 7391844491943464471}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &721358415
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721358413}
-  m_Enabled: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!1001 &728221256
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31580,7 +31568,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1875481035}
-  - component: {fileID: 1875481036}
   m_Layer: 0
   m_Name: cartonato_albero
   m_TagString: Untagged
@@ -31603,17 +31590,6 @@ Transform:
   m_Father: {fileID: 1549831253}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!210 &1875481036
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875481034}
-  m_Enabled: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 8
 --- !u!4 &1885030486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 772211907301575886, guid: dc82c7a61fe13da4f8d6b30f0f562911, type: 3}
