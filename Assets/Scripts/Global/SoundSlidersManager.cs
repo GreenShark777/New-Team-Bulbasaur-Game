@@ -30,18 +30,19 @@ public class SoundSlidersManager : MonoBehaviour, IUpdateData
         sfxSlider.value = g.savedSfxVolume;
         masterSlider.value = g.savedMasterVolume;
 
+        /*
         musicValue = musicSlider.value;
         sfxValue = sfxSlider.value;
         masterValue = masterSlider.value;
 
         //aggiorna i valori dell'audio mixer
-        //master.SetFloat("MASTER_volume", g.savedMasterVolume);
-        //master.SetFloat("MUSICHE_volume", g.savedMusicVolume);
-        //master.SetFloat("SFX_volume", g.savedSfxVolume);
         master.SetFloat("MASTER_volume", masterValue);
         master.SetFloat("MUSICHE_volume", musicValue);
-        master.SetFloat("SFX_volume", sfxValue);
-       
+        master.SetFloat("SFX_volume", sfxValue);*/
+
+        ChangeMasterVolume();
+        ChangeMusicVolume();
+        ChangeSfxVolume();
 
     }
 

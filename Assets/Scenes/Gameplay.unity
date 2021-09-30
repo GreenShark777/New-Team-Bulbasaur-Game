@@ -776,7 +776,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 500378103}
+      - m_Target: {fileID: 1193854668}
         m_TargetAssemblyTypeName: SoundSlidersManager, Assembly-CSharp
         m_MethodName: ChangeSfxVolume
         m_Mode: 1
@@ -943,7 +943,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1107,7 +1107,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
@@ -1271,7 +1271,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
@@ -1353,7 +1353,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3824,7 +3824,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3983,7 +3983,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4004,7 +4004,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500378102}
-  - component: {fileID: 500378103}
   m_Layer: 5
   m_Name: OptionsUI
   m_TagString: Untagged
@@ -4038,23 +4037,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.6505127, y: 1.9508667}
   m_SizeDelta: {x: -35.11612, y: -24.711426}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &500378103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 500378101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd621154e2f08d04487cc6a57eac3e56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  g: {fileID: 1477194804}
-  master: {fileID: 24100000, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
-  musicSlider: {fileID: 1576585051}
-  sfxSlider: {fileID: 83218559}
-  masterSlider: {fileID: 1758900741}
 --- !u!1 &508209079
 GameObject:
   m_ObjectHideFlags: 0
@@ -4600,7 +4582,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
@@ -4682,7 +4664,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
@@ -6844,7 +6826,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
@@ -7087,7 +7069,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19168,7 +19150,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19513,6 +19495,7 @@ GameObject:
   - component: {fileID: 1193854664}
   - component: {fileID: 1193854663}
   - component: {fileID: 1193854667}
+  - component: {fileID: 1193854668}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -19618,6 +19601,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 2006032677}
+--- !u!114 &1193854668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193854662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd621154e2f08d04487cc6a57eac3e56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g: {fileID: 1477194804}
+  master: {fileID: 24100000, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
+  musicSlider: {fileID: 1576585051}
+  sfxSlider: {fileID: 83218559}
+  masterSlider: {fileID: 1758900741}
 --- !u!1 &1204554220
 GameObject:
   m_ObjectHideFlags: 0
@@ -19688,7 +19688,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
@@ -21855,7 +21855,7 @@ MonoBehaviour:
     playOnAwake: 0
   - audioMixerGroup: {fileID: -2873299416539518934, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
     clipName: Livello_3
-    audioClip: {fileID: 8300000, guid: e823445657120494fb7dc32763a66df3, type: 3}
+    audioClip: {fileID: 8300000, guid: db1ff70f7c710954fb7c425305b9c40f, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
@@ -27652,7 +27652,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
@@ -27966,7 +27966,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 500378103}
+      - m_Target: {fileID: 1193854668}
         m_TargetAssemblyTypeName: SoundSlidersManager, Assembly-CSharp
         m_MethodName: ChangeMusicVolume
         m_Mode: 1
@@ -28791,7 +28791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1671780128
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -29702,7 +29702,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 500378103}
+      - m_Target: {fileID: 1193854668}
         m_TargetAssemblyTypeName: SoundSlidersManager, Assembly-CSharp
         m_MethodName: ChangeMasterVolume
         m_Mode: 1
@@ -29807,7 +29807,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
@@ -30225,7 +30225,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
 --- !u!114 &1795800779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30864,7 +30864,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -31761,6 +31761,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 4baf443d30a3edd48ad32c42c20aee8d, type: 2}
+    - target: {fileID: 5413797781348420171, guid: 7c337bebda369694b973b3ca1b434be4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6369059360365874282, guid: 7c337bebda369694b973b3ca1b434be4, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -31969,7 +31973,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -32279,7 +32283,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -33409,7 +33413,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 21
   m_Sprite: {fileID: 21300000, guid: 84c879d7a0fa6c145bc9de29b44461fa, type: 3}
   m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
