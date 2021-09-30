@@ -89,6 +89,14 @@ public class EnvironmentManager : MonoBehaviour
         {
             case Environment.Livello_0:
 
+                if (playMusicOnce) //se è vera, ed è vera
+                {
+                    audioManager.PlaySound("Livello_0");
+                    playMusicOnce = false; //assegniamo lla bool il valore false per richiamare il metodo sopra solo una volta
+                }
+
+                audioManager.PlaySound("applausi");
+              
                 //StartCoroutine(PrimaAperturaCo());
                 StartCoroutine(siparioCo(livello_1_Prefab, livello_0_Prefab));
 
@@ -104,6 +112,8 @@ public class EnvironmentManager : MonoBehaviour
 
             case Environment.Livello_1:
 
+                audioManager.PlaySound("applausi");
+
                 enemySpawner.KillAllEnemis();
 
                 canLoadLevel2 = true;
@@ -111,6 +121,8 @@ public class EnvironmentManager : MonoBehaviour
 
                 currenLevel = livello_0_Prefab;
                 nextlevel = livello_1_Prefab;
+
+                playMusicOnce = true;
 
                 if (playMusicOnce) //se è vera, ed è vera
                 {
@@ -123,6 +135,8 @@ public class EnvironmentManager : MonoBehaviour
                 break;
 
             case Environment.Livello_2:
+
+                audioManager.PlaySound("applausi");
 
                 enemySpawner.KillAllEnemis();
 
@@ -150,6 +164,8 @@ public class EnvironmentManager : MonoBehaviour
 
             case Environment.Livello_3:
 
+                audioManager.PlaySound("applausi");
+
                 enemySpawner.KillAllEnemis();
 
                 canLoadLevel3 = false;
@@ -166,14 +182,12 @@ public class EnvironmentManager : MonoBehaviour
 
                 if (playMusicOnce) //se è vera, ed è vera
                 {
+                    //audioManager.PlaySound();
                     audioManager.SwapMusicLevel(2, 3); //interpoliamo le musiche di sottofondo, fade da musica livello 0 a musica livello 1
                     playMusicOnce = false; //assegniamo lla bool il valore false per richiamare il metodo sopra solo una volta
                 }
 
-
                 StartCoroutine(siparioCo(livello_2_Prefab, livello_3_Prefab));
-
-
 
                 break;
 

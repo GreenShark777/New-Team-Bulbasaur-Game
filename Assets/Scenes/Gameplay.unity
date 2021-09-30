@@ -5717,7 +5717,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.11013579, y: 0.652}
   m_AnchorMax: {x: 0.19530879, y: 0.810543}
-  m_AnchoredPosition: {x: 0.94821167, y: 0.16481018}
+  m_AnchoredPosition: {x: 0.94818115, y: 0.16481018}
   m_SizeDelta: {x: 1.8668003, y: 0.12949944}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &653622505
@@ -21860,20 +21860,6 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     playOnAwake: 0
-  - audioMixerGroup: {fileID: -2873299416539518934, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
-    clipName: Livello_3
-    audioClip: {fileID: 8300000, guid: 76a0557c3598d524295ae6249cb19d84, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 1
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: -2873299416539518934, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
-    clipName: Livello_3
-    audioClip: {fileID: 8300000, guid: 76a0557c3598d524295ae6249cb19d84, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 1
-    playOnAwake: 0
   - audioMixerGroup: {fileID: -5998588476725651582, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
     clipName: coin_sfx
     audioClip: {fileID: 8300000, guid: 84c921fd7c1b30b4ca65da4684033ec2, type: 3}
@@ -21902,17 +21888,10 @@ MonoBehaviour:
     pitch: 1.1
     loop: 0
     playOnAwake: 0
-  - audioMixerGroup: {fileID: -2873299416539518934, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
-    clipName: boss_music
-    audioClip: {fileID: 8300000, guid: e823445657120494fb7dc32763a66df3, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
   - audioMixerGroup: {fileID: -5998588476725651582, guid: 25baedbb06b10cd4295e1283847f5802, type: 2}
     clipName: applausi
     audioClip: {fileID: 8300000, guid: 30a048462e5d2634caee776bdf1eee59, type: 3}
-    volume: 0.5
+    volume: 0.025
     pitch: 1
     loop: 0
     playOnAwake: 0
