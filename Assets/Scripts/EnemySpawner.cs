@@ -174,6 +174,8 @@ public class EnemySpawner : MonoBehaviour
 
         countDowns = delay;
 
+        environmentManager.nemiciUccisi = 0;
+
         /*
         //check per evitare di andare fuori bound 
         if (nextWave + 1 > waves.Length - 1) // nextwave è indice corrente, aggiungiamo 1. sottriamo uno a wave.lenght (lenght= numero delle wave, l'indice parte da 0)

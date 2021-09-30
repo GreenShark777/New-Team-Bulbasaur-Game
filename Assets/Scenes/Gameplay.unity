@@ -4151,17 +4151,17 @@ MonoBehaviour:
     enemy: {fileID: 6078740700618621216, guid: bbb9f110294c4e04cbaa55ea04f7182a, type: 3}
     count: 1
     enemiesRate: 0.3
-    targetKill: 2
+    targetKill: 4
   - name: nemico2
     enemy: {fileID: 2703446819961787814, guid: 1636e0e14ecf9f240858b7b24f3ebee2, type: 3}
     count: 1
     enemiesRate: 0.3
-    targetKill: 4
+    targetKill: 5
   - name: nemico3
     enemy: {fileID: 2703446819961787814, guid: 1636e0e14ecf9f240858b7b24f3ebee2, type: 3}
     count: 1
     enemiesRate: 0.4
-    targetKill: 6
+    targetKill: 7
   spawnPoints:
   - {fileID: 1747571418}
   - {fileID: 308889826}
@@ -35210,6 +35210,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7391844491943464471}
     m_Modifications:
+    - target: {fileID: 219119320, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1913741911252204980, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -35257,6 +35261,18 @@ PrefabInstance:
     - target: {fileID: 1913741911252204981, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
       propertyPath: m_Name
       value: piattaforma_FULMINE
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663417577401618950, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663417577605941826, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5663417577605941826, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5663417577605941836, guid: 0223e6d4e33bbe84eb4e9871703d113e, type: 3}
       propertyPath: ph

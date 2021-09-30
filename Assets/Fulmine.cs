@@ -20,6 +20,7 @@ public class Fulmine : MonoBehaviour
 
     bool doubleHitCheck=true;//evitare collisioni multiple
 
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player") && canHit )
@@ -28,11 +29,21 @@ public class Fulmine : MonoBehaviour
             StartCoroutine(timerHit()); //rendo false la bool doublehitcheck per 1.5f evitare collisioni multiple
            
         }
+    }*/
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && canHit)
+        {
+            if (doubleHitCheck == true)
+                StartCoroutine(timerHit()); //rendo false la bool doublehitcheck per 1.5f evitare collisioni multiple
+
+        }
     }
 
     IEnumerator timerHit()
     {
-        ph.ChangeHp(-1);
+        //ph.ChangeHp(-1);
         doubleHitCheck = false;
         yield return new WaitForSeconds(1.5f);
         doubleHitCheck = true;
