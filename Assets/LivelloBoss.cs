@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LivelloBoss : MonoBehaviour
 {
-    public GameObject piattaforma1, piattaforma2;
+    public GameObject piattaforma2;
     Vector2 p1StartPos, p2StartPos;
     public Vector2 p1TargetPos, p2TargetPos;
 
@@ -115,7 +115,7 @@ public class LivelloBoss : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            piattaforma1.transform.position = Vector2.Lerp(p1StartPos, p1TargetPos, elapsedTime / waitTime * .5f);
+            //piattaforma1.transform.position = Vector2.Lerp(p1StartPos, p1TargetPos, elapsedTime / waitTime * .5f);
             piattaforma2.transform.position = Vector2.Lerp(p2StartPos, p2TargetPos, elapsedTime / waitTime * .8f);
 
             yield return null;
@@ -140,7 +140,7 @@ public class LivelloBoss : MonoBehaviour
 
     private void Awake()
     {
-        p1StartPos = piattaforma1.transform.position;
+        //p1StartPos = piattaforma1.transform.position;
 
         p2StartPos = piattaforma2.transform.position;
 
@@ -151,7 +151,7 @@ public class LivelloBoss : MonoBehaviour
 
         genitori.SetActive(false);
         casetta.SetActive(false);
-        piattaforma1.SetActive(false);
+        //piattaforma1.SetActive(false);
         piattaforma2.SetActive(false);
 
 
@@ -166,7 +166,7 @@ public class LivelloBoss : MonoBehaviour
     {
         AttivazioneBackground(backgrounds);
 
-        piattaforma1.SetActive(true);
+        //piattaforma1.SetActive(true);
         piattaforma2.SetActive(true);
         casetta.SetActive(true);
         genitori.SetActive(true);

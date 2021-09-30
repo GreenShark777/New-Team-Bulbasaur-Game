@@ -31,12 +31,23 @@ public class EnemiesCollisionManager : MonoBehaviour
         if (!collision.gameObject.CompareTag("Terreno") && !collision.collider.isTrigger) { ChangeThisEnemyDirection(); }
         //se il nemico collide con il giocatore, il nemico starà fermo per un po'(permettendo al giocatore di scappare)
         if (collision.gameObject.CompareTag("Player")) { CollidedWithPlayer(); }
-        else if (collision.gameObject.CompareTag("DeathZone"))
+        //else if (collision.gameObject.CompareTag("DeathZone"))
+        //{
+        //    Destroy(transform.parent.gameObject); //distruggiamo il parent di questo GO }
+        //    enemySpawner.currentNemiciSchermo--; //liberiamo spazio per eventuale spawn di nuovi nemici nell'ondata
+        //    Debug.Log("SAS");
+        //}
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DeathZone"))
         {
             Destroy(transform.parent.gameObject); //distruggiamo il parent di questo GO }
             enemySpawner.currentNemiciSchermo--; //liberiamo spazio per eventuale spawn di nuovi nemici nell'ondata
+            Debug.Log("SAS");
         }
-
     }
 
     private void CollidedWithPlayer()

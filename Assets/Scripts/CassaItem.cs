@@ -30,7 +30,11 @@ public class CassaItem : MonoBehaviour
     void ItemDrop()
     {
         //scelgo a caso far droppare alla cassa  tra i due elementi dell'array (50/50)
-        float scelta = Random.value; 
+        float scelta;
+
+        if (droppatoCuore) { scelta = 1; }
+        else if(droppatoCoin){ scelta = 0; }
+        else { scelta = Random.value; }
 
         if (scelta < 0.5f) // se scelta è inferiore 0.5 droppa un coin
         {

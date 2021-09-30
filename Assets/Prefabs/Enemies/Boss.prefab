@@ -87,7 +87,8 @@ MonoBehaviour:
   upperHand: {fileID: 7896073629777410051}
   launchDirection: {x: -3, y: 5}
   bossHat: {fileID: 9170357524902505368}
-  hatSizeIncreaseRate: 0.1
+  hatSizeIncreaseRate: 0.5
+  cardsSpeedIncreaseRate: -0.5
   afterHitSweep: -10
   pMDisabilitationDuration: 1
   player: {fileID: 0}
@@ -136,7 +137,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisEnemy: {fileID: 4082060955676721101}
+  deathFx: {fileID: 0}
   enemyHealth: 3
+  bb: {fileID: 2482983066433283784}
 --- !u!61 &1441132770
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         //se il giocatore sta tenendo premuto il bottone di salto, il giocatore salta
         if (pressingJumpButton) { calculatedVelocity = new Vector2(calculatedVelocity.x, Jump()); }
         //se il giocatore lascia il tasto di salto mentre sta saltando, smette di saltare e inizierà a cadere
-        if (Input.GetKeyUp(KeyCode.W) && isJumping) { pressingJumpButton = false; canJump = false; /*Debug.Log("STOP PRESSIONE");*/ }
+        if (!Input.GetKey(KeyCode.W) && isJumping) { pressingJumpButton = false; canJump = false; /*Debug.Log("STOP PRESSIONE");*/ }
 
         //se non si può più saltare, il giocatore sarà in aria, quindi...
         if (!canJump)
